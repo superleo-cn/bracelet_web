@@ -1,7 +1,6 @@
-# Bracelet Web Readme
+### Bracelet Web Readme
 
-## JSON Interfase API
-------------------
+JSON Interfase API
 
 Example
 
