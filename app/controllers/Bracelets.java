@@ -11,10 +11,17 @@ import constants.Constants;
 
 public class Bracelets extends Controller {
 
-	public static Result healthData() {
+	public static Result findAll() {
 		ObjectNode result = Json.newObject();
 		result.put(Constants.CODE, Constants.SUCCESS);
-		result.put(Constants.DATAS, Json.toJson(Bracelet.search()));
+		result.put(Constants.DATAS, Json.toJson(Bracelet.findList()));
+		return ok(result);
+	}
+	
+	public static Result findByDate(String date) {
+		ObjectNode result = Json.newObject();
+		result.put(Constants.CODE, Constants.SUCCESS);
+		result.put(Constants.DATAS, Json.toJson(Bracelet.findList(date)));
 		return ok(result);
 	}
 }

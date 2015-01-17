@@ -25,6 +25,9 @@ public class Constants {
 	public static String SUCCESS = "1";
 	public static String FAILURE = "0";
 	public static String ERROR = "-1";
+	
+	// date format pattern
+	public static String PATTERN_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
 
 	// current user info
 	public static String USERTYPE_SUPER_ADMIN = "SUPERADMIN";
