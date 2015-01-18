@@ -1,4 +1,4 @@
-require(['jquery', 'angular', 'uiRoute', 'domReady'], function($, angular, uiRoute, domReady) {
+require(['jquery', 'angular', 'uiRoute', 'domReady', 'jquery.flot'], function($, angular, uiRoute, domReady) {
 	angular.module('myApp')
 	.controller("charts", function($http, $scope) {
 		$scope.method = 'GET';
