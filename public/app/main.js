@@ -11,6 +11,10 @@ require.config({
 		'ngRoute' : '/assets/libs/angular-route-1.3.7.min',
 		'ngResource' : '/assets/libs/angular-resource-1.3.7.min',
 		'uiRoute' : '/assets/libs/angular-ui-router-0.2.13.min',
+		'flot' : '/assets/libs/plugins/flot/jquery.flot.min',
+		'resize' : '/assets/libs/plugins/flot/jquery.flot.resize.min',
+		'pie' : '/assets/libs/plugins/flot/jquery.flot.pie.min',
+		'categories' : '/assets/libs/plugins/flot/jquery.flot.categories.min',
 	},
 	shim : {
 		'angular': {
@@ -20,107 +24,153 @@ require.config({
             exports: 'angular'
         },
         'ngRoute': {
-            //The underscore script dependency should be loaded before loading backbone.js
             deps: ['jquery', 'angular'],
-            // use the global 'Backbone' as the module name.
             exports: 'ngRoute'
         },
         'ngResource': {
-            //The underscore script dependency should be loaded before loading backbone.js
             deps: ['jquery', 'angular'],
-            // use the global 'Backbone' as the module name.
             exports: 'ngResource'
         },
         'uiRoute': {
-            //The underscore script dependency should be loaded before loading backbone.js
             deps: ['jquery', 'angular'],
-            // use the global 'Backbone' as the module name.
             exports: 'uiRoute'
+        },
+        'flot': {
+            deps: ['jquery'],
+            exports: 'flot'
+        },
+        'resize': {
+            deps: ['jquery', 'flot'],
+            exports: 'resize'
+        },
+        'pie': {
+            deps: ['jquery', 'flot'],
+            exports: 'pie'
+        },
+        'categories': {
+            deps: ['jquery', 'flot'],
+            exports: 'categories'
         }
 	}
 });
 
-/*
-require(['jquery', 'angular', 'ngRoute', 'ngResource', 'domReady'], function($, angular, ngRoute, ngResource, domReady) {
-
-	console.log('Initialize App ' + angular);
-
-	angular.module('myApp', ['ngRoute', 'ngResource'])
-	.controller('MainCtrl', function ($scope, $route, $resource) {
-		//alert($route);
-	})
-	.controller('BookController', function($scope, $routeParams) {
-		alert(1);
-	     $scope.name = "BookController";
-	     $scope.params = $routeParams;
-	})
-	.controller('ChapterController', function($scope, $routeParams) {
-	     $scope.name = "ChapterController";
-	     $scope.params = $routeParams;
-	})
-	.config(function($routeProvider, $locationProvider) {
-		
-		$routeProvider
-		.when('/aa', {
-			templateUrl: '/aa',
-			controller: 'BookController'
-		})
-		.when('#chapter', {
-			templateUrl: 'views/chapter.html',
-			controller: 'ChapterController'
-		});
-
-		// configure html5 to get links working on jsfiddle
-		$locationProvider.html5Mode(true);
-		//$locationProvider.html5Mode(false);
-		$locationProvider.hashPrefix("#");
-	});
-
-	angular.element(document).ready(function() {
-		angular.bootstrap(document, ['myApp']);
-    });
-		
-});
-*/
-
-require(['jquery', 'angular', 'uiRoute', 'domReady'], function($, angular, uiRoute, domReady) {
+require(['jquery', 'angular', 'uiRoute', 'domReady', 'flot'], function($, angular, uiRoute, domReady, flot) {
 
 	console.log('Initialize App ' + angular);
 
 	angular.module('myApp', ['ui.router'])
 	.config(function($stateProvider, $urlRouterProvider) {
-	  //
-	  // For any unmatched url, redirect to /state1
-	  $urlRouterProvider.otherwise("/state1");
-	  //
-	  // Now set up the states
-	  $stateProvider
-	    .state('state1', {
-	      url: "/state1",
-	      templateUrl: "assets/app/templates/state1.html"
+		
+		// For any unmatched url, redirect to /state1
+		$urlRouterProvider.otherwise("/dashboard");
+		//
+		// Now set up the states
+		$stateProvider
+	  	.state('dashboard', {
+	  		url: "/dashboard",
+	  		templateUrl: "assets/app/templates/dashboard.html",
+	  		controller: function($http, $scope) {
+	  			$scope.method = 'GET';
+	  		    $scope.url = '/api/findByDate/20150101000000';
+	  		    
+	  		    // My Ajax Request Template
+	  		    var requestTemplate = function(operation) {
+	  		    	$scope.code = null;
+	  		    	$scope.response = null;
+	  		    	$scope.params = null;
+	  		    	
+	  		    	$http({
+	  		    		method: $scope.method, 
+	  		    		url: $scope.url, 
+	  		    		params: $scope.params
+	  		    	}).success(operation)
+	  		    	.error(function(data, status) {
+	  		          	$scope.data = data || "Request failed";
+	  		          	$scope.status = status;
+	  		    	});
+	  		    };
+	  		    
+	  			/*
+                 * Flot Interactive Chart
+                 * -----------------------
+                 */
+                var interactive_plot = $.plot("#interactive", [[0, 0]], {
+                    grid: {
+                        borderColor: "#f3f3f3",
+                        borderWidth: 1,
+                        tickColor: "#f3f3f3"
+                    },
+                    series: {
+                        shadowSize: 0, // Drawing is faster without shadows
+                        color: "#3c8dbc"
+                    },
+                    lines: {
+                        fill: true, //Converts the line chart to area chart
+                        color: "#3c8dbc"
+                    },
+                    yaxis: {
+                        min: 0,
+                        max: 100,
+                        show: true
+                    },
+                    xaxis: {
+                    	min: 0,
+                    	max: 29,
+                        show: true
+                    }
+                });
+                
+                var updateInterval = 5000; //Fetch data ever x milliseconds
+                var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
+                function update() {
+                	// We use an inline data source in the example, usually data would
+                    // be fetched from a server
+                	requestTemplate(function(data, status) {
+     	  		    	var datas = [];
+     		          	if(data){
+     		          		var list = data.datas;
+     		          		$.each( list, function( key, value ) {
+     			          		datas.push([key, value.temperature])
+     			          	});
+     		          	}
+     		         
+     		          	interactive_plot.setData([datas]);
+
+     		          	// Since the axes don't change, we don't need to call plot.setupGrid()
+     		          	interactive_plot.draw();
+     		          	if (realtime === "on"){
+     		          		setTimeout(update, updateInterval);
+     		          	}
+     		    	});
+                }
+
+                //INITIALIZE REALTIME DATA FETCHING
+                if (realtime === "on") {
+                    update();
+                }
+                //REALTIME TOGGLE
+                $("#realtime .btn").click(function() {
+                    if ($(this).data("toggle") === "on") {
+                        realtime = "on";
+                    }
+                    else {
+                        realtime = "off";
+                    }
+                    update();
+                });
+                /*
+                 * END INTERACTIVE CHART
+                 */
+	  		}
 	    })
-	    .state('state1.list', {
-	      url: "/list",
-	      templateUrl: "assets/app/templates/state1.list.html",
-	      controller: function($scope) {
-	        $scope.items = ["A", "List", "Of", "Items"];
-	      }
+	    .state('about', {
+	    	url: "/about",
+	    	templateUrl: "assets/app/templates/about.html"
 	    })
-	    .state('state2', {
-	      url: "/state2",
-	      templateUrl: "assets/app/templates/state2.html"
-	    })
-	    .state('state2.list', {
-	      url: "/list",
-	      templateUrl: "assets/app/templates/state2.list.html",
-	      controller: function($scope) {
-	        $scope.things = ["A", "Set", "Of", "Things"];
-	      }
-	    });
 	});
 	
 	angular.element(document).ready(function() {
-      	angular.bootstrap(document, ['myApp']);
+		angular.bootstrap(document, ['myApp']);
     });
 	
 });

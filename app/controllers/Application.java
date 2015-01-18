@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class Application extends Controller {
 
 	public static Result index() {
-		return ok(index.render("Your new application is ready."));
+		return ok(views.html.index.render());
 	}
 
 	public static Result healthData() {
