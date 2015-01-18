@@ -1,6 +1,6 @@
-require(['jquery', 'angular', 'uiRoute', 'domReady', 'jquery.flot'], function($, angular, uiRoute, domReady) {
-	angular.module('myApp')
-	.controller("charts", function($http, $scope) {
+define(['/app/controllers/module.js'], function (controllers) {
+	'use strict';
+    controllers.controller("Charts", function($http, $scope) {
 		$scope.method = 'GET';
 	    $scope.url = '/api/findByDate/20150101000000';
 	    

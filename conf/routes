@@ -13,3 +13,5 @@ GET     /api/findByDate/:date      	controllers.Bracelets.findByDate(date: Strin
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /img/*file               	controllers.Assets.at(path="/public/img", file)
 GET     /js/*file               	controllers.Assets.at(path="/public/libs", file)
+GET     /libs/*file               	controllers.Assets.at(path="/public/libs", file)
+GET     /app/*file               	controllers.Assets.at(path="/public/app", file)
