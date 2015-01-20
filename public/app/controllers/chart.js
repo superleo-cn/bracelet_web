@@ -76,7 +76,7 @@ define(['/app/controllers/module.js'], function (controllers) {
             }
         });
         
-        var updateInterval = 500; //Fetch data ever x milliseconds
+        var updateInterval = 5000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
         function update() {
         	// We use an inline data source in the example, usually data would
