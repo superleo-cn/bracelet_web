@@ -10,9 +10,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    				+ (dd.getHours() < 10 ? '0' + dd.getHours() : dd.getHours())
 	    				+ (dd.getMinutes() < 10 ? '0' + dd.getMinutes() : dd.getMinutes())
 	    				+ (dd.getSeconds() < 10 ? '0' + dd.getSeconds() : dd.getSeconds())
-	       return val - 60;
+	       return val;
 	    }
-	    	
 	    
 	    // My Ajax Request Template
 	    var requestTemplate = function(operation) {
