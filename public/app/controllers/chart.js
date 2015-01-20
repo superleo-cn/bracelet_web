@@ -1,15 +1,26 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
     controllers.controller("Charts", function($http, $scope) {
-		$scope.method = 'GET';
-	    $scope.url = '/api/findByDate/20150101000000';
+    	// get DateTime yyyyMMddHHmmss
+	    var getDateTime = function(){
+	    	var dd = new Date()
+	    	var val = '' + dd.getFullYear() 
+	    				+ (dd.getMonth() < 9 ? '0' + (dd.getMonth()+1) : (dd.getMonth()+1)) 
+	    				+ (dd.getDate() < 9 ? '0' + (dd.getDate()+1) : (dd.getDate()+1)) 
+	    				+ (dd.getHours() < 10 ? '0' + dd.getHours() : dd.getHours())
+	    				+ (dd.getMinutes() < 10 ? '0' + dd.getMinutes() : dd.getMinutes())
+	    				+ (dd.getSeconds() < 10 ? '0' + dd.getSeconds() : dd.getSeconds())
+	       return val;
+	    }
+	    	
 	    
 	    // My Ajax Request Template
 	    var requestTemplate = function(operation) {
 	    	$scope.code = null;
 	    	$scope.response = null;
 	    	$scope.params = null;
-	    	
+	    	$scope.method = 'GET';
+		    $scope.url = '/api/findByDate/' + getDateTime();
 	    	$http({
 	    		method: $scope.method, 
 	    		url: $scope.url, 
