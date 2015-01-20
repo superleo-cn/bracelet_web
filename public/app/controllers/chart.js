@@ -66,7 +66,7 @@ define(['/app/controllers/module.js'], function (controllers) {
             },
             yaxis: {
                 min: 0,
-                max: 100,
+                max: 50,
                 show: true
             },
             xaxis: {
