@@ -41,7 +41,9 @@ public class Bracelet {
 			ExpressionList<Bracelet> expList = Ebean.find(Bracelet.class).where();
 			if (StringUtils.isNotEmpty(date)) {
 				Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
-				expList.where().ge("createDate", lastDate);
+				Date startDate = DateUtils.addSeconds(lastDate, -30);
+				expList.where().ge("createDate", startDate);
+				expList.where().le("createDate", lastDate);
 			}
 			return expList.findList();
 		} catch (Exception e) {
