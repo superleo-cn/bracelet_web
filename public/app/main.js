@@ -11,6 +11,12 @@ require.config({
 		'ngRoute' : '/libs/angular-route-1.3.7.min',
 		'ngResource' : '/libs/angular-resource-1.3.7.min',
 		'uiRouter' : '/libs/angular-ui-router-0.2.13.min',
+		'translate' : '/libs/angular-translate-2.5.2.min',
+		'ngCookies' : '/libs/angular-cookies-1.3.7.min',
+		'loaderStaticFiles' : '/libs/angular-translate-loader-static-files-2.5.2.min',
+		'storagekey' : '/libs/angular-translate-storage-key-2.5.2',
+		'storageLocal' : '/libs/angular-storage-local-2.5.2',
+		'storageCookie' : '/libs/angular-translate-storage-cookie-2.5.2',
 		'jquery.flot' : '/libs/plugins/flot/jquery.flot.min',
 		'resize' : '/libs/plugins/flot/jquery.flot.resize.min',
 		'pie' : '/libs/plugins/flot/jquery.flot.pie.min',
@@ -37,9 +43,21 @@ require.config({
             deps: ['jquery', 'angular'],
             exports: 'ngResource'
         },
+        'ngCookies': {
+            deps: ['jquery', 'angular'],
+            exports: 'ngCookies'
+        },
         'uiRouter': {
             deps: ['jquery', 'angular'],
             exports: 'uiRouter'
+        },
+        'translate': {
+            deps: ['jquery', 'angular'],
+            exports: 'translate'
+        },
+        'loaderStaticFiles': {
+            deps: ['translate'],
+            exports: 'loaderStaticFiles'
         },
         'jquery.flot': {
             deps: ['jquery', 'angular'],

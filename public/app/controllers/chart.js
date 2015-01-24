@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Charts", function($http, $scope) {
+    controllers.controller("Charts", function($http, $scope, $translate) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -117,5 +117,6 @@ define(['/app/controllers/module.js'], function (controllers) {
         /*
          * END INTERACTIVE CHART
          */
+        
 	})
 });
