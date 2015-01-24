@@ -59,6 +59,18 @@ require.config({
             deps: ['translate'],
             exports: 'loaderStaticFiles'
         },
+        'storagekey': {
+            deps: ['ngCookies', 'translate'],
+            exports: 'storagekey'
+        },
+        'storageLocal': {
+            deps: ['ngCookies', 'translate'],
+            exports: 'storageLocal'
+        },
+        'storageCookie': {
+            deps: ['ngCookies', 'translate'],
+            exports: 'storageCookie'
+        },
         'jquery.flot': {
             deps: ['jquery', 'angular'],
             exports: '$.plot'
