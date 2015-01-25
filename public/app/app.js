@@ -2,17 +2,23 @@ define([
     'angular',
     'uiRouter',
     'ngCookies',
-    'controllers',
     'translate',
     'loaderStaticFiles',
     'storagekey',
     'storageLocal',
-    'storageCookie'
+    'storageCookie',
+    'controllers',
+    'directives',
+    'filters',
+    'services'
 ], function (ng) {
     'use strict';
 
     var app = ng.module('app', [
 		'app.controllers',
+		'app.directives',
+		'app.filters',
+		'app.services',
 		'ui.router',
 		'pascalprecht.translate',
 		'ngCookies'

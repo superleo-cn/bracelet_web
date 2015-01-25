@@ -24,6 +24,9 @@ require.config({
 		'app' : '/app/app',
 		'routes' : '/app/routes',
 		'controllers' : '/app/controllers/index',
+		'directives' : '/app/directives/index',
+		'filters' : '/app/filters/index',
+		'services' : '/app/services/index',
 	},
 	shim : {
 		'jquery': {
