@@ -14,5 +14,7 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "mysql" % "mysql-connector-java" % "5.1.12"
+  "mysql" % "mysql-connector-java" % "5.1.12",
+  "commons-io" % "commons-io" % "2.2",
+  "commons-collections" % "commons-collections" % "3.2.1"
 )

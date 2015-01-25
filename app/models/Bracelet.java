@@ -5,51 +5,62 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.ExpressionList;
-
-import constants.Constants;
+import com.avaje.ebean.annotation.Expose;
 
 @Entity
-@Table(name = "tb_health_data")
+@Table(name = "tb_bracelet")
 public class Bracelet {
 
+	final static Logger logger = LoggerFactory.getLogger(Bracelet.class);
+
 	@Id
-	public int id;
+	public Long id;
 
-	public String motionState;
-
-	public int pulseState;
-
-	public float temperature;
-
+	@Expose
+	@Required(message = "Bracelet Id cannot be empty")
 	public String braceletId;
 
-	public Date createDate;
+	@Expose
+	public String name;
 
-	public static List<Bracelet> findList() {
-		return Ebean.find(Bracelet.class).findList();
+	@Expose
+	public String type;
+
+	@Expose
+	@Required(message = "Status cannot be empty")
+	public Boolean status;
+
+	@Expose
+	public String createBy, modifiedBy;
+
+	@Expose
+	public Date createDate, modifiedDate;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	public User user;
+
+	/* the following are service methods */
+	public static Bracelet findById(Long id) {
+		return Ebean.find(Bracelet.class, id);
 	}
 
-	public static List<Bracelet> findList(String date) {
-		try {
-			ExpressionList<Bracelet> expList = Ebean.find(Bracelet.class).where();
-			if (StringUtils.isNotEmpty(date)) {
-				Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
-				Date startDate = DateUtils.addMinutes(lastDate, -10);
-				expList.where().ge("createDate", startDate);
-				expList.where().le("createDate", lastDate);
-			}
-			return expList.findList();
-		} catch (Exception e) {
+	public static Bracelet findByBraceletId(String braceletId) {
+		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").findUnique();
+	}
 
-		}
-		return null;
+	public static List<Bracelet> findByUserId(String userId) {
+		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").where().eq("user.id", userId).eq("status", true).findList();
 	}
 
 }

@@ -1,6 +1,6 @@
 package controllers;
 
-import models.Bracelet;
+import models.HealthData;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -9,19 +9,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import constants.Constants;
 
-public class Bracelets extends Controller {
+public class HealthDatas extends Controller {
 
 	public static Result findAll() {
 		ObjectNode result = Json.newObject();
 		result.put(Constants.CODE, Constants.SUCCESS);
-		result.put(Constants.DATAS, Json.toJson(Bracelet.findById(1L)));
+		result.put(Constants.DATAS, Json.toJson(HealthData.findList()));
 		return ok(result);
 	}
 
 	public static Result findByDate(String date) {
 		ObjectNode result = Json.newObject();
 		result.put(Constants.CODE, Constants.SUCCESS);
-		result.put(Constants.DATAS, Json.toJson(Bracelet.findByUserId("123")));
+		result.put(Constants.DATAS, Json.toJson(HealthData.findList(date)));
 		return ok(result);
 	}
 }
