@@ -3,8 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.Auths.index()
+POST   	/loginJson               	controllers.Auths.loginJson()
 
+GET     /index                     	controllers.Application.index()
 
 GET     /api/findAll          		controllers.HealthDatas.findAll()
 POST   	/api/findAll          		controllers.HealthDatas.findAll()

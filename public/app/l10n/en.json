@@ -1,4 +1,20 @@
 {
+	"global" : {
+		"zh" : "Chinese",
+		"en" : "English",
+		"prefer_lang" : "My prefer language:"
+	},
+	"login" : {
+		"title" : "HBracelet | Login",
+		"header" : "Sign In",
+		"username" : "User ID",
+		"password" : "Password",
+		"remember_me" : "Remember me",
+		"login" : "Sign me in",
+		"forgot" : "I forgot my password",
+		"register" : "Register a new membership",
+		"social" : "Sign in using social networks"
+	},
 	"load" : {
   		"static" : {
     		"TITLE" : "How to load static files?",

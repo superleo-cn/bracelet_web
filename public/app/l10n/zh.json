@@ -1,4 +1,20 @@
 {
+	"global" : {
+		"zh" : "中文",
+		"en" : "英文",
+		"prefer_lang" : "语言偏好:"
+	},
+	"login" : {
+		"title" : "心系手环 | 登录",
+		"header" : "登录",
+		"username" : "用户名",
+		"password" : "密码",
+		"remember_me" : "记住我",
+		"login" : "登录",
+		"forgot" : "忘记密码",
+		"register" : "注册",
+		"social" : "其他账号登录"
+	},
 	"load" : {
   		"static" : {
     		"TITLE" : "你好",

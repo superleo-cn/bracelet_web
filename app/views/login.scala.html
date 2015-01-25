@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="bg-black" ng-cloak>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{'login.title' | translate}}</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- bootstrap 3.0.2 -->
+        <link href="@routes.Assets.at("/public", "/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+        <!-- font Awesome -->
+        <link href="@routes.Assets.at("/public", "/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
+        <!-- Ionicons -->
+        <link href="@routes.Assets.at("/public", "/css/ionicons.min.css")" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="@routes.Assets.at("/public", "/css/AdminLTE.css")" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="@routes.Assets.at("/public", "/stylesheets/main.css")" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="bg-black">
+        <div class="form-box" id="login-box">
+            <div class="header">{{'login.header' | translate}}</div>
+            <form id="form" action="@routes.Auths.loginJson" method="post">
+                <div class="body bg-gray">
+                    <div class="form-group">
+                        <input type="text" name="userid" class="form-control" placeholder="{{'login.username' | translate}}" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="{{'login.password' | translate}}" required="required" />
+                    </div>          
+                    <div class="form-group">
+                        <input type="checkbox" name="remember_me"/> {{'login.remember' | translate}}
+                    </div>
+                </div>
+                <div class="footer">                                                               
+                    <button type="button" class="btn bg-olive btn-block">{{'login.login' | translate}}</button>  
+                    
+                    <p><a href="#">{{'login.forgot' | translate}}</a></p>
+                    
+                    <a href="register.html" class="text-center">{{'login.register' | translate}}</a>
+                </div>
+            </form>
+
+            <div class="margin text-center">
+                <span>{{'login.social' | translate}}</span>
+                <br/>
+                <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
+                <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
+                <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
+				<br />
+				<span>{{'global.prefer_lang' | translate}} </span> 
+				<a href="#" ng-click="setLang('zh')">
+					{{'global.zh' | translate}}
+				</a>
+				<a href="#" ng-click="setLang('en')">
+					{{'global.en' | translate}}
+				</a>
+            </div>
+        </div>
+
+        <!-- jQuery 2.0.2 -->
+        <script src="@routes.Assets.at("/public/libs", "/jquery-1.11.1.min.js")"></script>
+        <!-- Bootstrap -->
+        <script src="@routes.Assets.at("/public/libs", "/bootstrap.min.js")" type="text/javascript"></script>
+        <!-- App -->
+		<script data-main="/assets/app/main" src="@routes.Assets.at("/public/libs", "/require-2.1.15.js")"></script>
+    </body>
+</html>
