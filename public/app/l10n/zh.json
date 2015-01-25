@@ -9,7 +9,7 @@
 		"header" : "登录",
 		"username" : "用户名",
 		"password" : "密码",
-		"remember_me" : "记住我",
+		"remember" : "记住我",
 		"login" : "登录",
 		"forgot" : "忘记密码",
 		"register" : "注册",

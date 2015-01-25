@@ -17,6 +17,8 @@ import play.data.validation.Constraints.Required;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Expose;
 
+import forms.LoginForm;
+
 @Entity
 @Table(name = "tb_user")
 public class User {
@@ -55,9 +57,9 @@ public class User {
 	public List<Bracelet> bracelets;
 
 	/* the following are service methods */
-	public static User login(User user) {
-		List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", user.username).eq("status", true)
-				.findList();
+	public static User login(LoginForm form) {
+		List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", form.username)
+				.eq("password", form.password).eq("status", true).findList();
 		if (CollectionUtils.size(users) > 0) {
 			return users.get(0);
 		}

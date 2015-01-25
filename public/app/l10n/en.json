@@ -9,7 +9,7 @@
 		"header" : "Sign In",
 		"username" : "User ID",
 		"password" : "Password",
-		"remember_me" : "Remember me",
+		"remember" : "Remember me",
 		"login" : "Sign me in",
 		"forgot" : "I forgot my password",
 		"register" : "Register a new membership",

@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import models.User;
@@ -18,6 +17,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import constants.Constants;
 import constants.Messages;
+import forms.LoginForm;
 
 public class Auths extends Basic {
 
@@ -30,14 +30,14 @@ public class Auths extends Basic {
 	@Transactional
 	public static Result loginJson() {
 		ObjectNode result = Json.newObject();
-		User user = new User();
+		LoginForm form = new LoginForm();
 		try {
-			user = Form.form(User.class).bindFromRequest().get();
+			form = Form.form(LoginForm.class).bindFromRequest().get();
 			List<User> datas = new ArrayList<User>();
-			User dbUser = User.login(user);
+			User dbUser = User.login(form);
 			if (dbUser != null) {
-				user.id = dbUser.id;
-				user.lastLoginDate = new Date();
+				// user.id = dbUser.id;
+				// user.lastLoginDate = new Date();
 				// User.store(user);
 				// dbUser.shop = dbUser.getMyShop();
 				datas.add(dbUser);
@@ -51,7 +51,7 @@ public class Auths extends Basic {
 		} catch (Exception e) {
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, Messages.LOGIN_ERROR);
-			logger.error(Messages.LOGIN_ERROR_MESSAGE, new Object[] { user.username, e });
+			logger.error(Messages.LOGIN_ERROR_MESSAGE, new Object[] { form.username, e });
 
 		}
 		return ok(result);

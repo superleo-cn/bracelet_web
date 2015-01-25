@@ -84,34 +84,3 @@ require.config({
 	    '/app/bootstrap.js'
 	]
 });
-
-/*
-require(['jquery', 'angular', 'uiRoute', 'domReady', 'jquery.flot', 'charts'], function($, angular, uiRoute, domReady) {
-
-	console.log('Initialize App ' + angular);
-
-	angular.module('myApp', ['ui.router'])
-	.config(function($stateProvider, $urlRouterProvider) {
-		
-		// For any unmatched url, redirect to /state1
-		$urlRouterProvider.otherwise("/dashboard");
-		//
-		// Now set up the states
-		$stateProvider
-	  	.state('dashboard', {
-	  		url: '/dashboard',
-	  		templateUrl: 'assets/app/templates/dashboard.html',
-	  		controller: 'charts'
-	    })
-	    .state('about', {
-	    	url: '/about',
-	    	templateUrl: 'assets/app/templates/about.html'
-	    })
-	});
-	
-	angular.element(document).ready(function() {
-		angular.bootstrap(document, ['myApp']);
-    });
-	
-});
-*/
