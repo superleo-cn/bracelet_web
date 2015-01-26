@@ -23,7 +23,14 @@
         <![endif]-->
     </head>
     <body class="bg-black" ng-controller="Login">
+    
         <div class="form-box" id="login-box">
+        	<div class="alert alert-dismissable">
+	            <i class="fa fa-check"></i>
+	            <button type="button" class="close" aria-hidden="true">×</button>
+	            <span> </span>
+	        </div>
+        	
             <div class="header">{{'login.header' | translate}}</div>
             <form id="form" action="@routes.Auths.loginJson" method="post">
                 <div class="body bg-gray">

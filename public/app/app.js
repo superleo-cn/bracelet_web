@@ -42,11 +42,55 @@ define([
     	
 	}]);
     
-    // change language
-    app.run(function($rootScope, $cookieStore, $translate) {
+    // global function
+    app.run(function($http, $rootScope, $cookieStore, $timeout, $window, $translate) {
+    	 // change language
         $rootScope.setLang = function(key) {
             $translate.use(key);
         };
+        
+        // show success message;
+        $rootScope.successMsg = function(div, msg) {
+            $(div).removeClass("alert-danger").addClass("alert-success");
+            $(div + " span").html(msg);
+            $(div).show();
+        };
+        
+        // show error message;
+        $rootScope.errorMsg = function(div, msg) {
+            $(div).removeClass("alert-success").addClass("alert-danger");
+            $(div + " span").html(msg);
+            $(div).show();
+        };
+        
+        // close alert box
+        $('.close').click(function(event) {
+        	$('.alert').hide();
+        	return;
+        })
+        
+        // my ajax template
+        $rootScope.data = {};
+        $rootScope.params = {};
+        $rootScope.method = "POST";
+    	$rootScope.template = function(operation) {
+	    	$http({
+	    		method: $rootScope.method, 
+	    		url: $rootScope.url, 
+	    		params: $rootScope.params,
+	    		data: $rootScope.params
+	    	}).success(operation)
+	    	.error(function(data, status) {
+	    		$rootScope.data = data || "Request failed";
+	    		$rootScope.status = status;
+	    	});
+	    };
+	    
+	    $rootScope.redirect = function(url){
+		    $timeout(function(){
+				$window.location.href = url;
+			}, 2000);
+    	}
     });
     
     return app;

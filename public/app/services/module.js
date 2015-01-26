@@ -7,5 +7,15 @@
  **/
 define(['angular'], function (ng) {
     'use strict';
-    return ng.module('app.services', []);
+    var myApp = ng.module('app.services', []);
+    
+    //define global variable 
+    myApp.factory('Constants', function() {
+    	return {
+    		SUCCESS : '1',
+    		FAILTURE : '0',
+    		ERROR : '-1'
+    	};
+    });
+    return myApp;
 });

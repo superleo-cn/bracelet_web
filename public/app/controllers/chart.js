@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Charts", function($http, $scope, $translate) {
+    controllers.controller("Charts", function($http, $rootScope, $scope, $translate) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -13,23 +13,9 @@ define(['/app/controllers/module.js'], function (controllers) {
 	       return val;
 	    }
 	    
-	    // My Ajax Request Template
-	    var requestTemplate = function(operation) {
-	    	$scope.code = null;
-	    	$scope.response = null;
-	    	$scope.params = null;
-	    	$scope.method = 'GET';
-		    $scope.url = '/api/findByDate/' + getDateTime();
-	    	$http({
-	    		method: $scope.method, 
-	    		url: $scope.url, 
-	    		params: $scope.params
-	    	}).success(operation)
-	    	.error(function(data, status) {
-	          	$scope.data = data || "Request failed";
-	          	$scope.status = status;
-	    	});
-	    };
+	    // Report URL
+	    $rootScope.url = '/api/findByDate/' + getDateTime();
+	    $rootScope.method = 'GET';
 	    
 	    /*
 	     * INITIALIZE BUTTON TOGGLE
@@ -81,7 +67,7 @@ define(['/app/controllers/module.js'], function (controllers) {
         function update() {
         	// We use an inline data source in the example, usually data would
             // be fetched from a server
-        	requestTemplate(function(data, status) {
+        	$rootScope.template(function(data, status) {
   		    	var datas = [];
 	          	if(data){
 	          		var list = data.datas;

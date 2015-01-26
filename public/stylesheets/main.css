@@ -3,3 +3,7 @@
 .ng-hide {
 	display: none !important;
 }
+
+.alert {
+	display: none;
+}

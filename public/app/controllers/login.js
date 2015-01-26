@@ -1,24 +1,8 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Login", function($http, $scope, $translate) {
-	    // My Ajax Request Template
-    	$scope.data = {};
-    	$scope.params = {};
-    	
-    	$scope.template = function(operation) {
-	    	$scope.method = 'POST';
-		    $scope.url = $("#form").prop("action");
-	    	$http({
-	    		method: $scope.method, 
-	    		url: $scope.url, 
-	    		//params: {},
-	    		params: $scope.params
-	    	}).success(operation)
-	    	.error(function(data, status) {
-	          	$scope.data = data || "Request failed";
-	          	$scope.status = status;
-	    	});
-	    };
+    controllers.controller("Login", function($rootScope, $http, $scope, $translate, Constants) {
+	    // My login URL
+    	$rootScope.url = $("#form").prop("action");
 	    
 	    /*
 	     * INITIALIZE BUTTON ACTION
@@ -26,16 +10,16 @@ define(['/app/controllers/module.js'], function (controllers) {
 	     * The login function
 	     */
 	    $scope.login = function() {
-	    	$scope.template($scope.fetch);
+	    	$rootScope.template($scope.fetch);
 	    }
 	    
 	    $scope.fetch = function(data, status) {
 	    	if(data){
-				if(data.code == '1'){
-					alert("Login successfully.");
-					//window.location.href = $("#cmsHome").val();
+				if(data.code == Constants.SUCCESS){
+					$rootScope.successMsg(".alert", "Login successfully.");
+					$rootScope.redirect("/index");
 				}else{
-					alert("Login failture.");
+					$rootScope.errorMsg(".alert", "Login failed.");
 				}
 			}
     	};
