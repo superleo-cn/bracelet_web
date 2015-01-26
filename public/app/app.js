@@ -86,6 +86,7 @@ define([
 	    	});
 	    };
 	    
+	    // redirect URL
 	    $rootScope.redirect = function(url){
 		    $timeout(function(){
 				$window.location.href = url;

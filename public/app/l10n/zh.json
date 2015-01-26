@@ -15,6 +15,16 @@
 		"register" : "注册",
 		"social" : "其他账号登录"
 	},
+	"index" : {
+		"title" : "心系手环 | Dashboard",
+		"header" : "主页",
+		"toggleNav" : "折叠导航栏",
+		"profile" : "个人信息",
+		"logout" : "注销",
+		"online" : "在线",
+		"dashboard" : "Dashboard",
+		"about" : "关于我"
+	},
 	"load" : {
   		"static" : {
     		"TITLE" : "你好",

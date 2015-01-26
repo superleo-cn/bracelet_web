@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html ng-cloak>
     <head>
         <meta charset="UTF-8">
-        <title>Bracelet | Dashboard</title>
+        <title>{{'index.title' | translate}}</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <link href="@routes.Assets.at("/public", "/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
@@ -12,6 +12,8 @@
         <link href="@routes.Assets.at("/public", "/css/ionicons.min.css")" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="@routes.Assets.at("/public", "/css/AdminLTE.css")" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="@routes.Assets.at("/public", "/stylesheets/main.css")" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,20 +26,45 @@
         <!-- header logo: style can be found in header.less -->
         <header class="header">
             <a href="/" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-               Home
+				<!-- Add the class icon to your logo image or logo icon to add the margining -->
+				{{'index.header' | translate}}
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">{{'index.toggleNav' | translate}}</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
+                    	 <!-- Language-->
+                    	<li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-language"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">{{'global.prefer_lang' | translate}}</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- start message -->
+                                            <a href="#" ng-click="setLang('zh')">
+												<h4><small>{{'global.zh' | translate}}</small></h4>
+											</a>
+                                        </li><!-- end message -->
+                                        <li>
+                                            <a href="#" ng-click="setLang('en')">
+												<h4><small>{{'global.en' | translate}}</small></h4>
+											</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    	
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -256,10 +283,10 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">{{'index.profile' | translate}}</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="#" class="btn btn-default btn-flat">{{'index.logout' | translate}}</a>
                                     </div>
                                 </li>
                             </ul>
@@ -280,8 +307,8 @@
                         </div>
                         <div class="pull-left info">
                             <p>Hello, Leo</p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            
+                            <a href="#"><i class="fa fa-circle text-success"></i> {{'index.online' | translate}}</a>
                         </div>
                     </div>
                     <!-- search form -->
@@ -298,14 +325,15 @@
                     <ul class="sidebar-menu">
                         <li class="active">
                             <a ui-sref="dashboard">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <i class="fa fa-dashboard"></i> <span>{{'index.dashboard' | translate}}</span>
                             </a>
                         </li>
                         <li>
                             <a ui-sref="about">
-                                <i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
+                                <i class="fa fa-th"></i> <span>{{'index.about' | translate}}</span> <small class="badge pull-right bg-green">new</small>
                             </a>
                         </li>
+                        <!--  
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-bar-chart-o"></i>
@@ -318,6 +346,7 @@
                                 <li><a href="charts/inline.html"><i class="fa fa-angle-double-right"></i> Inline charts</a></li>
                             </ul>
                         </li>
+                        -->
                     </ul>
                 </section>
                 <!-- /.sidebar -->

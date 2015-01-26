@@ -15,6 +15,16 @@
 		"register" : "Register a new membership",
 		"social" : "Sign in using social networks"
 	},
+	"index" : {
+		"title" : "HBracelet | Dashboard",
+		"header" : "Home",
+		"toggleNav" : "Toggle navigation",
+		"profile" : "Profile",
+		"logout" : "Sign Out",
+		"online" : "Online",
+		"dashboard" : "Dashboard",
+		"about" : "About"
+	},
 	"load" : {
   		"static" : {
     		"TITLE" : "How to load static files?",
