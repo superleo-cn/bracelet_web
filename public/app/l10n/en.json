@@ -23,6 +23,7 @@
 		"logout" : "Sign Out",
 		"online" : "Online",
 		"dashboard" : "Dashboard",
+		"cpanel" : "Control panel",
 		"about" : "About"
 	},
 	"load" : {

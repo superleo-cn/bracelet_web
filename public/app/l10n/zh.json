@@ -16,13 +16,14 @@
 		"social" : "其他账号登录"
 	},
 	"index" : {
-		"title" : "心系手环 | Dashboard",
+		"title" : "心系手环 | 仪表盘",
 		"header" : "主页",
 		"toggleNav" : "折叠导航栏",
 		"profile" : "个人信息",
 		"logout" : "注销",
 		"online" : "在线",
-		"dashboard" : "Dashboard",
+		"dashboard" : "仪表盘",
+		"cpanel" : "控制面板",
 		"about" : "关于我"
 	},
 	"load" : {
