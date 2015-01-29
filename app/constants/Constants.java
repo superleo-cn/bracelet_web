@@ -7,7 +7,7 @@ public class Constants {
 
 	// website URL
 	public static String WEBSITE_URL = "http://pos.emd.com.sg/";
-	//public static String WEBSITE_URL = "http://192.168.0.15:9000/";
+	// public static String WEBSITE_URL = "http://192.168.0.15:9000/";
 	public static String PICTURE_URL = WEBSITE_URL + "public/upload/";
 
 	// code status
@@ -25,7 +25,7 @@ public class Constants {
 	public static String SUCCESS = "1";
 	public static String FAILURE = "0";
 	public static String ERROR = "-1";
-	
+
 	// date format pattern
 	public static String PATTERN_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
 
@@ -37,18 +37,8 @@ public class Constants {
 	public static List<String> LOGIN_USERTYPS = Arrays.asList(new String[] { USERTYPE_SUPER_ADMIN, USERTYPE_ADMIN, USERTYPE_OPERATOR });
 
 	// current user info
-	public static String CURRENT_USERID = "userid";
-	public static String CURRENT_SHOPID = "shopid";
-	public static String CURRENT_SHOPNAME = "shopname";
-	public static String CURRENT_USERNAME = "username";
-	public static String CURRENT_USER_REALNAME = "userRealname";
-	public static String CURRENT_USERTYPE = "userType";
-	public static String CURRENT_USER_UNITNO = "userUnitNo";
+	public static String CURRENT_USERID = "current_id";
+	public static String CURRENT_USERNAME = "current_username";
+	public static String CURRENT_USER_REALNAME = "current_realname";
 
-	// globle info
-	public static String GLOBLE_FACILITIES = "globle_facilities";
-	public static String GLOBLE_EVENT_SESSIONS = "globle_eventSessions";
-
-	// code table
-	public static String CODE_LIMIT_DAYS = "LIMIT_DAYS";
 }

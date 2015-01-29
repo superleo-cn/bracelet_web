@@ -5,6 +5,8 @@
  * which avails each controller of, for example, the `config` constants object.
  **/
 define([
+	'/app/controllers/top.js',
+	'/app/controllers/nav.js',
     '/app/controllers/chart.js',
     '/app/controllers/login.js'
 ], function () {});

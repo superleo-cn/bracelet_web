@@ -1,23 +1,16 @@
 package controllers;
 
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import constants.Constants;
 
 public class Application extends Controller {
 
 	public static Result index() {
-		return ok(views.html.index.render());
-	}
-
-	public static Result healthData() {
-		ObjectNode result = Json.newObject();
-		result.put("exampleField1", "foobar");
-		result.put("exampleField2", "Hello world!");
-		return ok(result);
+		String id = session().get(Constants.CURRENT_USERID);
+		String username = session().get(Constants.CURRENT_USERNAME);
+		String realname = session().get(Constants.CURRENT_USER_REALNAME);
+		return ok(views.html.index.render(id, username, realname));
 	}
 
 }

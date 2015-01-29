@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                           controllers.Auths.index()
+GET     /other           			controllers.Auths.other()
+
 POST   	/loginJson               	controllers.Auths.loginJson()
 
 GET     /index                     	controllers.Application.index()

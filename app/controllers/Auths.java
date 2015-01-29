@@ -5,6 +5,7 @@ import java.util.List;
 
 import models.User;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,16 @@ public class Auths extends Basic {
 	final static Logger logger = LoggerFactory.getLogger(Auths.class);
 
 	public static Result index() {
+		String name = session().get(Constants.CURRENT_USERNAME);
+		if (StringUtils.isNotEmpty(name)) {
+			return ok(views.html.lockscreen.render(name));
+		} else {
+			return ok(views.html.login.render());
+		}
+
+	}
+	
+	public static Result other() {
 		return ok(views.html.login.render());
 	}
 
@@ -41,6 +52,9 @@ public class Auths extends Basic {
 				// User.store(user);
 				// dbUser.shop = dbUser.getMyShop();
 				datas.add(dbUser);
+				session(Constants.CURRENT_USERID, String.valueOf(dbUser.id));
+				session(Constants.CURRENT_USERNAME, dbUser.username);
+				session(Constants.CURRENT_USER_REALNAME, dbUser.realname);
 				result.put(Constants.CODE, Constants.SUCCESS);
 				result.put(Constants.MESSAGE, Messages.LOGIN_SUCCESS);
 				result.put(Constants.DATAS, Json.toJson(datas));

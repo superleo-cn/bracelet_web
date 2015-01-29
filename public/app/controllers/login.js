@@ -13,6 +13,14 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    	$rootScope.template($scope.fetch);
 	    }
 	    
+	    $scope.lockLogin = function() {
+	    	debugger;
+	    	$rootScope.url = $("#url").val();
+	    	$rootScope.params.username = $("#username").val();
+	    	$rootScope.params.password = $("#password").val();
+	    	$rootScope.template($scope.fetch);
+	    }
+	    
 	    $scope.fetch = function(data, status) {
 	    	if(data){
 				if(data.code == Constants.SUCCESS){
