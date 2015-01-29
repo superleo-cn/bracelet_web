@@ -40,24 +40,27 @@
                 </a>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
-                    	 <!-- Language-->
-                    	<li class="dropdown messages-menu">
+             			<!-- Language-->
+                    	<li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-language"></i>
+                                <span class="label label-success">2</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header">{{'global.prefer_lang' | translate}}</li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
-                                        <li><!-- start message -->
+                                        <li>
                                             <a href="#" ng-click="setLang('zh')">
-												<h4><small>{{'global.zh' | translate}}</small></h4>
+												<i class="ion ion-ios7-lightbulb-outline danger"></i>
+                                                {{'global.zh' | translate}}
 											</a>
-                                        </li><!-- end message -->
+                                        </li>
                                         <li>
                                             <a href="#" ng-click="setLang('en')">
-												<h4><small>{{'global.en' | translate}}</small></h4>
+												<i class="ion ion-social-hackernews-outline info"></i>
+                                                {{'global.en' | translate}}
 											</a>
                                         </li>
                                     </ul>

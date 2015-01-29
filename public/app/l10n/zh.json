@@ -26,13 +26,8 @@
 		"cpanel" : "控制面板",
 		"about" : "关于我"
 	},
-	"load" : {
-  		"static" : {
-    		"TITLE" : "你好",
-    		"HEADER" : "The module can lazzy load a translations table when it's needed.",
-    		"SUBHEADER" : "So, you can load only those languages, which will be used.",
-    		"ONLY_EN": "only english",
-    		"EN_RU": "EN and RU - EN Edition"
-  		}
+	"about" : {
+		"title" : "关于我",
+		"header" : "关于我"
 	}
 }

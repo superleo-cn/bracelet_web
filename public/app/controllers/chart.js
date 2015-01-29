@@ -36,7 +36,7 @@ define(['/app/controllers/module.js'], function (controllers) {
          * Flot Interactive Chart
          * -----------------------
          */
-        var interactive_plot = $.plot("#interactive", [[0, 0]], {
+        var temperatureChart = $.plot("#temperatureChart", [[0, 0]], {
             grid: {
                 borderColor: "#f3f3f3",
                 borderWidth: 1,
@@ -62,24 +62,84 @@ define(['/app/controllers/module.js'], function (controllers) {
             }
         });
         
+        var plusChart = $.plot("#plusChart", [[0, 0]], {
+            grid: {
+                borderColor: "#f3f3f3",
+                borderWidth: 1,
+                tickColor: "#f3f3f3"
+            },
+            series: {
+                shadowSize: 0, // Drawing is faster without shadows
+                color: "#3c8dbc"
+            },
+            lines: {
+                fill: true, //Converts the line chart to area chart
+                color: "#3c8dbc"
+            },
+            yaxis: {
+                min: 0,
+                max: 100,
+                show: true
+            },
+            xaxis: {
+            	min: 0,
+            	max: 29,
+                show: true
+            }
+        });
+        
+        var motionChart = $.plot("#motionChart", [[0, 0]], {
+            grid: {
+                borderColor: "#f3f3f3",
+                borderWidth: 1,
+                tickColor: "#f3f3f3"
+            },
+            series: {
+                shadowSize: 0, // Drawing is faster without shadows
+                color: "#3c8dbc"
+            },
+            lines: {
+                fill: true, //Converts the line chart to area chart
+                color: "#3c8dbc"
+            },
+            yaxis: {
+                min: 0,
+                max: 1,
+                show: true
+            },
+            xaxis: {
+            	min: 0,
+            	max: 29,
+                show: true
+            }
+        });
+        
         var updateInterval = 5000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
         function update() {
         	// We use an inline data source in the example, usually data would
             // be fetched from a server
         	$rootScope.template(function(data, status) {
-  		    	var datas = [];
+  		    	var temperatureDatas = [];
+  		    	var plusDatas = [];
+  		    	var motionDatas = [];
 	          	if(data){
 	          		var list = data.datas;
 	          		$.each( list, function( key, value ) {
-		          		datas.push([key, value.temperature])
+	          			temperatureDatas.push([key, value.temperature]);
+	          			plusDatas.push([key, value.pulseState]);
+	          			motionDatas.push([key, value.motionState]);
 		          	});
 	          	}
 	         
-	          	interactive_plot.setData([datas]);
+	          	temperatureChart.setData([temperatureDatas]);
+	          	plusChart.setData([plusDatas]);
+	          	motionChart.setData([motionDatas]);
 
 	          	// Since the axes don't change, we don't need to call plot.setupGrid()
-	          	interactive_plot.draw();
+	          	temperatureChart.draw();
+	          	plusChart.draw();
+	          	motionChart.draw();
 	          	if (realtime === "on"){
 	          		setTimeout(update, updateInterval);
 	          	}
@@ -91,7 +151,7 @@ define(['/app/controllers/module.js'], function (controllers) {
             update();
         }
         //REALTIME TOGGLE
-        $("#realtime .btn").click(function() {
+        $("#temperatureBtn .btn").click(function() {
             if ($(this).data("toggle") === "on") {
                 realtime = "on";
             }
