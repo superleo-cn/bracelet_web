@@ -45,6 +45,7 @@ public class HealthData {
 				expList.where().ge("createDate", startDate);
 				expList.where().le("createDate", lastDate);
 			}
+			expList.orderBy("createDate desc");
 			return expList.findList();
 		} catch (Exception e) {
 
