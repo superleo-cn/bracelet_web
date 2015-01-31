@@ -119,6 +119,7 @@ define(['/app/controllers/module.js'], function (controllers) {
         function update() {
         	// We use an inline data source in the example, usually data would
             // be fetched from a server
+        	$rootScope.url = '/api/findByDate/' + getDateTime();
         	$rootScope.template(function(data, status) {
   		    	var temperatureDatas = [];
   		    	var plusDatas = [];
