@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.annotation.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_bracelet")
@@ -26,26 +26,21 @@ public class Bracelet {
 	@Id
 	public Long id;
 
-	@Expose
 	@Required(message = "Bracelet Id cannot be empty")
 	public String braceletId;
 
-	@Expose
 	public String name;
 
-	@Expose
 	public String type;
 
-	@Expose
 	@Required(message = "Status cannot be empty")
 	public Boolean status;
 
-	@Expose
 	public String createBy, modifiedBy;
 
-	@Expose
 	public Date createDate, modifiedDate;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	public User user;
@@ -59,7 +54,7 @@ public class Bracelet {
 		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").findUnique();
 	}
 
-	public static List<Bracelet> findByUserId(String userId) {
+	public static List<Bracelet> findByUserId(Long userId) {
 		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").where().eq("user.id", userId).eq("status", true).findList();
 	}
 

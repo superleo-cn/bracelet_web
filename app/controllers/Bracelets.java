@@ -21,7 +21,7 @@ public class Bracelets extends Controller {
 	public static Result findByDate(String date) {
 		ObjectNode result = Json.newObject();
 		result.put(Constants.CODE, Constants.SUCCESS);
-		result.put(Constants.DATAS, Json.toJson(Bracelet.findByUserId("123")));
+		result.put(Constants.DATAS, Json.toJson(Bracelet.findByUserId(1L)));
 		return ok(result);
 	}
 }

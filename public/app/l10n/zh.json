@@ -24,7 +24,10 @@
 		"online" : "在线",
 		"dashboard" : "仪表盘",
 		"cpanel" : "控制面板",
-		"about" : "关于我"
+		"about" : "关于我",
+		"temperature_chart" : "体温表",
+		"plus_chart" : "脉搏表",
+		"motion_chart" : "运动表"
 	},
 	"about" : {
 		"title" : "关于我",

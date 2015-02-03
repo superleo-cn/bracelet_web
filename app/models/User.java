@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import play.data.validation.Constraints.Required;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.annotation.Expose;
 
 import forms.LoginForm;
 
@@ -28,29 +27,22 @@ public class User {
 	@Id
 	public Long id;
 
-	@Expose
 	@Required(message = "Username cannot be empty")
 	public String username;
 
-	@Expose
 	@Required(message = "Password cannot be empty")
 	public String password;
 
-	@Expose
 	public String realname;
 
-	@Expose
 	@Required(message = "User type cannot be empty")
 	public String userType;
 
-	@Expose
 	@Required(message = "Status cannot be empty")
 	public Boolean status;
 
-	@Expose
 	public String createBy, modifiedBy;
 
-	@Expose
 	public Date createDate, modifiedDate, lastLoginDate;
 
 	@Transient
@@ -61,7 +53,10 @@ public class User {
 		List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", form.username)
 				.eq("password", form.password).eq("status", true).findList();
 		if (CollectionUtils.size(users) > 0) {
-			return users.get(0);
+			User user = users.get(0);
+			List<Bracelet> list = Bracelet.findByUserId(user.id);
+			user.bracelets = list;
+			return user;
 		}
 		return null;
 	}

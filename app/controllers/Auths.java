@@ -1,8 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import models.User;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +30,7 @@ public class Auths extends Basic {
 		}
 
 	}
-	
+
 	public static Result other() {
 		return ok(views.html.login.render());
 	}
@@ -44,20 +41,18 @@ public class Auths extends Basic {
 		LoginForm form = new LoginForm();
 		try {
 			form = Form.form(LoginForm.class).bindFromRequest().get();
-			List<User> datas = new ArrayList<User>();
 			User dbUser = User.login(form);
 			if (dbUser != null) {
 				// user.id = dbUser.id;
 				// user.lastLoginDate = new Date();
 				// User.store(user);
 				// dbUser.shop = dbUser.getMyShop();
-				datas.add(dbUser);
 				session(Constants.CURRENT_USERID, String.valueOf(dbUser.id));
 				session(Constants.CURRENT_USERNAME, dbUser.username);
 				session(Constants.CURRENT_USER_REALNAME, dbUser.realname);
 				result.put(Constants.CODE, Constants.SUCCESS);
 				result.put(Constants.MESSAGE, Messages.LOGIN_SUCCESS);
-				result.put(Constants.DATAS, Json.toJson(datas));
+				result.put(Constants.DATAS, Json.toJson(dbUser));
 			} else {
 				result.put(Constants.CODE, Constants.FAILURE);
 				result.put(Constants.MESSAGE, Messages.LOGIN_FAILURE);

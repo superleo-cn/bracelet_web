@@ -24,7 +24,10 @@
 		"online" : "Online",
 		"dashboard" : "Dashboard",
 		"cpanel" : "Control panel",
-		"about" : "About"
+		"about" : "About",
+		"temperature_chart" : "Temperature Chart",
+		"plus_chart" : "Plus Chart",
+		"motion_chart" : "Motion Chart"
 	},
 	"about" : {
 		"title" : "About",

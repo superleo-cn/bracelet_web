@@ -14,7 +14,6 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    }
 	    
 	    $scope.lockLogin = function() {
-	    	debugger;
 	    	$rootScope.url = $("#url").val();
 	    	$rootScope.params.username = $("#username").val();
 	    	$rootScope.params.password = $("#password").val();
@@ -22,6 +21,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    }
 	    
 	    $scope.fetch = function(data, status) {
+	    	debugger;
 	    	if(data){
 				if(data.code == Constants.SUCCESS){
 					$rootScope.successMsg(".alert", "Login successfully.");

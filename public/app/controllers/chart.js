@@ -36,84 +36,22 @@ define(['/app/controllers/module.js'], function (controllers) {
          * Flot Interactive Chart
          * -----------------------
          */
-        var temperatureChart = $.plot("#temperatureChart", [[0, 0]], {
-            grid: {
-                borderColor: "#f3f3f3",
-                borderWidth: 1,
-                tickColor: "#f3f3f3"
-            },
-            series: {
-                shadowSize: 0, // Drawing is faster without shadows
-                color: "#3c8dbc"
-            },
-            lines: {
-                fill: true, //Converts the line chart to area chart
-                color: "#3c8dbc"
-            },
-            yaxis: {
-                min: 0,
-                max: 50,
-                show: true
-            },
-            xaxis: {
-            	min: 0,
-            	max: 29,
-                show: true
-            }
-        });
-        
-        var plusChart = $.plot("#plusChart", [[0, 0]], {
-            grid: {
-                borderColor: "#f3f3f3",
-                borderWidth: 1,
-                tickColor: "#f3f3f3"
-            },
-            series: {
-                shadowSize: 0, // Drawing is faster without shadows
-                color: "#3c8dbc"
-            },
-            lines: {
-                fill: true, //Converts the line chart to area chart
-                color: "#3c8dbc"
-            },
-            yaxis: {
-                min: 0,
-                max: 100,
-                show: true
-            },
-            xaxis: {
-            	min: 0,
-            	max: 29,
-                show: true
-            }
-        });
-        
-        var motionChart = $.plot("#motionChart", [[0, 0]], {
-            grid: {
-                borderColor: "#f3f3f3",
-                borderWidth: 1,
-                tickColor: "#f3f3f3"
-            },
-            series: {
-                shadowSize: 0, // Drawing is faster without shadows
-                color: "#3c8dbc"
-            },
-            lines: {
-                fill: true, //Converts the line chart to area chart
-                color: "#3c8dbc"
-            },
-            yaxis: {
-                min: 0,
-                max: 1,
-                show: true
-            },
-            xaxis: {
-            	min: 0,
-            	max: 29,
-                show: true
-            }
-        });
-        
+	    var temperatureChart = null;
+	    var plusChart = null;
+	    var motionChart = null;
+	    var flag = 1;
+	    
+	    $scope.switchTab = function(chart){
+	    	if("temperatureChart" == chart){
+	    		flag = 1;
+	    	}else if("plusChart" == chart){
+	    		flag = 2;
+	    	}else if("motionChart" == chart){
+	    		flag = 3;
+	    	}
+	    	update();
+	    };
+	    
         var updateInterval = 5000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
         function update() {
@@ -133,19 +71,25 @@ define(['/app/controllers/module.js'], function (controllers) {
 		          	});
 	          	}
 	         
-	          	temperatureChart.setData([temperatureDatas]);
-	          	plusChart.setData([plusDatas]);
-	          	motionChart.setData([motionDatas]);
-
-	          	// Since the axes don't change, we don't need to call plot.setupGrid()
-	          	temperatureChart.draw();
-	          	plusChart.draw();
-	          	motionChart.draw();
+	          	if(flag == 1){
+	          		temperatureChart = getTemperatureChart();
+	          		temperatureChart.setData([temperatureDatas]);
+	          		temperatureChart.draw();
+	          	}else if(flag == 2){
+	          		plusChart = getPlusChart();
+	          		plusChart.setData([plusDatas]);
+	          		plusChart.draw();
+	          	}else if(flag == 3){
+	          		motionChart = getMotionChart();
+	          		motionChart.setData([motionDatas]);
+	          		motionChart.draw();
+	          	}
+	          	
 	          	if (realtime === "on"){
 	          		setTimeout(update, updateInterval);
 	          	}
 	    	});
-        }
+        };
 
         //INITIALIZE REALTIME DATA FETCHING
         if (realtime === "on") {
@@ -164,6 +108,90 @@ define(['/app/controllers/module.js'], function (controllers) {
         /*
          * END INTERACTIVE CHART
          */
+        
+        function getTemperatureChart(){
+	        return $.plot("#temperatureChart", [[0, 0]], {
+	            grid: {
+	                borderColor: "#f3f3f3",
+	                borderWidth: 1,
+	                tickColor: "#f3f3f3"
+	            },
+	            series: {
+	                shadowSize: 0, // Drawing is faster without shadows
+	                color: "#3c8dbc"
+	            },
+	            lines: {
+	                fill: true, //Converts the line chart to area chart
+	                color: "#3c8dbc"
+	            },
+	            yaxis: {
+	                min: 0,
+	                max: 50,
+	                show: true
+	            },
+	            xaxis: {
+	            	min: 0,
+	            	max: 29,
+	                show: true
+	            }
+	        });
+        }
+        
+        function getPlusChart(){
+        	return $.plot("#plusChart", [[0, 0]], {
+	            grid: {
+	                borderColor: "#f3f3f3",
+	                borderWidth: 1,
+	                tickColor: "#f3f3f3"
+	            },
+	            series: {
+	                shadowSize: 0, // Drawing is faster without shadows
+	                color: "#3c8dbc"
+	            },
+	            lines: {
+	                fill: true, //Converts the line chart to area chart
+	                color: "#3c8dbc"
+	            },
+	            yaxis: {
+	                min: 0,
+	                max: 100,
+	                show: true
+	            },
+	            xaxis: {
+	            	min: 0,
+	            	max: 29,
+	                show: true
+	            }
+	        });
+        }
+        
+        function getMotionChart(){
+        	return $.plot("#motionChart", [[0, 0]], {
+	            grid: {
+	                borderColor: "#f3f3f3",
+	                borderWidth: 1,
+	                tickColor: "#f3f3f3"
+	            },
+	            series: {
+	                shadowSize: 0, // Drawing is faster without shadows
+	                color: "#3c8dbc"
+	            },
+	            lines: {
+	                fill: true, //Converts the line chart to area chart
+	                color: "#3c8dbc"
+	            },
+	            yaxis: {
+	                min: 0,
+	                max: 1,
+	                show: true
+	            },
+	            xaxis: {
+	            	min: 0,
+	            	max: 29,
+	                show: true
+	            }
+	        });
+        }
         
 	})
 });
