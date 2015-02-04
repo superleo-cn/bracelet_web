@@ -7,9 +7,10 @@ GET     /                           						controllers.Auths.index()
 GET     /other           									controllers.Auths.other()
 
 POST   	/loginJson               							controllers.Auths.loginJson()
-
 GET     /index                     							controllers.Application.index()
 
+GET   	/api/findDashboardList/:braceletId/:date  			controllers.HealthDatas.findDashboardList(braceletId: String, date: String)
+POST   	/api/findDashboardList/:braceletId/:date  			controllers.HealthDatas.findDashboardList(braceletId: String, date: String)
 GET   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
 POST   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
 GET   	/api/findUrgentByBracelet/:braceletId  				controllers.HealthDatas.findUrgentByBracelet(braceletId: String)

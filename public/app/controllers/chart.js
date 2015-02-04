@@ -14,7 +14,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    }
 	    
 	    // Report URL
-	    $rootScope.url = '/api/findByDate/' + getDateTime();
+	    var braceletId = $("#braceletId").val();
+	    $rootScope.url = '/api/findDashboardList/' + braceletId + '/' + getDateTime();
 	    $rootScope.method = 'GET';
 	    
 	    /*
@@ -57,7 +58,7 @@ define(['/app/controllers/module.js'], function (controllers) {
         function update() {
         	// We use an inline data source in the example, usually data would
             // be fetched from a server
-        	$rootScope.url = '/api/findByDate/' + getDateTime();
+        	$rootScope.url = '/api/findDashboardList/' + braceletId + '/' + getDateTime();
         	$rootScope.template(function(data, status) {
   		    	var temperatureDatas = [];
   		    	var plusDatas = [];

@@ -1,4 +1,4 @@
-@(id: String, username: String, realname: String)
+@(id: String, braceletId: String, username: String, realname: String)
 <!DOCTYPE html>
 <html ng-cloak>
     <head>
@@ -363,6 +363,8 @@
                 <!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+
+		<input type="hidden" id="braceletId" value="@braceletId" />
 
         <!-- jQuery 2.0.2 -->
         <script src="@routes.Assets.at("/public/libs", "/jquery-1.11.1.min.js")"></script>

@@ -21,7 +21,6 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    }
 	    
 	    $scope.fetch = function(data, status) {
-	    	debugger;
 	    	if(data){
 				if(data.code == Constants.SUCCESS){
 					$rootScope.successMsg(".alert", "Login successfully.");

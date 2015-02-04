@@ -2,6 +2,7 @@ package controllers;
 
 import models.User;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,9 @@ public class Auths extends Basic {
 				// User.store(user);
 				// dbUser.shop = dbUser.getMyShop();
 				session(Constants.CURRENT_USERID, String.valueOf(dbUser.id));
+				if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
+					session(Constants.CURRENT_BRACELET_ID, String.valueOf(dbUser.bracelets.get(0).id));
+				}
 				session(Constants.CURRENT_USERNAME, dbUser.username);
 				session(Constants.CURRENT_USER_REALNAME, dbUser.realname);
 				result.put(Constants.CODE, Constants.SUCCESS);

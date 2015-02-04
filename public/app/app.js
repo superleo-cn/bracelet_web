@@ -70,6 +70,7 @@ define([
         })
         
         // my ajax template
+        $rootScope.currentUser = {};
         $rootScope.data = {};
         $rootScope.params = {};
         $rootScope.method = "POST";
@@ -91,7 +92,13 @@ define([
 		    $timeout(function(){
 				$window.location.href = url;
 			}, 2000);
-    	}
+    	};
+    	
+    	// get current login Uer
+	    $rootScope.getCurrentUser = function(){
+	    	$rootScope.currentUser.braceletId = $("#braceletId").val();
+    	};
+	    
     });
     
     return app;

@@ -10,7 +10,8 @@ public class Application extends Controller {
 		String id = session().get(Constants.CURRENT_USERID);
 		String username = session().get(Constants.CURRENT_USERNAME);
 		String realname = session().get(Constants.CURRENT_USER_REALNAME);
-		return ok(views.html.index.render(id, username, realname));
+		String braceletId = session().get(Constants.CURRENT_BRACELET_ID);
+		return ok(views.html.index.render(id, braceletId, username, realname));
 	}
 
 }

@@ -4,9 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class User {
 
 	public Date createDate, modifiedDate, lastLoginDate;
 
-	@Transient
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Bracelet> bracelets;
 
 	/* the following are service methods */
@@ -54,8 +55,8 @@ public class User {
 				.eq("password", form.password).eq("status", true).findList();
 		if (CollectionUtils.size(users) > 0) {
 			User user = users.get(0);
-			List<Bracelet> list = Bracelet.findByUserId(user.id);
-			user.bracelets = list;
+			// List<Bracelet> list = Bracelet.findByUserId(user.id);
+			// user.bracelets = list;
 			return user;
 		}
 		return null;

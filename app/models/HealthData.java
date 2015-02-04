@@ -40,10 +40,25 @@ public class HealthData {
 
 	public Date createDate;
 
-	public static List<HealthData> findList() {
-		return Ebean.find(HealthData.class).findList();
+	// dashboard
+	public static List<HealthData> findDashboardList(String braceletId, String date) {
+		try {
+			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
+			if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
+				Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
+				Date startDate = DateUtils.addMinutes(lastDate, -10);
+				expList.where().ge("createDate", startDate);
+				expList.where().le("createDate", lastDate);
+			}
+			expList.orderBy("createDate desc");
+			return expList.findList();
+		} catch (Exception e) {
+			logger.error("[findDashboardList] -> [exception]", e);
+		}
+		return null;
 	}
 
+	// interface
 	public static List<HealthData> findList(String braceletId, String date) {
 		try {
 			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
