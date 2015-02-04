@@ -28,6 +28,7 @@ public class Constants {
 
 	// date format pattern
 	public static String PATTERN_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
+	public static String PATTERN_YYYYMMDD = "yyyyMMdd";
 
 	// current user info
 	public static String USERTYPE_SUPER_ADMIN = "SUPERADMIN";

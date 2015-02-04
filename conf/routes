@@ -3,21 +3,19 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Auths.index()
-GET     /other           			controllers.Auths.other()
+GET     /                           						controllers.Auths.index()
+GET     /other           									controllers.Auths.other()
 
-POST   	/loginJson               	controllers.Auths.loginJson()
+POST   	/loginJson               							controllers.Auths.loginJson()
 
-GET     /index                     	controllers.Application.index()
+GET     /index                     							controllers.Application.index()
 
-GET     /api/findAll          		controllers.HealthDatas.findAll()
-POST   	/api/findAll          		controllers.HealthDatas.findAll()
-GET   	/api/findByDate/:date      	controllers.HealthDatas.findByDate(date: String)
-POST   	/api/findByDate/:date      	controllers.HealthDatas.findByDate(date: String)
+GET   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
+POST   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
-GET     /img/*file               	controllers.Assets.at(path="/public/img", file)
-GET     /js/*file               	controllers.Assets.at(path="/public/libs", file)
-GET     /libs/*file               	controllers.Assets.at(path="/public/libs", file)
-GET     /app/*file               	controllers.Assets.at(path="/public/app", file)
+GET     /assets/*file               						controllers.Assets.at(path="/public", file)
+GET     /img/*file               							controllers.Assets.at(path="/public/img", file)
+GET     /js/*file               							controllers.Assets.at(path="/public/libs", file)
+GET     /libs/*file               							controllers.Assets.at(path="/public/libs", file)
+GET     /app/*file               							controllers.Assets.at(path="/public/app", file)
