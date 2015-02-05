@@ -93,7 +93,7 @@ public class HealthData {
 		return null;
 	}
 
-	public static void updateUrgentList(Long[] ids) {
+	public static void updateUrgentList(List<Long> ids) {
 		try {
 			if (ids != null) {
 				for (Long id : ids) {

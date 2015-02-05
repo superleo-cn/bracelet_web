@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import models.HealthData;
 
 import org.slf4j.Logger;
@@ -18,7 +20,7 @@ public class HealthDatas extends Controller {
 
 	final static Logger logger = LoggerFactory.getLogger(HealthDatas.class);
 
-	//dashboard
+	// dashboard
 	public static Result findDashboardList(String braceletId, String date) {
 		ObjectNode result = Json.newObject();
 		try {
@@ -31,8 +33,8 @@ public class HealthDatas extends Controller {
 		}
 		return ok(result);
 	}
-	
-	//interface
+
+	// interface
 	public static Result findByBraceletAndDate(String braceletId, String date) {
 		ObjectNode result = Json.newObject();
 		try {
@@ -55,6 +57,19 @@ public class HealthDatas extends Controller {
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, Messages.HEALTH_DATA_LIST_ERROR);
 			logger.error(Messages.HEALTH_DATA_LIST_ERROR_MESSAGE, new Object[] { braceletId, e });
+		}
+		return ok(result);
+	}
+
+	public static Result updateUrgentList(List<Long> ids) {
+		ObjectNode result = Json.newObject();
+		try {
+			HealthData.updateUrgentList(ids);
+			result.put(Constants.CODE, Constants.SUCCESS);
+		} catch (Exception e) {
+			result.put(Constants.CODE, Constants.ERROR);
+			result.put(Constants.MESSAGE, Messages.HEALTH_DATA_UPDATE_ERROR);
+			logger.error(Messages.HEALTH_DATA_UPDATE_ERROR_MESSAGE, new Object[] { e });
 		}
 		return ok(result);
 	}

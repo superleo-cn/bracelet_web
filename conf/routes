@@ -15,6 +15,7 @@ GET   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.f
 POST   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
 GET   	/api/findUrgentByBracelet/:braceletId  				controllers.HealthDatas.findUrgentByBracelet(braceletId: String)
 POST   	/api/findUrgentByBracelet/:braceletId  				controllers.HealthDatas.findUrgentByBracelet(braceletId: String)
+POST   	/api/updateUrgentList 								controllers.HealthDatas.updateUrgentList(ids: java.util.List[java.lang.Long])
 
 
 # Map static resources from the /public folder to the /assets URL path
