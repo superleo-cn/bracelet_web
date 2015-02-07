@@ -20,12 +20,26 @@ public class HealthDatas extends Controller {
 
 	final static Logger logger = LoggerFactory.getLogger(HealthDatas.class);
 
-	// dashboard
-	public static Result findDashboardList(String braceletId, String date) {
+	// realtime
+	public static Result findRealtimeList(String braceletId, String date) {
 		ObjectNode result = Json.newObject();
 		try {
 			result.put(Constants.CODE, Constants.SUCCESS);
-			result.put(Constants.DATAS, Json.toJson(HealthData.findDashboardList(braceletId, date)));
+			result.put(Constants.DATAS, Json.toJson(HealthData.findRealtimeList(braceletId, date)));
+		} catch (Exception e) {
+			result.put(Constants.CODE, Constants.ERROR);
+			result.put(Constants.MESSAGE, Messages.HEALTH_DATA_LIST_ERROR);
+			logger.error(Messages.HEALTH_DATA_LIST_ERROR_MESSAGE, new Object[] { braceletId, e });
+		}
+		return ok(result);
+	}
+
+	// history
+	public static Result findHistoryList(String braceletId, String type, String date) {
+		ObjectNode result = Json.newObject();
+		try {
+			result.put(Constants.CODE, Constants.SUCCESS);
+			result.put(Constants.DATAS, Json.toJson(HealthData.findHistoryList(braceletId, type, date)));
 		} catch (Exception e) {
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, Messages.HEALTH_DATA_LIST_ERROR);

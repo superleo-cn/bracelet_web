@@ -7,6 +7,7 @@
 define([
 	'/app/controllers/top.js',
 	'/app/controllers/nav.js',
-    '/app/controllers/chart.js',
+    '/app/controllers/realtime.js',
+    '/app/controllers/history.js',
     '/app/controllers/login.js'
 ], function () {});

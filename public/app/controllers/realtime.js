@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Charts", function($http, $rootScope, $scope, $translate) {
+    controllers.controller("Realtime", function($http, $rootScope, $scope, $translate) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -15,7 +15,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    
 	    // Report URL
 	    var braceletId = $("#braceletId").val();
-	    $rootScope.url = '/api/findDashboardList/' + braceletId + '/' + getDateTime();
+	    $rootScope.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
 	    $rootScope.method = 'GET';
 	    
 	    /*
@@ -56,40 +56,40 @@ define(['/app/controllers/module.js'], function (controllers) {
         var updateInterval = 5000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
         function update() {
-        	// We use an inline data source in the example, usually data would
-            // be fetched from a server
-        	$rootScope.url = '/api/findDashboardList/' + braceletId + '/' + getDateTime();
-        	$rootScope.template(function(data, status) {
-  		    	var temperatureDatas = [];
-  		    	var plusDatas = [];
-  		    	var motionDatas = [];
-	          	if(data){
-	          		var list = data.datas;
-	          		$.each( list, function( key, value ) {
-	          			temperatureDatas.push([key, value.temperature]);
-	          			plusDatas.push([key, value.pulseState]);
-	          			motionDatas.push([key, value.motionState]);
-		          	});
-	          	}
-	         
-	          	if(flag == 1){
-	          		temperatureChart = getTemperatureChart();
-	          		temperatureChart.setData([temperatureDatas]);
-	          		temperatureChart.draw();
-	          	}else if(flag == 2){
-	          		plusChart = getPlusChart();
-	          		plusChart.setData([plusDatas]);
-	          		plusChart.draw();
-	          	}else if(flag == 3){
-	          		motionChart = getMotionChart();
-	          		motionChart.setData([motionDatas]);
-	          		motionChart.draw();
-	          	}
-	          	
-	          	if (realtime === "on"){
-	          		setTimeout(update, updateInterval);
-	          	}
-	    	});
+        	if (realtime === "on"){
+	        	// We use an inline data source in the example, usually data would
+	            // be fetched from a server
+	        	$rootScope.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
+	        	$rootScope.template(function(data, status) {
+	  		    	var temperatureDatas = [];
+	  		    	var plusDatas = [];
+	  		    	var motionDatas = [];
+		          	if(data){
+		          		var list = data.datas;
+		          		$.each( list, function( key, value ) {
+		          			temperatureDatas.push([key, value.temperature]);
+		          			plusDatas.push([key, value.pulseState]);
+		          			motionDatas.push([key, value.motionState]);
+			          	});
+		          	}
+		         
+		          	if(flag == 1){
+		          		temperatureChart = getTemperatureChart(temperatureDatas.length-1);
+		          		temperatureChart.setData([temperatureDatas]);
+		          		temperatureChart.draw();
+		          	}else if(flag == 2){
+		          		plusChart = getPlusChart(plusDatas.length-1);
+		          		plusChart.setData([plusDatas]);
+		          		plusChart.draw();
+		          	}else if(flag == 3){
+		          		motionChart = getMotionChart(motionDatas.length-1);
+		          		motionChart.setData([motionDatas]);
+		          		motionChart.draw();
+		          	}
+		          	
+		          	setTimeout(update, updateInterval);
+	        	});
+        	}
         };
 
         //INITIALIZE REALTIME DATA FETCHING
@@ -110,7 +110,7 @@ define(['/app/controllers/module.js'], function (controllers) {
          * END INTERACTIVE CHART
          */
         
-        function getTemperatureChart(){
+        function getTemperatureChart(xmax){
 	        return $.plot("#temperatureChart", [[0, 0]], {
 	            grid: {
 	                borderColor: "#f3f3f3",
@@ -132,13 +132,13 @@ define(['/app/controllers/module.js'], function (controllers) {
 	            },
 	            xaxis: {
 	            	min: 0,
-	            	max: 29,
+	            	max: xmax,
 	                show: true
 	            }
 	        });
         }
         
-        function getPlusChart(){
+        function getPlusChart(xmax){
         	return $.plot("#plusChart", [[0, 0]], {
 	            grid: {
 	                borderColor: "#f3f3f3",
@@ -160,13 +160,13 @@ define(['/app/controllers/module.js'], function (controllers) {
 	            },
 	            xaxis: {
 	            	min: 0,
-	            	max: 29,
+	            	max: xmax,
 	                show: true
 	            }
 	        });
         }
         
-        function getMotionChart(){
+        function getMotionChart(xmax){
         	return $.plot("#motionChart", [[0, 0]], {
 	            grid: {
 	                borderColor: "#f3f3f3",
@@ -188,11 +188,19 @@ define(['/app/controllers/module.js'], function (controllers) {
 	            },
 	            xaxis: {
 	            	min: 0,
-	            	max: 29,
+	            	max: xmax,
 	                show: true
 	            }
 	        });
         }
+        
+        $scope.$on('$viewContentLoaded', function() {
+        	realtime = "on";
+        });
+        
+        $scope.$on('$destroy', function() {
+        	realtime = "off";
+        })
         
 	})
 });

@@ -5,14 +5,19 @@ define(['app'], function(app) {
     return app.config(function($stateProvider, $urlRouterProvider) {
 		
 		// For any unmatched url, redirect to /state1
-		$urlRouterProvider.otherwise("/dashboard");
+		$urlRouterProvider.otherwise("/realtime");
 		//
 		// Now set up the states
 		$stateProvider
-	  	.state('dashboard', {
-	  		url: '/dashboard',
-	  		templateUrl: 'assets/app/templates/dashboard.html',
-	  		controller: 'Charts'
+	  	.state('realtime', {
+	  		url: '/realtime',
+	  		templateUrl: 'assets/app/templates/realtime.html',
+	  		controller: 'Realtime'
+	    })
+	    .state('history', {
+	  		url: '/history',
+	  		templateUrl: 'assets/app/templates/history.html',
+	  		controller: 'History'
 	    })
 	    .state('about', {
 	    	url: '/about',

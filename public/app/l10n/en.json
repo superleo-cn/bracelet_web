@@ -23,6 +23,8 @@
 		"logout" : "Sign Out",
 		"online" : "Online",
 		"dashboard" : "Dashboard",
+		"realtime" : "Realtime",
+		"history" : "History",
 		"cpanel" : "Control panel",
 		"about" : "About",
 		"temperature_chart" : "Temperature Chart",

@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import utils.MyDateUtils;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
@@ -40,8 +43,8 @@ public class HealthData {
 
 	public Date createDate;
 
-	// dashboard
-	public static List<HealthData> findDashboardList(String braceletId, String date) {
+	// realtime
+	public static List<HealthData> findRealtimeList(String braceletId, String date) {
 		try {
 			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
 			if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
@@ -53,7 +56,33 @@ public class HealthData {
 			expList.orderBy("createDate desc");
 			return expList.findList();
 		} catch (Exception e) {
-			logger.error("[findDashboardList] -> [exception]", e);
+			logger.error("[findRealtimeList] -> [exception]", e);
+		}
+		return null;
+	}
+
+	// history
+	public static List<HealthData> findHistoryList(String braceletId, String type, String date) {
+		try {
+			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
+			if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
+				Date paramDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDD);
+				List<Date> days = new ArrayList<>();
+				if (StringUtils.equals(type, "day")) {
+					days = MyDateUtils.getDateByDay();
+				} else if (StringUtils.equals(type, "week")) {
+					days = MyDateUtils.getDateByWeek();
+				} else {
+					days = MyDateUtils.getDateByMonth();
+				}
+				expList.where().ge("createDate", days.get(0));
+				expList.where().le("createDate", days.get(1));
+				expList.where().eq("braceletId", braceletId);
+			}
+			expList.orderBy("createDate desc");
+			return expList.findList();
+		} catch (Exception e) {
+			logger.error("[findHistoryList] -> [exception]", e);
 		}
 		return null;
 	}

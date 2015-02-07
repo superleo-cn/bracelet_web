@@ -1,0 +1,85 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        {{'index.dashboard' | translate}} <small>{{'index.cpanel' | translate}}</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{'index.header' | translate}}</a></li>
+        <li class="active">{{'index.history' | translate}}</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="nav-tabs-custom">
+		<ul class="nav nav-tabs">
+		    <li class="active"><a href="#tab_1" data-toggle="tab" ng-click="switchTab('temperatureChart')">{{'index.temperature_chart' | translate}}</a></li>
+		    <li><a href="#tab_2" data-toggle="tab" ng-click="switchTab('plusChart')">{{'index.plus_chart' | translate}}</a></li>
+		    <li><a href="#tab_3" data-toggle="tab" ng-click="switchTab('motionChart')">{{'index.motion_chart' | translate}}</a></li>
+		    <li class="pull-right">
+	           <div class="timeline-footer">
+	               <button class="btn btn-primary btn-xs" ng-click="swithType('day')">1 day</button>
+	               <button class="btn btn-primary btn-xs" ng-click="swithType('week')">1 week</button>
+	               <button class="btn btn-primary btn-xs" ng-click="swithType('month')">1 month</button>
+	           </div>
+		    </li>
+		</ul>
+	
+		<div class="tab-content">
+		  	<div class="tab-pane active" id="tab_1">
+			    <div class="row">
+			        <div class="col-xs-12">
+			            <!-- temperature chart -->
+			            <div class="box box-primary">
+			                <div class="box-header">
+			                    <i class="fa fa-bar-chart-o"></i>
+			                    <h3 class="box-title">{{'index.temperature_chart' | translate}}</h3>
+			                    
+			                </div>
+			                <div class="box-body">
+			                    <div id="temperatureChart" style="height: 300px;"></div>
+			                </div><!-- /.box-body-->
+			            </div><!-- /.box -->
+			        </div><!-- /.col -->
+			    </div><!-- /.row -->
+		    </div>
+	
+		  	<div class="tab-pane" id="tab_2">
+			    <div class="row">
+			        <div class="col-xs-12">
+			            <!-- plus chart -->
+			            <div class="box box-primary">
+			                <div class="box-header">
+			                    <i class="fa fa-bar-chart-o"></i>
+			                    <h3 class="box-title">{{'index.plus_chart' | translate}}</h3>
+			                   
+			                </div>
+			                <div class="box-body">
+			                    <div id="plusChart" style="height: 300px;"></div>
+			                </div><!-- /.box-body-->
+			            </div><!-- /.box -->
+			        </div><!-- /.col -->
+			    </div><!-- /.row -->
+			</div>
+	
+		  	<div class="tab-pane" id="tab_3">
+			    <div class="row">
+			        <div class="col-xs-12">
+			            <!-- plus chart -->
+			            <div class="box box-primary">
+			                <div class="box-header">
+			                    <i class="fa fa-bar-chart-o"></i>
+			                    <h3 class="box-title">{{'index.motion_chart' | translate}}</h3>
+			                   
+			                </div>
+			                <div class="box-body">
+			                    <div id="motionChart" style="height: 300px;"></div>
+			                </div><!-- /.box-body-->
+			            </div><!-- /.box -->
+			        </div><!-- /.col -->
+			    </div><!-- /.row -->
+		    </div>
+	    </div>
+    
+ 	</div>
+</section><!-- /.content -->

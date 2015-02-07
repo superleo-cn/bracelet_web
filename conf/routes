@@ -5,12 +5,16 @@
 # Home page
 GET     /                           						controllers.Auths.index()
 GET     /other           									controllers.Auths.other()
-
 POST   	/loginJson               							controllers.Auths.loginJson()
 GET     /index                     							controllers.Application.index()
 
-GET   	/api/findDashboardList/:braceletId/:date  			controllers.HealthDatas.findDashboardList(braceletId: String, date: String)
-POST   	/api/findDashboardList/:braceletId/:date  			controllers.HealthDatas.findDashboardList(braceletId: String, date: String)
+# Report
+GET   	/api/findRealtimeList/:braceletId/:date  			controllers.HealthDatas.findRealtimeList(braceletId: String, date: String)
+POST   	/api/findRealtimeList/:braceletId/:date  			controllers.HealthDatas.findRealtimeList(braceletId: String, date: String)
+GET   	/api/findHistoryList/:braceletId/:type/:date  		controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
+POST   	/api/findHistoryList/:braceletId/:type/:date  		controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
+
+# Interface
 GET   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
 POST   	/api/findByBraceletAndDate/:braceletId/:date  		controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
 GET   	/api/findUrgentByBracelet/:braceletId  				controllers.HealthDatas.findUrgentByBracelet(braceletId: String)

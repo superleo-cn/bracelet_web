@@ -23,6 +23,8 @@
 		"logout" : "注销",
 		"online" : "在线",
 		"dashboard" : "仪表盘",
+		"realtime" : "实时数据",
+		"history" : "历史数据",
 		"cpanel" : "控制面板",
 		"about" : "关于我",
 		"temperature_chart" : "体温表",
