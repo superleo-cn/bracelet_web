@@ -23,5 +23,15 @@ define(['app'], function(app) {
 	    	url: '/about',
 	    	templateUrl: 'assets/app/templates/about.html'
 	    })
+	    .state('users', {
+	  		url: '/users',
+	  		templateUrl: 'assets/app/templates/user-list.html',
+	  		controller: 'Users'
+	    })
+	    .state('bracelets', {
+	  		url: '/bracelets',
+	  		templateUrl: 'assets/app/templates/bracelet-list.html',
+	  		controller: 'Bracelets'
+	    })
 	});
 });

@@ -72,6 +72,7 @@ public class Auths extends Basic {
 
 	@Transactional
 	public static Result logout() {
+		session().clear();
 		return ok();
 	}
 

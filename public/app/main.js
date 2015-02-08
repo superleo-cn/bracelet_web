@@ -20,6 +20,7 @@ require.config({
 		'jquery.flot' : '/libs/plugins/flot/jquery.flot.min',
 		'resize' : '/libs/plugins/flot/jquery.flot.resize.min',
 		'pie' : '/libs/plugins/flot/jquery.flot.pie.min',
+		'pagination' : '/libs/plugins/pagination/jquery.simplePagination',
 		'categories' : '/libs/plugins/flot/jquery.flot.categories.min',
 		'app' : '/app/app',
 		'routes' : '/app/routes',

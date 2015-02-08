@@ -2,7 +2,9 @@
 	"global" : {
 		"zh" : "中文",
 		"en" : "英文",
-		"prefer_lang" : "语言偏好:"
+		"prefer_lang" : "语言偏好:",
+		"status_active" : "正常",
+		"status_inactive" : "停用"
 	},
 	"login" : {
 		"title" : "心系手环 | 登录",
@@ -26,10 +28,28 @@
 		"realtime" : "实时数据",
 		"history" : "历史数据",
 		"cpanel" : "控制面板",
+		"users" : "用户管理",
+		"bracelets" : "手环管理",
 		"about" : "关于我",
 		"temperature_chart" : "体温表",
 		"plus_chart" : "脉搏表",
 		"motion_chart" : "运动表"
+	},
+	"users" : {
+		"id" : "ID",
+		"username" : "用户名",
+		"name" : "姓名",
+		"type" : "类型",
+		"date" : "注册日期",
+		"status" : "状态"
+	},
+	"bracelets" : {
+		"id" : "ID",
+		"bracelet_id" : "手环ID",
+		"name" : "手环名称",
+		"type" : "类型",
+		"date" : "激活日期",
+		"status" : "状态"
 	},
 	"about" : {
 		"title" : "关于我",

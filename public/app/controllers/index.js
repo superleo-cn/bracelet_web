@@ -9,5 +9,7 @@ define([
 	'/app/controllers/nav.js',
     '/app/controllers/realtime.js',
     '/app/controllers/history.js',
-    '/app/controllers/login.js'
+    '/app/controllers/login.js',
+    '/app/controllers/users.js',
+    '/app/controllers/bracelets.js'
 ], function () {});

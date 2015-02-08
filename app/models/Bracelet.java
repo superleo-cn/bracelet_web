@@ -13,8 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import play.data.validation.Constraints.Required;
+import utils.Pagination;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.Page;
+import com.avaje.ebean.PagingList;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -56,6 +60,24 @@ public class Bracelet {
 
 	public static List<Bracelet> findByUserId(Long userId) {
 		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").where().eq("user.id", userId).eq("status", true).findList();
+	}
+
+	public static Pagination findAll(Pagination pagination) {
+		try {
+			pagination = pagination == null ? new Pagination() : pagination;
+			ExpressionList<Bracelet> expList = Ebean.find(Bracelet.class).where();
+			PagingList<Bracelet> pagingList = expList.findPagingList(pagination.pageSize);
+			pagingList.setFetchAhead(false);
+			expList.orderBy("createDate desc");
+			Page<Bracelet> page = pagingList.getPage(pagination.currentPage - 1);
+			pagination.recordList = page.getList();
+			pagination.pageCount = page.getTotalPageCount();
+			pagination.recordCount = page.getTotalRowCount();
+		} catch (Exception e) {
+			logger.error("[findAll] -> [exception]", e);
+		}
+		return pagination;
+
 	}
 
 }

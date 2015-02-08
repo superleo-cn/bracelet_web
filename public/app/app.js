@@ -91,7 +91,7 @@ define([
 	    $rootScope.redirect = function(url){
 		    $timeout(function(){
 				$window.location.href = url;
-			}, 2000);
+			}, 100);
     	};
     	
     	// get current login Uer
@@ -100,6 +100,15 @@ define([
     	};
 	    
     });
+    
+	app.filter('yyyyMMdd', function($filter){
+	    return function(input){
+	        if(input == null){ 
+				return ""; 
+			}
+	        return $filter('date')(new Date(input), 'yyyy-MM-dd');
+	    };
+	});
     
     return app;
 });

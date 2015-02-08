@@ -7,6 +7,8 @@ GET     /                           						controllers.Auths.index()
 GET     /other           									controllers.Auths.other()
 POST   	/loginJson               							controllers.Auths.loginJson()
 GET     /index                     							controllers.Application.index()
+POST	/users												controllers.Users.findAll()
+POST	/bracelets											controllers.Bracelets.findAll()
 
 # Report
 GET   	/api/findRealtimeList/:braceletId/:date  			controllers.HealthDatas.findRealtimeList(braceletId: String, date: String)

@@ -2,7 +2,9 @@
 	"global" : {
 		"zh" : "Chinese",
 		"en" : "English",
-		"prefer_lang" : "My prefer language:"
+		"prefer_lang" : "My prefer language:",
+		"status_active" : "Active",
+		"status_inactive" : "Inactive"
 	},
 	"login" : {
 		"title" : "HBracelet | Login",
@@ -26,10 +28,28 @@
 		"realtime" : "Realtime",
 		"history" : "History",
 		"cpanel" : "Control panel",
+		"users" : "User Management",
+		"bracelets" : "Bracelet Management",
 		"about" : "About",
 		"temperature_chart" : "Temperature Chart",
 		"plus_chart" : "Plus Chart",
 		"motion_chart" : "Motion Chart"
+	},
+	"users" : {
+		"id" : "ID",
+		"username" : "Username",
+		"name" : "Name",
+		"type" : "Type",
+		"date" : "Register Date",
+		"status" : "Status"
+	},
+	"bracelets" : {
+		"id" : "ID",
+		"bracelet_id" : "Bracelet ID",
+		"name" : "Name",
+		"type" : "Type",
+		"date" : "Active Date",
+		"status" : "Status"
 	},
 	"about" : {
 		"title" : "About",

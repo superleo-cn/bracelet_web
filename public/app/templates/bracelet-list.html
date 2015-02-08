@@ -1,0 +1,43 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        {{'index.bracelets' | translate}} <small>{{'index.cpanel' | translate}}</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{'index.header' | translate}}</a></li>
+        <li class="active">{{'index.bracelets' | translate}}</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="nav-tabs-custom">
+		<div class="box-body table-responsive no-padding">
+	        <table class="table table-hover">
+	            <tbody>
+		            <tr>
+		                <th>{{'bracelets.id' | translate}}</th>
+		                <th>{{'bracelets.bracelet_id' | translate}}</th>
+		                <th>{{'bracelets.name' | translate}}</th>
+		                <th>{{'bracelets.type' | translate}}</th>
+		                <th>{{'bracelets.date' | translate}}</th>
+		                <th>{{'bracelets.status' | translate}}</th>
+		           	</tr>
+		            <tr ng-repeat="obj in data">
+						<td>{{ obj.id }}</td>
+						<td>{{ obj.braceletId }}</td>
+						<td>{{ obj.name }}</td>
+						<td>{{ obj.type }}</td>
+						<td>{{ obj.createDate | yyyyMMdd }}</td>
+						<td> 
+							<span class="label" ng-class="{'label-success': obj.status == true, 'label-danger' : obj.status == false }"> 
+								{{ obj.status == true ? 'global.status_active' : "global.status_inactive"  | translate }} 
+							</span> 
+						</td>
+					</tr>	 
+		        </tbody>
+	        </table>
+	    </div>
+ 	</div>
+ 	<div class="p pagination"></div>
+</section><!-- /.content -->

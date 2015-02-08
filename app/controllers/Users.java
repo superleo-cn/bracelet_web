@@ -1,6 +1,6 @@
 package controllers;
 
-import models.Bracelet;
+import models.User;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -12,14 +12,14 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.Constants;
 import constants.Messages;
 
-public class Bracelets extends Controller {
+public class Users extends Controller {
 
 	public static Result findAll() {
 		ObjectNode result = Json.newObject();
 		Pagination pagination = new Pagination();
 		try {
 			pagination = Form.form(Pagination.class).bindFromRequest().get();
-			pagination = Bracelet.findAll(pagination);
+			pagination = User.findAll(pagination);
 			result.put(Constants.CODE, Constants.SUCCESS);
 			result.put(Constants.DATAS, Json.toJson(pagination));
 		} catch (Exception e) {
@@ -29,4 +29,5 @@ public class Bracelets extends Controller {
 		}
 		return ok(result);
 	}
+
 }

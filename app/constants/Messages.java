@@ -1,6 +1,8 @@
 package constants;
 
 public class Messages {
+	// Common Messages
+	public static String QUERY_ERROR = "[Query Error]";
 
 	// Login Messages
 	public static String LOGIN_SUCCESS = "[Login Success]";
@@ -16,5 +18,4 @@ public class Messages {
 	public static String HEALTH_DATA_UPDATE_ERROR = "[Update health data List Error]";
 	public static String HEALTH_DATA_UPDATE_ERROR_MESSAGE = "[System]-[Error]-[Update health data list failed. The error is {}.]";
 
-	
 }
