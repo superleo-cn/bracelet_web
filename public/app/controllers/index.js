@@ -11,5 +11,7 @@ define([
     '/app/controllers/history.js',
     '/app/controllers/login.js',
     '/app/controllers/users.js',
-    '/app/controllers/bracelets.js'
+    '/app/controllers/user-form.js',
+    '/app/controllers/bracelets.js',
+    '/app/controllers/timeline.js'
 ], function () {});

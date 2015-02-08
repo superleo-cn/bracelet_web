@@ -22,6 +22,7 @@
 		                <th>{{'users.type' | translate}}</th>
 		                <th>{{'users.date' | translate}}</th>
 		                <th>{{'users.status' | translate}}</th>
+		                <th>Action</th>
 		           	</tr>
 		            <tr ng-repeat="obj in data">
 						<td>{{ obj.id }}</td>
@@ -34,6 +35,11 @@
 								{{ obj.status == true ? 'global.status_active' : "global.status_inactive"  | translate }} 
 							</span> 
 						</td>
+						<td>
+							<a href="#user-form">
+								<i class="fa fa-edit"></i> Edit
+	               			</a>
+                      	</td>
 					</tr>	 
 		        </tbody>
 	        </table>

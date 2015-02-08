@@ -28,10 +28,20 @@ define(['app'], function(app) {
 	  		templateUrl: 'assets/app/templates/user-list.html',
 	  		controller: 'Users'
 	    })
+	    .state('user-form', {
+	  		url: '/user-form',
+	  		templateUrl: 'assets/app/templates/user-form.html',
+	  		controller: 'UserForm'
+	    })
 	    .state('bracelets', {
 	  		url: '/bracelets',
 	  		templateUrl: 'assets/app/templates/bracelet-list.html',
 	  		controller: 'Bracelets'
+	    })
+	    .state('timeline', {
+	  		url: '/timeline',
+	  		templateUrl: 'assets/app/templates/timeline.html',
+	  		controller: 'Timeline'
 	    })
 	});
 });

@@ -1,0 +1,47 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        {{'index.users' | translate}} <small>{{'index.cpanel' | translate}}</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{'index.header' | translate}}</a></li>
+        <li class="active">{{'index.users' | translate}}</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="box box-primary">
+        <form role="form">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter Username" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="realname">Name</label>
+                    <input type="password" class="form-control" id="realname" placeholder="Enter Name">
+                </div>
+                <div class="form-group">
+                    <label for="userType">Type</label>
+                    <select class="form-control">
+                     	<option>----</option>
+                        <option>普通用户</option>
+                        <option>VIP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="userStatus">Status</label>
+                    <select class="form-control">
+                    	<option>----</option>
+                        <option>正常</option>
+                        <option>停用</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+	</div>
+</section><!-- /.content -->

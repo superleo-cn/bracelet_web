@@ -95,8 +95,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 	                color: "#3c8dbc"
 	            },
 	            yaxis: {
-	                min: 0,
-	                max: 50,
+	                min: 30,
+	                max: 45,
 	                show: true
 	            },
 	            xaxis: {
