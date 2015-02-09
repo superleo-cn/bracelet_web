@@ -6,7 +6,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    	var dd = new Date()
 	    	var val = '' + dd.getFullYear() 
 	    				+ (dd.getMonth() < 9 ? '0' + (dd.getMonth()+1) : (dd.getMonth()+1)) 
-	    				+ (dd.getDate() < 9 ? '0' + (dd.getDate()) : (dd.getDate()))
+	    				+ (dd.getDate() < 10 ? '0' + (dd.getDate()) : (dd.getDate()))
 	       return val;
 	    }
 	    
