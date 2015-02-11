@@ -40,6 +40,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    var temperatureChart = null;
 	    var plusChart = null;
 	    var motionChart = null;
+	    var bloodPressureChart = null;
 	    var flag = 1;
 	    
 	    $scope.switchTab = function(chart){
@@ -49,6 +50,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    		flag = 2;
 	    	}else if("motionChart" == chart){
 	    		flag = 3;
+	    	}else if("bloodPressureChart" == chart){
+	    		flag = 4;
 	    	}
 	    	update();
 	    };
@@ -64,12 +67,16 @@ define(['/app/controllers/module.js'], function (controllers) {
 	  		    	var temperatureDatas = [];
 	  		    	var plusDatas = [];
 	  		    	var motionDatas = [];
+	  		    	var sbpDatas = [];
+	  		    	var dbpDatas = [];
 		          	if(data){
 		          		var list = data.datas;
 		          		$.each( list, function( key, value ) {
 		          			temperatureDatas.push([key, value.temperature]);
 		          			plusDatas.push([key, value.pulseState]);
 		          			motionDatas.push([key, value.motionState]);
+		          			sbpDatas.push([key, value.sbp]);
+		          			dbpDatas.push([key, value.dbp]);
 			          	});
 		          	}
 		         
@@ -85,6 +92,10 @@ define(['/app/controllers/module.js'], function (controllers) {
 		          		motionChart = getMotionChart(motionDatas.length-1);
 		          		motionChart.setData([motionDatas]);
 		          		motionChart.draw();
+		          	}else if(flag == 4){
+		          		bloodPressureChart = getBloodPressureChart(sbpDatas.length-1);
+		          		bloodPressureChart.setData([sbpDatas, dbpDatas]);
+		          		bloodPressureChart.draw();
 		          	}
 		          	
 		          	setTimeout(update, updateInterval);
@@ -191,6 +202,37 @@ define(['/app/controllers/module.js'], function (controllers) {
 	            	max: xmax,
 	                show: true
 	            }
+	        });
+        }
+        
+        function getBloodPressureChart(xmax){
+        	var line1 = [[1,60], [2,50], [3,60], [4,60]];
+        	var line2 = [[1,140], [2,150], [3,130], [4,160]];
+        	return $.plot("#bloodPressureChart", [line1, line2], {
+	            grid: {
+	                borderColor: "#f3f3f3",
+	                borderWidth: 1,
+	                tickColor: "#f3f3f3"
+	            },
+	            series: {
+	                shadowSize: 0, // Drawing is faster without shadows
+	                color: "#3c8dbc"
+	            },
+	            lines: {
+	                fill: true, //Converts the line chart to area chart
+	                color: "#3c8dbc"
+	            },
+	            yaxis: {
+	                min: 40,
+	                max: 175,
+	                show: true
+	            },
+	            xaxis: {
+	            	min: 0,
+	            	max: xmax,
+	                show: true
+	            },
+	            legend:{ show: true }
 	        });
         }
         

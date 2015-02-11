@@ -33,7 +33,8 @@
 		"about" : "关于我",
 		"temperature_chart" : "体温表",
 		"plus_chart" : "脉搏表",
-		"motion_chart" : "运动表"
+		"motion_chart" : "运动表",
+		"blood_pressure_chart" : "血压表"
 	},
 	"users" : {
 		"id" : "ID",

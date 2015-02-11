@@ -35,6 +35,10 @@ public class HealthData {
 
 	public float temperature = 0.0f;
 
+	public int sbp = 0;
+
+	public int dbp = 0;
+
 	public int warning = 0;
 
 	public int archive = 0;
