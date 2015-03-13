@@ -9,6 +9,8 @@ public class Messages {
 	public static String LOGIN_FAILURE = "[Login Failure]";
 	public static String LOGIN_ERROR = "[Login Error]";
 	public static String LOGIN_ERROR_MESSAGE = "[System]-[Error]-[Public user ({}) logins failed. The error is {}.]";
+	public static String LOGOUT_SUCCESS = "[Logout Success]";
+	public static String LOGOUT_ERROR = "[Logout Error]";
 	public static String LOGOUT_ERROR_MESSAGE = "[System]-[Error]-[Public user ({}) logins failed. The error is {}.]";
 
 	// Food Message

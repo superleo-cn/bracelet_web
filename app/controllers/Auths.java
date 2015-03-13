@@ -11,7 +11,6 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
 
-import com.avaje.ebean.annotation.Transactional;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import constants.Constants;
@@ -36,7 +35,6 @@ public class Auths extends Basic {
 		return ok(views.html.login.render());
 	}
 
-	@Transactional
 	public static Result loginJson() {
 		ObjectNode result = Json.newObject();
 		LoginForm form = new LoginForm();
@@ -70,15 +68,29 @@ public class Auths extends Basic {
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, Messages.LOGIN_ERROR);
 			logger.error(Messages.LOGIN_ERROR_MESSAGE, new Object[] { form.username, e });
-
 		}
 		return ok(result);
 	}
 
-	@Transactional
-	public static Result logout() {
-		session().clear();
-		return ok();
+	public static Result logoutJson() {
+		ObjectNode result = Json.newObject();
+		String username = null;
+		try {
+			username = session(Constants.CURRENT_USERNAME);
+			session().clear();
+			result.put(Constants.CODE, Constants.SUCCESS);
+			result.put(Constants.MESSAGE, Messages.LOGOUT_SUCCESS);
+			response().discardCookie(Constants.CURRENT_USERID);
+			response().discardCookie(Constants.CURRENT_USERNAME);
+			response().discardCookie(Constants.CURRENT_USER_REALNAME);
+			response().discardCookie(Constants.CURRENT_ROLE);
+		} catch (Exception e) {
+			result.put(Constants.CODE, Constants.ERROR);
+			result.put(Constants.MESSAGE, Messages.LOGOUT_ERROR);
+			logger.error(Messages.LOGOUT_ERROR_MESSAGE, new Object[] { username, e });
+
+		}
+		return ok(result);
 	}
 
 }

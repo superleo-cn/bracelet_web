@@ -44,6 +44,8 @@ define([
     
     // global function
     app.run(function($http, $rootScope, $cookieStore, $timeout, $window, $translate, $state, $cookies) {
+    	$rootScope.aa = "123";
+    	
     	 // change language
         $rootScope.setLang = function(key) {
             $translate.use(key);

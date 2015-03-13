@@ -7,6 +7,7 @@ require.config({
 	paths : {
 		'domReady' : '/libs/domReady-2.0.1',
 		'jquery' : "/libs/jquery-1.11.1.min",
+		'jquery.cookie' : "/libs/jquery.cookie-1.4.1",
 		'angular' : '/libs/angular-1.3.7.min',
 		'ngRoute' : '/libs/angular-route-1.3.7.min',
 		'ngResource' : '/libs/angular-resource-1.3.7.min',

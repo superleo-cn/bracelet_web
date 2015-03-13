@@ -6,6 +6,7 @@
 GET     /                           						controllers.Auths.index()
 GET     /other           									controllers.Auths.other()
 POST   	/loginJson               							controllers.Auths.loginJson()
+POST   	/logoutJson               							controllers.Auths.logoutJson()
 GET     /index                     							controllers.Application.index()
 POST	/users												controllers.Users.findAll()
 POST	/bracelets											controllers.Bracelets.findAll()

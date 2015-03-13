@@ -1,12 +1,18 @@
 // require JS config
-define(['app'], function(app) {
+define(['app', 'jquery.cookie'], function(app) {
     'use strict';
-
+    
     return app.config(function($stateProvider, $urlRouterProvider) {
-		
+    	
+    	// if not logined yet
+    	var value = $.cookie("current_id");
+    	if(value == null || value == ""){
+			return;
+		};
+    	
 		// For any unmatched url, redirect to /state1
 		$urlRouterProvider.otherwise("/realtime");
-		//
+		
 		// Now set up the states
 		$stateProvider
 	  	.state('realtime', {
