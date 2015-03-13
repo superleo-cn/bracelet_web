@@ -57,6 +57,11 @@ public class Auths extends Basic {
 				result.put(Constants.CODE, Constants.SUCCESS);
 				result.put(Constants.MESSAGE, Messages.LOGIN_SUCCESS);
 				result.put(Constants.DATAS, Json.toJson(dbUser));
+				response().setCookie(Constants.CURRENT_USERID, String.valueOf(dbUser.id), 864000);
+				response().setCookie(Constants.CURRENT_USERNAME, String.valueOf(dbUser.username), 864000);
+				response().setCookie(Constants.CURRENT_USER_REALNAME, String.valueOf(dbUser.realname), 864000);
+				response().setCookie(Constants.CURRENT_ROLE, String.valueOf(dbUser.userType), 864000);
+
 			} else {
 				result.put(Constants.CODE, Constants.FAILURE);
 				result.put(Constants.MESSAGE, Messages.LOGIN_FAILURE);

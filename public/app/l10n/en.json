@@ -30,6 +30,7 @@
 		"cpanel" : "Control panel",
 		"users" : "User Management",
 		"bracelets" : "Bracelet Management",
+		"codes" : "Code Management",
 		"about" : "About",
 		"temperature_chart" : "Temperature Chart",
 		"plus_chart" : "Plus Chart",
@@ -50,6 +51,14 @@
 		"name" : "Name",
 		"type" : "Type",
 		"date" : "Active Date",
+		"status" : "Status"
+	},
+	"codes" : {
+		"id" : "ID",
+		"key" : "Key",
+		"value" : "Value",
+		"description" : "Description",
+		"date" : "Create Date",
 		"status" : "Status"
 	},
 	"about" : {

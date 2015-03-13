@@ -41,6 +41,7 @@ public class Constants {
 	public static String CURRENT_USERID = "current_id";
 	public static String CURRENT_USERNAME = "current_username";
 	public static String CURRENT_USER_REALNAME = "current_realname";
+	public static String CURRENT_ROLE = "current_role";
 	public static String CURRENT_BRACELET_ID = "current_bracelet_id";
 
 }

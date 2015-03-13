@@ -12,36 +12,49 @@ define(['app'], function(app) {
 	  	.state('realtime', {
 	  		url: '/realtime',
 	  		templateUrl: 'assets/app/templates/realtime.html',
-	  		controller: 'Realtime'
+	  		controller: 'Realtime',
+	  		roles: ['admin', 'user', 'doctor']
 	    })
 	    .state('history', {
 	  		url: '/history',
 	  		templateUrl: 'assets/app/templates/history.html',
-	  		controller: 'History'
+	  		controller: 'History',
+	  		roles: ['admin', 'user', 'doctor']
 	    })
 	    .state('about', {
 	    	url: '/about',
-	    	templateUrl: 'assets/app/templates/about.html'
+	    	templateUrl: 'assets/app/templates/about.html',
+	    	roles: ['admin', 'user', 'doctor']
 	    })
 	    .state('users', {
 	  		url: '/users',
 	  		templateUrl: 'assets/app/templates/user-list.html',
-	  		controller: 'Users'
+	  		controller: 'Users',
+	  		roles: ['admin']
 	    })
 	    .state('user-form', {
 	  		url: '/user-form',
 	  		templateUrl: 'assets/app/templates/user-form.html',
-	  		controller: 'UserForm'
+	  		controller: 'UserForm',
+	  		roles: ['admin']
 	    })
 	    .state('bracelets', {
 	  		url: '/bracelets',
 	  		templateUrl: 'assets/app/templates/bracelet-list.html',
-	  		controller: 'Bracelets'
+	  		controller: 'Bracelets',
+	  		roles: ['admin']
+	    })
+	    .state('codes', {
+	  		url: '/codes',
+	  		templateUrl: 'assets/app/templates/code-list.html',
+	  		controller: 'Codes',
+	  		roles: ['admin']
 	    })
 	    .state('timeline', {
 	  		url: '/timeline',
 	  		templateUrl: 'assets/app/templates/timeline.html',
-	  		controller: 'Timeline'
+	  		controller: 'Timeline',
+	  		roles: ['admin', 'user', 'doctor']
 	    })
 	});
 });

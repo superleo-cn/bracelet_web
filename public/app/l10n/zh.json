@@ -29,6 +29,7 @@
 		"history" : "历史数据",
 		"cpanel" : "控制面板",
 		"users" : "用户管理",
+		"codes" : "字典表管理",
 		"bracelets" : "手环管理",
 		"about" : "关于我",
 		"temperature_chart" : "体温表",
@@ -50,6 +51,14 @@
 		"name" : "手环名称",
 		"type" : "类型",
 		"date" : "激活日期",
+		"status" : "状态"
+	},
+	"codes" : {
+		"id" : "ID",
+		"key" : "键",
+		"value" : "值",
+		"description" : "描述",
+		"date" : "创建日期",
 		"status" : "状态"
 	},
 	"about" : {

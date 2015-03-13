@@ -43,7 +43,7 @@ define([
 	}]);
     
     // global function
-    app.run(function($http, $rootScope, $cookieStore, $timeout, $window, $translate) {
+    app.run(function($http, $rootScope, $cookieStore, $timeout, $window, $translate, $state, $cookies) {
     	 // change language
         $rootScope.setLang = function(key) {
             $translate.use(key);
@@ -98,6 +98,11 @@ define([
 	    $rootScope.getCurrentUser = function(){
 	    	$rootScope.currentUser.braceletId = $("#braceletId").val();
     	};
+    	
+    	// authentication
+    	$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    		
+	    });
 	    
     });
     

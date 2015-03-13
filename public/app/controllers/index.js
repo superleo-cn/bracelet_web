@@ -13,5 +13,6 @@ define([
     '/app/controllers/users.js',
     '/app/controllers/user-form.js',
     '/app/controllers/bracelets.js',
+    '/app/controllers/codes.js',
     '/app/controllers/timeline.js'
 ], function () {});
