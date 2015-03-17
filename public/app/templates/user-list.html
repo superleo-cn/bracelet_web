@@ -24,7 +24,7 @@
 		                <th>{{'users.status' | translate}}</th>
 		                <th>Action</th>
 		           	</tr>
-		            <tr ng-repeat="obj in data">
+		            <tr ng-repeat="obj in datas">
 						<td>{{ obj.id }}</td>
 						<td>{{ obj.username }}</td>
 						<td>{{ obj.realname }}</td>
@@ -36,7 +36,7 @@
 							</span> 
 						</td>
 						<td>
-							<a href="#user-form">
+							<a ui-sref="user({id: obj.id})">
 								<i class="fa fa-edit"></i> Edit
 	               			</a>
                       	</td>

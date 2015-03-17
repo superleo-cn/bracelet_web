@@ -44,8 +44,6 @@ define([
     
     // global function
     app.run(function($http, $rootScope, $cookieStore, $timeout, $window, $translate, $state, $cookies) {
-    	$rootScope.aa = "123";
-    	
     	 // change language
         $rootScope.setLang = function(key) {
             $translate.use(key);
@@ -81,7 +79,7 @@ define([
 	    		method: $rootScope.method, 
 	    		url: $rootScope.url, 
 	    		params: $rootScope.params,
-	    		data: $rootScope.params
+	    		data: $rootScope.data
 	    	}).success(operation)
 	    	.error(function(data, status) {
 	    		$rootScope.data = data || "Request failed";

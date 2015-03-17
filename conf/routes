@@ -9,6 +9,8 @@ POST   	/loginJson               							controllers.Auths.loginJson()
 POST   	/logoutJson               							controllers.Auths.logoutJson()
 GET     /index                     							controllers.Application.index()
 POST	/users												controllers.Users.findAll()
+GET		/users/:id											controllers.Users.findById(id: java.lang.Long)
+POST   	/users/store               							controllers.Users.store()
 POST	/bracelets											controllers.Bracelets.findAll()
 POST	/codes												controllers.Codes.findAll()
 

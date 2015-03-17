@@ -38,8 +38,8 @@ define(['app', 'jquery.cookie'], function(app) {
 	  		controller: 'Users',
 	  		roles: ['admin']
 	    })
-	    .state('user-form', {
-	  		url: '/user-form',
+	    .state('user', {
+	  		url: '/users/:id',
 	  		templateUrl: 'assets/app/templates/user-form.html',
 	  		controller: 'UserForm',
 	  		roles: ['admin']

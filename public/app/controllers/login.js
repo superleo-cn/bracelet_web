@@ -15,8 +15,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    
 	    $scope.lockLogin = function() {
 	    	$rootScope.url = $("#url").val();
-	    	$rootScope.params.username = $("#username").val();
-	    	$rootScope.params.password = $("#password").val();
+	    	$rootScope.data.username = $("#username").val();
+	    	$rootScope.data.password = $("#password").val();
 	    	$rootScope.template($scope.fetch);
 	    }
 	    

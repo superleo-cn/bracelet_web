@@ -10,7 +10,7 @@ define(['/app/controllers/module.js'], function (controllers) {
  	    }
     	
     	if($cookies.current_id == null || $cookies.current_id == ""){
-			$rootScope.redirect("/");
+			$rootScope.redirect("#users");
 			event.preventDefault();
 		};
     	
