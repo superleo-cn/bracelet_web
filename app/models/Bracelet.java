@@ -28,26 +28,26 @@ public class Bracelet {
 	final static Logger logger = LoggerFactory.getLogger(Bracelet.class);
 
 	@Id
-	public Long id;
+	private Long id;
 
 	@Required(message = "Bracelet Id cannot be empty")
-	public String braceletId;
+	private String braceletId;
 
-	public String name;
+	private String name;
 
-	public String type;
+	private String type;
 
 	@Required(message = "Status cannot be empty")
-	public Boolean status;
+	private Boolean status;
 
-	public String createBy, modifiedBy;
+	private String createBy, modifiedBy;
 
-	public Date createDate, modifiedDate;
+	private Date createDate, modifiedDate;
 
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	public User user;
+	private User user;
 
 	/* the following are service methods */
 	public static Bracelet findById(Long id) {
@@ -77,7 +77,95 @@ public class Bracelet {
 			logger.error("[findAll] -> [exception]", e);
 		}
 		return pagination;
+	}
 
+	public static Bracelet store(Bracelet user) {
+		if (user != null && user.id > 0) {
+			Ebean.update(user);
+		} else {
+			Ebean.save(user);
+		}
+		return user;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getBraceletId() {
+		return braceletId;
+	}
+
+	public void setBraceletId(String braceletId) {
+		this.braceletId = braceletId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

@@ -22,6 +22,7 @@
 		                <th>{{'bracelets.type' | translate}}</th>
 		                <th>{{'bracelets.date' | translate}}</th>
 		                <th>{{'bracelets.status' | translate}}</th>
+		                <th>Action</th>
 		           	</tr>
 		            <tr ng-repeat="obj in datas">
 						<td>{{ obj.id }}</td>
@@ -34,6 +35,11 @@
 								{{ obj.status == true ? 'global.status_active' : "global.status_inactive"  | translate }} 
 							</span> 
 						</td>
+						<td>
+							<a ui-sref="bracelet({id: obj.id})">
+								<i class="fa fa-edit"></i> Edit
+	               			</a>
+                      	</td>
 					</tr>	 
 		        </tbody>
 	        </table>

@@ -1,0 +1,46 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        {{'index.bracelets' | translate}} <small>{{'index.cpanel' | translate}}</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{'index.header' | translate}}</a></li>
+        <li class="active">{{'index.bracelets' | translate}}</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="alert alert-dismissable">
+		<i class="fa fa-check"></i>
+        <span> </span>
+    </div>
+	<div class="box box-primary">
+        <form role="form">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="braceletId" placeholder="Enter Bracelet ID" ng-readonly="bracelet.braceletId != null && bracelet.braceletId != ''" required="required" ng-model="bracelet.braceletId">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter Bracelet Name" required="required" ng-model="bracelet.name">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select class="form-control" ng-model="bracelet.type" ng-options="o.v as o.n for o in [{ n: 'Standared', v: 'Standared' }, { n: 'Platinum', v: 'Platinum' }]">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" ng-model="bracelet.status" ng-options="o.v as o.n for o in [{ n: '正常', v: true }, { n: '停用', v: false }]">
+                    </select>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="button" class="btn btn-primary" ng-click="store()">Save</button>
+                <button type="button" class="btn btn-primary margin" ng-click="redirect('#bracelets')">Cancel</button>
+            </div>
+        </form>
+	</div>
+</section><!-- /.content -->

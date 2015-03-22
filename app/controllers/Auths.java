@@ -48,7 +48,7 @@ public class Auths extends Basic {
 				// dbUser.shop = dbUser.getMyShop();
 				session(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()));
 				if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
-					session(Constants.CURRENT_BRACELET_ID, String.valueOf(dbUser.bracelets.get(0).braceletId));
+					session(Constants.CURRENT_BRACELET_ID, String.valueOf(dbUser.bracelets.get(0).getBraceletId()));
 				}
 				session(Constants.CURRENT_USERNAME, dbUser.getUsername());
 				session(Constants.CURRENT_USER_REALNAME, dbUser.getRealname());

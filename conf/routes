@@ -12,6 +12,8 @@ POST	/users												controllers.Users.findAll()
 GET		/users/:id											controllers.Users.findById(id: java.lang.Long)
 POST   	/users/store               							controllers.Users.store()
 POST	/bracelets											controllers.Bracelets.findAll()
+GET		/bracelets/:id										controllers.Bracelets.findById(id: java.lang.Long)
+POST   	/bracelets/store               						controllers.Bracelets.store()
 POST	/codes												controllers.Codes.findAll()
 
 # Report

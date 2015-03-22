@@ -50,6 +50,12 @@ define(['app', 'jquery.cookie'], function(app) {
 	  		controller: 'Bracelets',
 	  		roles: ['admin']
 	    })
+	    .state('bracelet', {
+	  		url: '/bracelets/:id',
+	  		templateUrl: 'assets/app/templates/bracelet-form.html',
+	  		controller: 'BraceletForm',
+	  		roles: ['admin']
+	    })
 	    .state('codes', {
 	  		url: '/codes',
 	  		templateUrl: 'assets/app/templates/code-list.html',
