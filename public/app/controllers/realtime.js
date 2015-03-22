@@ -52,6 +52,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    		flag = 3;
 	    	}else if("bloodPressureChart" == chart){
 	    		flag = 4;
+	    	}else if("integratedData" == chart){
+	    		flag = 5;
 	    	}
 	    	update();
 	    };
@@ -96,6 +98,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 		          		bloodPressureChart = getBloodPressureChart(sbpDatas.length-1);
 		          		bloodPressureChart.setData([sbpDatas, dbpDatas]);
 		          		bloodPressureChart.draw();
+		          	}else if(flag == 5){
+		          		
 		          	}
 		          	
 		          	setTimeout(update, updateInterval);

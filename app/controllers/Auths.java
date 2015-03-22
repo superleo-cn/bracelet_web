@@ -46,19 +46,19 @@ public class Auths extends Basic {
 				// user.lastLoginDate = new Date();
 				// User.store(user);
 				// dbUser.shop = dbUser.getMyShop();
-				session(Constants.CURRENT_USERID, String.valueOf(dbUser.id));
+				session(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()));
 				if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
 					session(Constants.CURRENT_BRACELET_ID, String.valueOf(dbUser.bracelets.get(0).braceletId));
 				}
-				session(Constants.CURRENT_USERNAME, dbUser.username);
-				session(Constants.CURRENT_USER_REALNAME, dbUser.realname);
+				session(Constants.CURRENT_USERNAME, dbUser.getUsername());
+				session(Constants.CURRENT_USER_REALNAME, dbUser.getRealname());
 				result.put(Constants.CODE, Constants.SUCCESS);
 				result.put(Constants.MESSAGE, Messages.LOGIN_SUCCESS);
 				result.put(Constants.DATAS, Json.toJson(dbUser));
-				response().setCookie(Constants.CURRENT_USERID, String.valueOf(dbUser.id), 864000);
-				response().setCookie(Constants.CURRENT_USERNAME, String.valueOf(dbUser.username), 864000);
-				response().setCookie(Constants.CURRENT_USER_REALNAME, String.valueOf(dbUser.realname), 864000);
-				response().setCookie(Constants.CURRENT_ROLE, String.valueOf(dbUser.userType), 864000);
+				response().setCookie(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()), 864000);
+				response().setCookie(Constants.CURRENT_USERNAME, String.valueOf(dbUser.getUsername()), 864000);
+				response().setCookie(Constants.CURRENT_USER_REALNAME, String.valueOf(dbUser.getRealname()), 864000);
+				response().setCookie(Constants.CURRENT_ROLE, String.valueOf(dbUser.getUserType()), 864000);
 
 			} else {
 				result.put(Constants.CODE, Constants.FAILURE);
@@ -67,7 +67,7 @@ public class Auths extends Basic {
 		} catch (Exception e) {
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, Messages.LOGIN_ERROR);
-			logger.error(Messages.LOGIN_ERROR_MESSAGE, new Object[] { form.username, e });
+			logger.error(Messages.LOGIN_ERROR_MESSAGE, new Object[] { form.getUsername(), e });
 		}
 		return ok(result);
 	}

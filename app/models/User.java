@@ -30,33 +30,33 @@ public class User {
 	final static Logger logger = LoggerFactory.getLogger(User.class);
 
 	@Id
-	public Long id;
+	private Long id;
 
 	@Required(message = "Username cannot be empty")
-	public String username;
+	private String username;
 
 	@Required(message = "Password cannot be empty")
-	public String password;
+	private String password;
 
-	public String realname;
+	private String realname;
 
 	@Required(message = "User type cannot be empty")
-	public String userType;
+	private String userType;
 
 	@Required(message = "Status cannot be empty")
-	public Boolean status;
+	private Boolean status;
 
-	public String createBy, modifiedBy;
+	private String createBy, modifiedBy;
 
-	public Date createDate, modifiedDate, lastLoginDate;
+	private Date createDate, modifiedDate, lastLoginDate;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Bracelet> bracelets;
 
 	/* the following are service methods */
 	public static User login(LoginForm form) {
-		List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", form.username)
-				.eq("password", form.password).eq("status", true).findList();
+		List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", form.getUsername())
+				.eq("password", form.getPassword()).eq("status", true).findList();
 		if (CollectionUtils.size(users) > 0) {
 			return users.get(0);
 		}
@@ -66,9 +66,13 @@ public class User {
 	public static User findById(Long id) {
 		return Ebean.find(User.class, id);
 	}
-	
+
 	public static User store(User user) {
-		Ebean.save(user);
+		if (user != null && user.id > 0) {
+			Ebean.update(user);
+		} else {
+			Ebean.save(user);
+		}
 		return user;
 	}
 
@@ -90,6 +94,102 @@ public class User {
 		pagination.recordCount = page.getTotalRowCount();
 		return pagination;
 
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Date getLastLoginDate() {
+		return lastLoginDate;
+	}
+
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
+
+	public List<Bracelet> getBracelets() {
+		return bracelets;
+	}
+
+	public void setBracelets(List<Bracelet> bracelets) {
+		this.bracelets = bracelets;
 	}
 
 }

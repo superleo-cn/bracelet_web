@@ -17,6 +17,7 @@
 		    <li><a href="#tab_2" data-toggle="tab" ng-click="switchTab('plusChart')">{{'index.plus_chart' | translate}}</a></li>
 		    <li><a href="#tab_3" data-toggle="tab" ng-click="switchTab('motionChart')">{{'index.motion_chart' | translate}}</a></li>
 		    <li><a href="#tab_4" data-toggle="tab" ng-click="switchTab('bloodPressureChart')">{{'index.blood_pressure_chart' | translate}}</a></li>
+		    <li><a href="#tab_5" data-toggle="tab" ng-click="switchTab('integratedData')">综合数据</a></li>
 		    <li class="pull-right">
 	           Real time
 	           <div class="btn-group" id="temperatureBtn" data-toggle="btn-toggle">
@@ -93,6 +94,46 @@
 			                </div>
 			                <div class="box-body">
 			                    <div id="bloodPressureChart" style="height: 300px;"></div>
+			                </div><!-- /.box-body-->
+			            </div><!-- /.box -->
+			        </div><!-- /.col -->
+			    </div><!-- /.row -->
+		    </div>
+		    
+		    <div class="tab-pane" id="tab_5">
+			    <div class="row">
+			        <div class="col-xs-12">
+			            <!-- plus chart -->
+			            <div class="box box-primary">
+			                <div class="box-header">
+			                    <i class="fa fa-bar-chart-o"></i>
+			                    <h3 class="box-title">综合数据</h3>
+			                   
+			                </div>
+			                <div class="box-body table-responsive no-padding">
+						        <table class="table table-hover">
+						            <tbody>
+							            <tr>
+							                <td>体温</td>
+							                <td><span class="label label-success">正常</span> </td>
+							            </tr>
+							            <tr>
+							                <td>脉搏</td>
+							                <td><span class="label label-warning">一般</span> </td>
+							            </tr>
+							            <tr>
+							                <td>血压</td>
+							                <td><span class="label label-success">正常</span> </td>
+							            </tr>
+							            <tr>
+							                <td>运动</td>
+							                <td><span class="label label-danger">异常</span> </td>
+							            </tr>
+							           	<tr>
+							                <td colspan="2"><button class="btn btn-primary btn-sm">发送紧急消息</button> </td>
+							           	</tr>
+							        </tbody>
+						        </table>
 			                </div><!-- /.box-body-->
 			            </div><!-- /.box -->
 			        </div><!-- /.col -->

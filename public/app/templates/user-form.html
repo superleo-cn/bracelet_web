@@ -11,12 +11,16 @@
 
 <!-- Main content -->
 <section class="content">
+	<div class="alert alert-dismissable">
+		<i class="fa fa-check"></i>
+        <span> </span>
+    </div>
 	<div class="box box-primary">
         <form role="form">
             <div class="box-body">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter Username" required="required" ng-model="user.username">
+                    <input type="text" class="form-control" id="username" placeholder="Enter Username" ng-readonly="user.username != null && user.username != ''"  required="required" ng-model="user.username">
                 </div>
                 <div class="form-group">
                     <label for="realname">Name</label>
@@ -28,13 +32,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="userStatus">Status {{user.status}}</label>
-                    <select class="form-control" ng-model="user.status" ng-options="o.v as o.n for o in [{ n: '正常', v: '----' }, { n: '正常', v: true }, { n: '停用', v: false }]">
+                    <label for="userStatus">Status</label>
+                    <select class="form-control" ng-model="user.status" ng-options="o.v as o.n for o in [{ n: '正常', v: true }, { n: '停用', v: false }]">
                     </select>
                 </div>
             </div>
             <div class="box-footer">
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" ng-click="store()">Save</button>
                 <button type="button" class="btn btn-primary margin" ng-click="redirect('#users')">Cancel</button>
             </div>
         </form>

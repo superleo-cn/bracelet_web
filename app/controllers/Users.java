@@ -3,7 +3,11 @@ package controllers;
 import java.util.Date;
 
 import models.User;
+
+import org.springframework.beans.BeanUtils;
+
 import play.data.Form;
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -13,6 +17,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import constants.Constants;
 import constants.Messages;
+import forms.UserForm;
 
 public class Users extends Controller {
 
@@ -45,25 +50,27 @@ public class Users extends Controller {
 		}
 		return ok(result);
 	}
-	
+
+	@Transactional
 	public static Result store() {
 		ObjectNode result = Json.newObject();
-		User form = new User();
+		UserForm form = new UserForm();
 		try {
-			form = Form.form(User.class).bindFromRequest().get();
-			if(form.id != null && form.id > 0){
-				User dbUser = User.findById(form.id);
-				dbUser.realname = form.realname;
-				dbUser.userType = form.userType;
-				dbUser.status = form.status;
-				dbUser.modifiedDate = new Date();
-				dbUser.modifiedBy = session(Constants.CURRENT_USERID);
+			form = Form.form(UserForm.class).bindFromRequest().get();
+			if (form.getId() != null && form.getId() > 0) {
+				User dbUser = User.findById(form.getId());
+				dbUser.setRealname(form.getRealname());
+				dbUser.setUserType(form.getUserType());
+				dbUser.setStatus(form.getStatus());
+				dbUser.setModifiedDate(new Date());
+				dbUser.setModifiedBy(session(Constants.CURRENT_USERID));
 				User.store(dbUser);
-			}else{
-				form.password = "123456";
-				form.createDate = new Date();
-				form.createBy = session(Constants.CURRENT_USERID);
-				User.store(form);
+			} else {
+				User newUser = new User();
+				BeanUtils.copyProperties(form, newUser);
+				newUser.setCreateDate(new Date());
+				newUser.setCreateBy(session(Constants.CURRENT_USERID));
+				User.store(newUser);
 			}
 			result.put(Constants.CODE, Constants.SUCCESS);
 			result.put(Constants.MESSAGE, "Store User Successfully.");

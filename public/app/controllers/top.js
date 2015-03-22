@@ -3,6 +3,8 @@ define(['/app/controllers/module.js'], function (controllers) {
     controllers.controller("TopCtrl", function($http, $rootScope, $scope, $translate, $cookies) {
     	$scope.logout = function() {
     		$rootScope.url = "/logoutJson";
+    		$rootScope.params = {};
+    		$rootScope.data = {};
     		$rootScope.method = "POST";
 	    	$rootScope.template(function(data, status) {
 	    		$rootScope.redirect("/");

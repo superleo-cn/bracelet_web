@@ -2,11 +2,11 @@ package forms;
 
 public class LoginForm {
 
-	public Long id;
+	private Long id;
 
-	public String username;
+	private String username;
 
-	public String password;
+	private String password;
 
 	public Long getId() {
 		return id;
