@@ -49,21 +49,14 @@ define([
             $translate.use(key);
         };
         
-        // show success message;
-        $rootScope.successMsg = function(div, msg) {
-            $(div).removeClass("alert-danger").addClass("alert-success");
-            $(div + " span").html(msg);
-            $(div).show();
-        };
-        
-        // show error message;
-        $rootScope.errorMsg = function(div, msg) {
-            $(div).removeClass("alert-success").addClass("alert-danger");
-            $(div + " span").html(msg);
-            $(div).show();
-        };
-        
-        // close alert box
+        // redirect URL
+	    $rootScope.redirect = function(url){
+		    $timeout(function(){
+				$window.location.href = url;
+			}, 100);
+    	};
+    	
+    	// close alert box
         $('.close').click(function(event) {
         	$('.alert').hide();
         	return;
@@ -86,18 +79,6 @@ define([
 	    		$rootScope.status = status;
 	    	});
 	    };
-	    
-	    // redirect URL
-	    $rootScope.redirect = function(url){
-		    $timeout(function(){
-				$window.location.href = url;
-			}, 100);
-    	};
-    	
-    	// get current login Uer
-	    $rootScope.getCurrentUser = function(){
-	    	$rootScope.currentUser.braceletId = $("#braceletId").val();
-    	};
     	
     	// authentication
     	$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
@@ -105,15 +86,6 @@ define([
 	    });
 	    
     });
-    
-	app.filter('yyyyMMdd', function($filter){
-	    return function(input){
-	        if(input == null){ 
-				return ""; 
-			}
-	        return $filter('date')(new Date(input), 'yyyy-MM-dd');
-	    };
-	});
-    
+
     return app;
 });

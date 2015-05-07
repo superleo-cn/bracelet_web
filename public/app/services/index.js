@@ -6,6 +6,8 @@
  * which avails each service of, for example, the `config` constants object.
  **/
 define([
+        '/app/services/constants.js',
     	'/app/services/version.js',
-    	'/app/services/auth.js'
+    	'/app/services/auth.js',
+    	'/app/services/messages.js'
     ], function () {});

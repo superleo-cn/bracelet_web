@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js', 'pagination'], function (controllers) {
 	'use strict';
-    controllers.controller("BraceletForm", function($http, $rootScope, $scope, $translate, $stateParams, Constants) {
+    controllers.controller("BraceletForm", function($http, $rootScope, $scope, $translate, $stateParams, Constants, MessageService) {
     	
     	$scope.bracelet = {};
     	var id = $stateParams.id; 
@@ -24,9 +24,9 @@ define(['/app/controllers/module.js', 'pagination'], function (controllers) {
 	    	debugger;
         	$rootScope.template(function(data, status) {
         		if(data.code == Constants.SUCCESS){
-					$rootScope.successMsg(".alert", "Store successfully.");
+        			MessageService.successMsg(".alert", "Store successfully.");
 				}else{
-					$rootScope.errorMsg(".alert", "Store failed.");
+					MessageService.errorMsg(".alert", "Store failed.");
 				}
         	});
     	};

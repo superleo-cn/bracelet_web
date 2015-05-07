@@ -270,8 +270,8 @@
                                 <li class="user-header bg-light-blue">
                                     <img src="../img/avatar04.png" class="img-circle" alt="User Image" />
                                     <p>
-                                        @realname - 普通用户
-                                        <small>Member since Nov. 2012</small>
+                                        {{currentUser.current_realname}} - {{currentUser.current_role}}
+                                        <small>Member since {{currentUser.current_create_date}}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -334,7 +334,7 @@
                                 <i class="fa fa-th"></i> <span>{{'index.about' | translate}}</span> <small class="badge pull-right bg-green">new</small>
                             </a>
                         </li>
-                        <li ng-if="isAdmin()">
+                        <li ng-if="isUser()">
                             <a ui-sref="realtime">
                                 <i class="fa fa-dashboard"></i> <span>{{'index.realtime' | translate}}</span>
                             </a>

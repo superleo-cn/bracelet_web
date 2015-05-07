@@ -29,7 +29,7 @@
 						<td>{{ obj.username }}</td>
 						<td>{{ obj.realname }}</td>
 						<td>{{ obj.userType }}</td>
-						<td>{{ obj.createDate | yyyyMMdd }}</td>
+						<td>{{ obj.createDate | ddMMyyyy }}</td>
 						<td> 
 							<span class="label" ng-class="{'label-success': obj.status == true, 'label-danger' : obj.status == false }"> 
 								{{ obj.status == true ? 'global.status_active' : "global.status_inactive"  | translate }} 

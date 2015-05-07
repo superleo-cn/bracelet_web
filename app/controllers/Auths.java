@@ -4,6 +4,7 @@ import models.User;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +60,7 @@ public class Auths extends Basic {
 				response().setCookie(Constants.CURRENT_USERNAME, String.valueOf(dbUser.getUsername()), 864000);
 				response().setCookie(Constants.CURRENT_USER_REALNAME, String.valueOf(dbUser.getRealname()), 864000);
 				response().setCookie(Constants.CURRENT_ROLE, String.valueOf(dbUser.getUserType()), 864000);
-
+				response().setCookie(Constants.CURRENT_CREATE_DATE, DateFormatUtils.format(dbUser.getCreateDate(), "dd/MM/yyyy"), 864000);
 			} else {
 				result.put(Constants.CODE, Constants.FAILURE);
 				result.put(Constants.MESSAGE, Messages.LOGIN_FAILURE);

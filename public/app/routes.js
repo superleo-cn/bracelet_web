@@ -30,6 +30,7 @@ define(['app', 'jquery.cookie'], function(app) {
 	    .state('about', {
 	    	url: '/about',
 	    	templateUrl: 'assets/app/templates/about.html',
+	    	controller: 'About',
 	    	roles: ['admin', 'user', 'doctor']
 	    })
 	    .state('users', {
