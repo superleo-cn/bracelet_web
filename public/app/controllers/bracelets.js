@@ -1,12 +1,9 @@
 define(['/app/controllers/module.js', 'pagination'], function (controllers) {
 	'use strict';
-    controllers.controller("Bracelets", function($http, $rootScope, $scope, $translate) {
-    	
-    	$rootScope.method = "POST";
-    	$rootScope.url = '/bracelets';
-    	$rootScope.datas = {};
-    	$rootScope.data = {};
-        $rootScope.params = {};
+    controllers.controller("Bracelets", function($http, $rootScope, $scope, $translate, HttpService) {
+        HttpService.url = '/bracelets';
+    	HttpService.postParams = {};
+    	HttpService.getParams = {};
     	
     	$scope.pagination = function(data, status) {
     		if (data.datas.recordList) {
@@ -27,10 +24,10 @@ define(['/app/controllers/module.js', 'pagination'], function (controllers) {
     			items : data.datas.recordCount,
     			itemsOnPage : data.datas.pageSize,
     			cssStyle : 'compact-theme',
-    			hrefTextPrefix: "#/users?page-",
+    			hrefTextPrefix: "#/bracelets?page-",
     			onPageClick : function(pageNumber) {
-    				$rootScope.params = {"currentPage" : pageNumber};
-    				$rootScope.template($scope.fetch);
+    				HttpService.postParams = {"currentPage" : pageNumber};
+    				HttpService.post($scope.fetch);
     			}
     		});
     	};
@@ -41,7 +38,7 @@ define(['/app/controllers/module.js', 'pagination'], function (controllers) {
     		$scope.total = data.datas.recordCount;
     	};
     	
-    	$rootScope.template($scope.pagination);
+    	HttpService.post($scope.pagination);
     	
 	})
 });

@@ -1,13 +1,13 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("TopCtrl", function($http, $rootScope, $scope, $translate, $cookies) {
+    controllers.controller("TopCtrl", function($http, $rootScope, $scope, $translate, $cookies, HttpService) {
     	$scope.currentUser = {};
+    	
     	$scope.logout = function() {
-    		$rootScope.url = "/logoutJson";
-    		$rootScope.params = {};
-    		$rootScope.data = {};
-    		$rootScope.method = "POST";
-	    	$rootScope.template(function(data, status) {
+    		HttpService.url = "/logoutJson";
+    		HttpService.postParams = {};
+         	HttpService.getParams = {};
+         	HttpService.post(function(data, status) {
 	    		$rootScope.redirect("/");
 	    	});
  	    }

@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Realtime", function($http, $rootScope, $scope, $translate) {
+    controllers.controller("Realtime", function($http, $rootScope, $scope, $translate, HttpService) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -15,8 +15,9 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    
 	    // Report URL
 	    var braceletId = $("#braceletId").val();
-	    $rootScope.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
-	    $rootScope.method = 'GET';
+	    HttpService.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
+	    HttpService.postParams = {};
+     	HttpService.getParams = {};
 	    
 	    /*
 	     * INITIALIZE BUTTON TOGGLE
@@ -64,8 +65,8 @@ define(['/app/controllers/module.js'], function (controllers) {
         	if (realtime === "on"){
 	        	// We use an inline data source in the example, usually data would
 	            // be fetched from a server
-	        	$rootScope.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
-	        	$rootScope.template(function(data, status) {
+        		HttpService.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
+        		HttpService.get(function(data, status) {
 	  		    	var temperatureDatas = [];
 	  		    	var plusDatas = [];
 	  		    	var motionDatas = [];

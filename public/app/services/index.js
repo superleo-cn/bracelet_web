@@ -9,5 +9,6 @@ define([
         '/app/services/constants.js',
     	'/app/services/version.js',
     	'/app/services/auth.js',
-    	'/app/services/messages.js'
+    	'/app/services/messages.js',
+    	'/app/services/http.js'
     ], function () {});

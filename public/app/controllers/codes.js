@@ -1,19 +1,16 @@
 define(['/app/controllers/module.js', 'pagination'], function (controllers) {
 	'use strict';
-    controllers.controller("Codes", function($http, $rootScope, $scope, $translate) {
-    	
-    	$rootScope.method = "POST";
-    	$rootScope.url = '/codes';
-    	$rootScope.datas = {};
-    	$rootScope.data = {};
-        $rootScope.params = {};
+    controllers.controller("Codes", function($http, $rootScope, $scope, $translate, HttpService) {
+    	HttpService.url = '/codes';
+    	HttpService.postParams = {};
+    	HttpService.getParams = {};
     	
     	$scope.pagination = function(data, status) {
     		if (data.datas.recordList) {
     			$scope.status = status;
     			$scope.datas = data.datas.recordList;
     		} else {
-    			$scope.data = {};
+    			$scope.datas = {};
     			$scope.total = 0;
     		}
     		// reset the pagination
@@ -24,7 +21,7 @@ define(['/app/controllers/module.js', 'pagination'], function (controllers) {
     			hrefTextPrefix: "#/codes?page-",
     			onPageClick : function(pageNumber) {
     				$rootScope.datas = {"currentPage" : pageNumber};
-    				$rootScope.template($scope.fetch);
+    				HttpService.post($scope.fetch);
     			}
     		});
     	};
@@ -35,7 +32,7 @@ define(['/app/controllers/module.js', 'pagination'], function (controllers) {
     		$scope.total = data.datas.recordCount;
     	};
     	
-    	$rootScope.template($scope.pagination);
+    	HttpService.post($scope.pagination);
     	
 	})
 });

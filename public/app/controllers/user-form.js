@@ -1,16 +1,15 @@
 define(['/app/controllers/module.js', 'pagination'], function (controllers) {
 	'use strict';
-    controllers.controller("UserForm", function($http, $rootScope, $scope, $translate, $stateParams, Constants, MessageService) {
-    	
+    controllers.controller("UserForm", function($http, $rootScope, $scope, $translate, $stateParams, Constants, MessageService, HttpService) {
     	$scope.user = {};
     	var id = $stateParams.id; 
     	
     	// get edit user
     	$scope.query = function(id) {
-    		$rootScope.method = "GET";
-        	$rootScope.url = '/users/' + id;
-        	$rootScope.data = {};
-        	$rootScope.template(function(data, status) {
+    		HttpService.url = '/users/' + id;
+    		HttpService.postParams = {};
+         	HttpService.getParams = {};
+        	HttpService.get(function(data, status) {
         		$scope.status = status;
         		$scope.user = data.datas;
         	});
@@ -18,11 +17,10 @@ define(['/app/controllers/module.js', 'pagination'], function (controllers) {
     	
     	// store user
     	$scope.store = function() {
-    		$rootScope.method = "POST";
-        	$rootScope.url = '/users/store';
-	    	$rootScope.data = $scope.user;
-	    	debugger;
-        	$rootScope.template(function(data, status) {
+    		HttpService.url = '/users/store';
+    		HttpService.postParams = $scope.user;
+         	HttpService.getParams = {};
+         	HttpService.post(function(data, status) {
         		if(data.code == Constants.SUCCESS){
         			MessageService.successMsg(".alert", "Store successfully.");
 				}else{

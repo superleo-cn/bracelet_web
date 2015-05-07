@@ -61,24 +61,6 @@ define([
         	$('.alert').hide();
         	return;
         })
-        
-        // my ajax template
-        $rootScope.currentUser = {};
-        $rootScope.data = {};
-        $rootScope.params = {};
-        $rootScope.method = "POST";
-    	$rootScope.template = function(operation) {
-	    	$http({
-	    		method: $rootScope.method, 
-	    		url: $rootScope.url, 
-	    		params: $rootScope.params,
-	    		data: $rootScope.data
-	    	}).success(operation)
-	    	.error(function(data, status) {
-	    		$rootScope.data = data || "Request failed";
-	    		$rootScope.status = status;
-	    	});
-	    };
     	
     	// authentication
     	$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){

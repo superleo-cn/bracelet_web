@@ -1,8 +1,10 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Login", function($rootScope, $http, $scope, $translate, Constants, MessageService) {
+    controllers.controller("Login", function($rootScope, $http, $scope, $translate, Constants, MessageService, HttpService) {
 	    // My login URL
-    	$rootScope.url = $("#form").prop("action");
+    	HttpService.url = $("#form").prop("action");
+     	HttpService.postParams = {};
+     	HttpService.getParams = {};
 	    
 	    /*
 	     * INITIALIZE BUTTON ACTION
@@ -10,14 +12,15 @@ define(['/app/controllers/module.js'], function (controllers) {
 	     * The login function
 	     */
 	    $scope.login = function() {
-	    	$rootScope.template($scope.fetch);
+	    	HttpService.postParams = $scope.params;
+	    	HttpService.post($scope.fetch);
 	    }
 	    
 	    $scope.lockLogin = function() {
-	    	$rootScope.url = $("#url").val();
-	    	$rootScope.data.username = $("#username").val();
-	    	$rootScope.data.password = $("#password").val();
-	    	$rootScope.template($scope.fetch);
+	    	HttpService.url = $("#url").val();
+	    	HttpService.postParams.username = $("#username").val();
+	    	HttpService.postParams.password = $("#password").val();
+	    	HttpService.post($scope.fetch);
 	    }
 	    
 	    $scope.fetch = function(data, status) {

@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("History", function($http, $rootScope, $scope, $translate) {
+    controllers.controller("History", function($http, $rootScope, $scope, $translate, HttpService) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -12,10 +12,10 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    
 	    // Report URL
 	    var braceletId = $("#braceletId").val();
-	    $rootScope.url = '/api/findHistoryList/' + braceletId + '/day/' + getDateTime();
-	    $rootScope.method = 'GET';
-	    
-	    
+	    HttpService.url = '/api/findHistoryList/' + braceletId + '/day/' + getDateTime();
+	    HttpService.postParams = {};
+     	HttpService.getParams = {};
+     	
 		/*
          * Flot Interactive Chart
          * -----------------------
@@ -46,8 +46,8 @@ define(['/app/controllers/module.js'], function (controllers) {
         function update(type) {
         	// We use an inline data source in the example, usually data would
             // be fetched from a server
-        	$rootScope.url = '/api/findHistoryList/' + braceletId + '/' + type + '/' + getDateTime();
-        	$rootScope.template(function(data, status) {
+        	HttpService.url = '/api/findHistoryList/' + braceletId + '/' + type + '/' + getDateTime();
+        	HttpService.get(function(data, status) {
   		    	var temperatureDatas = [];
   		    	var plusDatas = [];
   		    	var motionDatas = [];
