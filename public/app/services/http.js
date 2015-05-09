@@ -32,6 +32,22 @@ define(['/app/services/module.js'], function (services) {
 	    		this.status = status;
 	    	});
         }
+        
 	});
     
+    services.factory("RestService", function($resource) {
+    	this.postParams = {};
+    	this.getParams = {};
+    	this.url = "";
+    	this.message = "";
+    	this.status = "";
+    	return $resource(
+    		'/loginJson',
+    		{},
+            {
+                "loginJson": {method: "POST", params: this.postParams, isArray: false}
+            }
+        );
+	});
+
 });

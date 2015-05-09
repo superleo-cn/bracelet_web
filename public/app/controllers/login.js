@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Login", function($rootScope, $http, $scope, $translate, Constants, MessageService, HttpService) {
+    controllers.controller("Login", function($rootScope, $scope, $translate, Constants, MessageService, HttpService) {
 	    // My login URL
     	HttpService.url = $("#form").prop("action");
      	HttpService.postParams = {};

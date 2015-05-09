@@ -2,6 +2,7 @@ define([
     'angular',
     'uiRouter',
     'ngCookies',
+    'ngResource',
     'translate',
     'loaderStaticFiles',
     'storagekey',
@@ -21,7 +22,8 @@ define([
 		'app.services',
 		'ui.router',
 		'pascalprecht.translate',
-		'ngCookies'
+		'ngCookies',
+		'ngResource'    
     ]);
     
     app.config(['$translateProvider', function ($translateProvider) {
