@@ -14,6 +14,7 @@
 	<div class="form-group">
         <label>Please select your bracelet:</label>
         <select
+        	ng-change="changeBracelet()"
         	class="form-control"
 		    ng-model="braceletId"
 		    ng-options="value.braceletId as value.name for value in bracelets">

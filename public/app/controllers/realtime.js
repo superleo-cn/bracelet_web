@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Realtime", function($http, $rootScope, $scope, $translate, $cookies, HttpService) {
+    controllers.controller("Realtime", function($http, $rootScope, $scope, $translate, $cookies, $stateParams, HttpService, Constants) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -15,16 +15,40 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    
 	    var updateInterval = 5000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
-	    // Report URL
-	    $scope.bracelets = jQuery.parseJSON(jQuery.parseJSON($cookies.current_bracelets));
-	    $scope.braceletId = "0";
-	    if($scope.bracelets == null || $scope.bracelets.length == 0){
-	    	realtime = "off";
-	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
-	    }else{
-	    	$scope.braceletId = $scope.bracelets[0].braceletId;
-	    }
+        var id = $stateParams.id; 
+        $scope.braceletId = "0";
+        if(id != null && id != ""){
+        	HttpService.url = '/braceletsByUserId/' + id;
+     	    HttpService.postParams = {};
+          	HttpService.getParams = {};
+          	HttpService.get(function(data, status) {
+          		if(data){
+    				if(data.code == Constants.SUCCESS){
+    					$scope.bracelets = data.datas;
+    					if($scope.bracelets == null || $scope.bracelets.length == 0){
+    		     	    	realtime = "off";
+    		     	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+    		     	    }else{
+    		     	    	$scope.braceletId = $scope.bracelets[0].braceletId;
+    		     	    	update();
+    		     	    }
+    				}else{
+    					realtime = "off";
+    			    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+    				}
+    			}
+        	});
+        }else{
+        	$scope.bracelets = jQuery.parseJSON(jQuery.parseJSON($cookies.current_bracelets));
+     	    if($scope.bracelets == null || $scope.bracelets.length == 0){
+     	    	realtime = "off";
+     	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+     	    }else{
+     	    	$scope.braceletId = $scope.bracelets[0].braceletId;
+     	    }
+        }
 	    
+        // Report URL
 	    HttpService.url = '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime();
 	    HttpService.postParams = {};
      	HttpService.getParams = {};
@@ -66,6 +90,10 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    	}else if("integratedData" == chart){
 	    		flag = 5;
 	    	}
+	    	update();
+	    };
+	    
+	    $scope.changeBracelet = function(){
 	    	update();
 	    };
 	    

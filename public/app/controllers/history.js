@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("History", function($http, $rootScope, $scope, $translate, $cookies, HttpService) {
+    controllers.controller("History", function($http, $rootScope, $scope, $translate, $cookies, $stateParams, HttpService, Constants) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -10,16 +10,39 @@ define(['/app/controllers/module.js'], function (controllers) {
 	       return val;
 	    }
 	    
+	    ////
+        var id = $stateParams.id; 
+        $scope.braceletId = "0";
+        if(id != null && id != ""){
+        	HttpService.url = '/braceletsByUserId/' + id;
+     	    HttpService.postParams = {};
+          	HttpService.getParams = {};
+          	HttpService.get(function(data, status) {
+          		if(data){
+    				if(data.code == Constants.SUCCESS){
+    					$scope.bracelets = data.datas;
+    					if($scope.bracelets == null || $scope.bracelets.length == 0){
+    		     	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+    		     	    }else{
+    		     	    	$scope.braceletId = $scope.bracelets[0].braceletId;
+    		     	    	update("day");
+    		     	    }
+    				}else{
+    			    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+    				}
+    			}
+        	});
+        }else{
+     	    $scope.bracelets = jQuery.parseJSON(jQuery.parseJSON($cookies.current_bracelets));
+     	    $scope.braceletId = "0";
+     	    if($scope.bracelets == null || $scope.bracelets.length == 0){
+     	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+     	    }else{
+     	    	$scope.braceletId = $scope.bracelets[0].braceletId;
+     	    }
+        }
 	    
-	    // Report URL
- 	    $scope.bracelets = jQuery.parseJSON(jQuery.parseJSON($cookies.current_bracelets));
- 	    $scope.braceletId = "0";
- 	    if($scope.bracelets == null || $scope.bracelets.length == 0){
- 	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
- 	    }else{
- 	    	$scope.braceletId = $scope.bracelets[0].braceletId;
- 	    }
- 	    
+        // Report URL
 	    HttpService.url = '/api/findHistoryList/' + $scope.braceletId + '/day/' + getDateTime();
 	    HttpService.postParams = {};
      	HttpService.getParams = {};
@@ -53,7 +76,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    	}
 	    };
 	    
-	    $scope.changeBracelet = function(type){
+	    $scope.changeBracelet = function(){
 	    	if($scope.braceletId != "0"){
 	    		update("day");
 	    	}

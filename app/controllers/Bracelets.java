@@ -1,10 +1,12 @@
 package controllers;
 
 import java.util.Date;
+import java.util.List;
+
+import models.Bracelet;
 
 import org.springframework.beans.BeanUtils;
 
-import models.Bracelet;
 import play.data.Form;
 import play.db.ebean.Transactional;
 import play.libs.Json;
@@ -43,6 +45,20 @@ public class Bracelets extends Controller {
 			Bracelet bracelet = Bracelet.findById(id);
 			result.put(Constants.CODE, Constants.SUCCESS);
 			result.put(Constants.DATAS, Json.toJson(bracelet));
+		} catch (Exception e) {
+			result.put(Constants.CODE, Constants.ERROR);
+			result.put(Constants.MESSAGE, Messages.QUERY_ERROR);
+
+		}
+		return ok(result);
+	}
+	
+	public static Result findByUserId(Long id) {
+		ObjectNode result = Json.newObject();
+		try {
+			List<Bracelet> bracelets = Bracelet.findByUserId(id);
+			result.put(Constants.CODE, Constants.SUCCESS);
+			result.put(Constants.DATAS, Json.toJson(bracelets));
 		} catch (Exception e) {
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, Messages.QUERY_ERROR);
