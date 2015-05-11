@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("Realtime", function($http, $rootScope, $scope, $translate, HttpService) {
+    controllers.controller("Realtime", function($http, $rootScope, $scope, $translate, $cookies, HttpService) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -13,9 +13,19 @@ define(['/app/controllers/module.js'], function (controllers) {
 	       return val;
 	    }
 	    
+	    var updateInterval = 5000; //Fetch data ever x milliseconds
+        var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
 	    // Report URL
-	    var braceletId = $("#braceletId").val();
-	    HttpService.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
+	    $scope.bracelets = jQuery.parseJSON(jQuery.parseJSON($cookies.current_bracelets));
+	    $scope.braceletId = "0";
+	    if($scope.bracelets == null || $scope.bracelets.length == 0){
+	    	realtime = "off";
+	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+	    }else{
+	    	$scope.braceletId = $scope.bracelets[0].braceletId;
+	    }
+	    
+	    HttpService.url = '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime();
 	    HttpService.postParams = {};
      	HttpService.getParams = {};
 	    
@@ -59,13 +69,11 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    	update();
 	    };
 	    
-        var updateInterval = 5000; //Fetch data ever x milliseconds
-        var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
         function update() {
         	if (realtime === "on"){
 	        	// We use an inline data source in the example, usually data would
 	            // be fetched from a server
-        		HttpService.url = '/api/findRealtimeList/' + braceletId + '/' + getDateTime();
+        		HttpService.url = '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime();
         		HttpService.get(function(data, status) {
 	  		    	var temperatureDatas = [];
 	  		    	var plusDatas = [];

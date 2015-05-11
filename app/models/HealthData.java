@@ -54,6 +54,7 @@ public class HealthData {
 			if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
 				Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
 				Date startDate = DateUtils.addMinutes(lastDate, -10);
+				expList.where().eq("braceletId", braceletId);
 				expList.where().ge("createDate", startDate);
 				expList.where().le("createDate", lastDate);
 			}

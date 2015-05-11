@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
-    controllers.controller("History", function($http, $rootScope, $scope, $translate, HttpService) {
+    controllers.controller("History", function($http, $rootScope, $scope, $translate, $cookies, HttpService) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
@@ -10,9 +10,17 @@ define(['/app/controllers/module.js'], function (controllers) {
 	       return val;
 	    }
 	    
+	    
 	    // Report URL
-	    var braceletId = $("#braceletId").val();
-	    HttpService.url = '/api/findHistoryList/' + braceletId + '/day/' + getDateTime();
+ 	    $scope.bracelets = jQuery.parseJSON(jQuery.parseJSON($cookies.current_bracelets));
+ 	    $scope.braceletId = "0";
+ 	    if($scope.bracelets == null || $scope.bracelets.length == 0){
+ 	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
+ 	    }else{
+ 	    	$scope.braceletId = $scope.bracelets[0].braceletId;
+ 	    }
+ 	    
+	    HttpService.url = '/api/findHistoryList/' + $scope.braceletId + '/day/' + getDateTime();
 	    HttpService.postParams = {};
      	HttpService.getParams = {};
      	
@@ -40,13 +48,21 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    };
 	    
 	    $scope.swithType = function(type){
-	    	update(type);
+	    	if($scope.braceletId != "0"){
+	    		update(type);
+	    	}
+	    };
+	    
+	    $scope.changeBracelet = function(type){
+	    	if($scope.braceletId != "0"){
+	    		update("day");
+	    	}
 	    };
 	    
         function update(type) {
         	// We use an inline data source in the example, usually data would
             // be fetched from a server
-        	HttpService.url = '/api/findHistoryList/' + braceletId + '/' + type + '/' + getDateTime();
+        	HttpService.url = '/api/findHistoryList/' + $scope.braceletId + '/' + type + '/' + getDateTime();
         	HttpService.get(function(data, status) {
   		    	var temperatureDatas = [];
   		    	var plusDatas = [];

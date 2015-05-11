@@ -11,6 +11,17 @@
 
 <!-- Main content -->
 <section class="content">
+	<div class="form-group">
+        <label>Please select your bracelet:</label>
+        <select
+        	class="form-control"
+        	ng-change="changeBracelet()"
+		    ng-model="braceletId"
+		    ng-options="value.braceletId as value.name for value in bracelets">
+		    <option>--</option>
+		</select>
+    </div>
+    
 	<div class="nav-tabs-custom">
 		<ul class="nav nav-tabs">
 		    <li class="active"><a href="#tab_1" data-toggle="tab" ng-click="switchTab('temperatureChart')">{{'index.temperature_chart' | translate}}</a></li>

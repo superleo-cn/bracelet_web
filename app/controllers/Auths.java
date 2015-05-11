@@ -15,6 +15,7 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import constants.Constants;
@@ -51,15 +52,15 @@ public class Auths extends Basic {
 				// user.lastLoginDate = new Date();
 				// User.store(user);
 				// dbUser.shop = dbUser.getMyShop();
-				copyValueForJSON(dbUser);
+				String json = copyValueForJSON(dbUser);
 				session(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()));
-				session(Constants.CURRENT_BRACELET_ID, myBraceletIds(dbUser));
 				session(Constants.CURRENT_USERNAME, dbUser.getUsername());
 				session(Constants.CURRENT_USER_REALNAME, dbUser.getRealname());
 				result.put(Constants.CODE, Constants.SUCCESS);
 				result.put(Constants.MESSAGE, Messages.LOGIN_SUCCESS);
 				result.put(Constants.DATAS, Json.toJson(dbUser));
 				response().setCookie(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()), 864000);
+				response().setCookie(Constants.CURRENT_BRACELETS, json, 864000);
 				response().setCookie(Constants.CURRENT_USERNAME, String.valueOf(dbUser.getUsername()), 864000);
 				response().setCookie(Constants.CURRENT_USER_REALNAME, String.valueOf(dbUser.getRealname()), 864000);
 				response().setCookie(Constants.CURRENT_ROLE, String.valueOf(dbUser.getUserType()), 864000);
@@ -83,14 +84,17 @@ public class Auths extends Basic {
 		return StringUtils.EMPTY;
 	}
 
-	public static void copyValueForJSON(User dbUser) {
+	public static String copyValueForJSON(User dbUser) {
 		if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
 			dbUser.bracelets.stream().forEach(b -> {
 				BraceletVO vo = new BraceletVO();
 				BeanUtils.copyProperties(b, vo);
 				dbUser.getBraceletList().add(vo);
 			});
+
 		}
+		JsonNode node = Json.toJson(dbUser.getBraceletList());
+		return node.toString();
 	}
 
 	public static Result logoutJson() {

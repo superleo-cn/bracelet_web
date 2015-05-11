@@ -13,9 +13,12 @@
 <section class="content">
 	<div class="form-group">
         <label>Please select your bracelet:</label>
-        <select class="form-control">
-            <option>option 1</option>
-        </select>
+        <select
+        	class="form-control"
+		    ng-model="braceletId"
+		    ng-options="value.braceletId as value.name for value in bracelets">
+		    <option>--</option>
+		</select>
     </div>
 
 	<div class="nav-tabs-custom">
