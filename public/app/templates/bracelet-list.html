@@ -19,6 +19,7 @@
 		                <th>{{'bracelets.id' | translate}}</th>
 		                <th>{{'bracelets.bracelet_id' | translate}}</th>
 		                <th>{{'bracelets.name' | translate}}</th>
+		                <th>{{'bracelets.username' | translate}}</th>
 		                <th>{{'bracelets.type' | translate}}</th>
 		                <th>{{'bracelets.date' | translate}}</th>
 		                <th>{{'bracelets.status' | translate}}</th>
@@ -28,6 +29,7 @@
 						<td>{{ obj.id }}</td>
 						<td>{{ obj.braceletId }}</td>
 						<td>{{ obj.name }}</td>
+						<td>{{ obj.user.realname }}</td>
 						<td>{{ obj.type }}</td>
 						<td>{{ obj.createDate | yyyyMMdd }}</td>
 						<td> 
@@ -36,7 +38,7 @@
 							</span> 
 						</td>
 						<td>
-							<a ui-sref="bracelet({id: obj.id})">
+							<a ng-if="isAdmin()" ui-sref="bracelet({id: obj.id})">
 								<i class="fa fa-edit"></i> Edit
 	               			</a>
                       	</td>

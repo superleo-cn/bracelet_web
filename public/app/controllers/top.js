@@ -1,7 +1,7 @@
 define(['/app/controllers/module.js'], function (controllers) {
 	'use strict';
     controllers.controller("TopCtrl", function($http, $rootScope, $scope, $translate, $cookies, HttpService) {
-    	$scope.currentUser = {};
+    	$rootScope.currentUser = {};
     	
     	$scope.logout = function() {
     		HttpService.url = "/logoutJson";
@@ -12,16 +12,11 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    	});
  	    }
     	
-    	if($cookies.current_id == null || $cookies.current_id == ""){
-			$rootScope.redirect("#users");
-			event.preventDefault();
-		};
-    	
-		$scope.currentUser.current_id = $cookies.current_id;
-		$scope.currentUser.current_username = $cookies.current_username;
-		$scope.currentUser.current_realname = $cookies.current_realname;
-		$scope.currentUser.current_role = $cookies.current_role;
-		$scope.currentUser.current_create_date = $cookies.current_create_date;
+    	$rootScope.currentUser.current_id = $cookies.current_id;
+    	$rootScope.currentUser.current_username = $cookies.current_username;
+    	$rootScope.currentUser.current_realname = $cookies.current_realname;
+    	$rootScope.currentUser.current_role = $cookies.current_role;
+    	$rootScope.currentUser.current_create_date = $cookies.current_create_date;
 		
 	})
 });

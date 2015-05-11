@@ -45,7 +45,7 @@ define([
 	}]);
     
     // global function
-    app.run(function($http, $rootScope, $cookieStore, $timeout, $window, $translate, $state, $cookies) {
+    app.run(function($http, $rootScope, $cookieStore, $timeout, $window, $translate, $state, $cookies, $location, AuthService) {
     	 // change language
         $rootScope.setLang = function(key) {
             $translate.use(key);
@@ -63,6 +63,30 @@ define([
         	$('.alert').hide();
         	return;
         })
+        
+        $rootScope.isLogin = function(){
+        	return AuthService.isLogin($cookies);
+        };
+        
+        $rootScope.isAdmin = function(){
+    		return AuthService.isAdmin($cookies);
+    	};
+    	
+    	$rootScope.isUser = function(){
+    		return AuthService.isUser($cookies);
+    	};
+    	
+    	$rootScope.isDoctor = function(){
+    		return AuthService.isDoctor($cookies);
+    	}
+    	
+    	if($rootScope.isLogin()){
+    		if($rootScope.isAdmin() || $rootScope.isDoctor()){
+        		$location.path('/users');
+        	} else {
+        		$location.path('/realtime');
+        	}
+    	}
     	
     	// authentication
     	$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){

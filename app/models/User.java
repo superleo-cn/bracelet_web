@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -20,7 +22,9 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Page;
 import com.avaje.ebean.PagingList;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import forms.BraceletVO;
 import forms.LoginForm;
 
 @Entity
@@ -50,6 +54,10 @@ public class User {
 
 	private Date createDate, modifiedDate, lastLoginDate;
 
+	@Transient
+	private List<BraceletVO> braceletList = new ArrayList<>();
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Bracelet> bracelets;
 
@@ -190,6 +198,14 @@ public class User {
 
 	public void setBracelets(List<Bracelet> bracelets) {
 		this.bracelets = bracelets;
+	}
+
+	public List<BraceletVO> getBraceletList() {
+		return braceletList;
+	}
+
+	public void setBraceletList(List<BraceletVO> braceletList) {
+		this.braceletList = braceletList;
 	}
 
 }

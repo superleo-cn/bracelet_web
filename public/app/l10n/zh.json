@@ -49,6 +49,7 @@
 		"id" : "ID",
 		"bracelet_id" : "手环ID",
 		"name" : "手环名称",
+		"username" : "手环主人",
 		"type" : "类型",
 		"date" : "激活日期",
 		"status" : "状态"

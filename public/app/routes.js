@@ -11,7 +11,7 @@ define(['app', 'jquery.cookie'], function(app) {
 		};
     	
 		// For any unmatched url, redirect to /state1
-		$urlRouterProvider.otherwise("/realtime");
+		// $urlRouterProvider.otherwise("/realtime");
 		
 		// Now set up the states
 		$stateProvider

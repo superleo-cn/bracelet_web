@@ -36,8 +36,12 @@
 							</span> 
 						</td>
 						<td>
-							<a ui-sref="user({id: obj.id})">
+							<a ng-if="isAdmin()" ui-sref="user({id: obj.id})">
 								<i class="fa fa-edit"></i> Edit
+	               			</a>
+	               			<a ng-if="isAdmin() || isDoctor()" ui-sref="bracelet({id: obj.id})">
+	               				<br />
+								<i class="fa fa-bar-chart"></i> View Data
 	               			</a>
                       	</td>
 					</tr>	 

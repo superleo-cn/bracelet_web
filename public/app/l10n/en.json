@@ -49,6 +49,7 @@
 		"id" : "ID",
 		"bracelet_id" : "Bracelet ID",
 		"name" : "Name",
+		"username" : "Owner",
 		"type" : "Type",
 		"date" : "Active Date",
 		"status" : "Status"

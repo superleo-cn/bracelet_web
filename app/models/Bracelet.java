@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,6 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.Page;
 import com.avaje.ebean.PagingList;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_bracelet")
@@ -44,8 +44,7 @@ public class Bracelet {
 
 	private Date createDate, modifiedDate;
 
-	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
@@ -55,17 +54,17 @@ public class Bracelet {
 	}
 
 	public static Bracelet findByBraceletId(String braceletId) {
-		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").findUnique();
+		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").fetch("user", "user.username").findUnique();
 	}
 
 	public static List<Bracelet> findByUserId(Long userId) {
-		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").where().eq("user.id", userId).eq("status", true).findList();
+		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").fetch("user", "user.username").where().eq("user.id", userId).eq("status", true).findList();
 	}
 
 	public static Pagination findAll(Pagination pagination) {
 		try {
 			pagination = pagination == null ? new Pagination() : pagination;
-			ExpressionList<Bracelet> expList = Ebean.find(Bracelet.class).where();
+			ExpressionList<Bracelet> expList = Ebean.find(Bracelet.class).fetch("user", "user.username").where();
 			PagingList<Bracelet> pagingList = expList.findPagingList(pagination.pageSize);
 			pagingList.setFetchAhead(false);
 			expList.orderBy("createDate desc");

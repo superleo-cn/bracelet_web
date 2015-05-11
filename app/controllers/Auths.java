@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.stream.Collectors;
+
 import models.User;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -7,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 
 import play.data.Form;
 import play.libs.Json;
@@ -16,6 +19,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import constants.Constants;
 import constants.Messages;
+import forms.BraceletVO;
 import forms.LoginForm;
 
 public class Auths extends Basic {
@@ -47,10 +51,9 @@ public class Auths extends Basic {
 				// user.lastLoginDate = new Date();
 				// User.store(user);
 				// dbUser.shop = dbUser.getMyShop();
+				copyValueForJSON(dbUser);
 				session(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()));
-				if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
-					session(Constants.CURRENT_BRACELET_ID, String.valueOf(dbUser.bracelets.get(0).getBraceletId()));
-				}
+				session(Constants.CURRENT_BRACELET_ID, myBraceletIds(dbUser));
 				session(Constants.CURRENT_USERNAME, dbUser.getUsername());
 				session(Constants.CURRENT_USER_REALNAME, dbUser.getRealname());
 				result.put(Constants.CODE, Constants.SUCCESS);
@@ -71,6 +74,23 @@ public class Auths extends Basic {
 			logger.error(Messages.LOGIN_ERROR_MESSAGE, new Object[] { form.getUsername(), e });
 		}
 		return ok(result);
+	}
+
+	public static String myBraceletIds(User dbUser) {
+		if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
+			return dbUser.bracelets.stream().map(e -> e.getId().toString()).collect(Collectors.joining(","));
+		}
+		return StringUtils.EMPTY;
+	}
+
+	public static void copyValueForJSON(User dbUser) {
+		if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
+			dbUser.bracelets.stream().forEach(b -> {
+				BraceletVO vo = new BraceletVO();
+				BeanUtils.copyProperties(b, vo);
+				dbUser.getBraceletList().add(vo);
+			});
+		}
 	}
 
 	public static Result logoutJson() {

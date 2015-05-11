@@ -329,11 +329,6 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                    	<li>
-                            <a ui-sref="about">
-                                <i class="fa fa-th"></i> <span>{{'index.about' | translate}}</span> <small class="badge pull-right bg-green">new</small>
-                            </a>
-                        </li>
                         <li ng-if="isUser()">
                             <a ui-sref="realtime">
                                 <i class="fa fa-dashboard"></i> <span>{{'index.realtime' | translate}}</span>
@@ -349,7 +344,7 @@
                                 <i class="fa fa-users"></i> <span>{{'index.users' | translate}}</span>
                             </a>
                         </li>
-                        <li ng-if="isAdmin()">
+                        <li ng-if="isAdmin() || isDoctor()">
                             <a ui-sref="bracelets">
                                 <i class="fa fa-circle-o-notch"></i> <span>{{'index.bracelets' | translate}}</span>
                             </a>
@@ -362,6 +357,11 @@
                         <li ng-if="isUser()">
                             <a ui-sref="timeline">
                                 <i class="fa fa-calendar"></i> <span>事件</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="about">
+                                <i class="fa fa-th"></i> <span>{{'index.about' | translate}}</span> <small class="badge pull-right bg-green">new</small>
                             </a>
                         </li>
                         

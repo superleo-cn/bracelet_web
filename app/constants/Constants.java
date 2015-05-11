@@ -31,11 +31,10 @@ public class Constants {
 	public static String PATTERN_YYYYMMDD = "yyyyMMdd";
 
 	// current user info
-	public static String USERTYPE_SUPER_ADMIN = "SUPERADMIN";
-	public static String USERTYPE_ADMIN = "ADMIN";
-	public static String USERTYPE_OPERATOR = "OPERATOR";
-	public static String USERTYPE_CASHIER = "CASHIER";
-	public static List<String> LOGIN_USERTYPS = Arrays.asList(new String[] { USERTYPE_SUPER_ADMIN, USERTYPE_ADMIN, USERTYPE_OPERATOR });
+	public static String USERTYPE_ADMIN = "Admin";
+	public static String USERTYPE_DOCTOR = "Doctor";
+	public static String USERTYPE_USER = "User";
+	public static List<String> LOGIN_USERTYPS = Arrays.asList(new String[] { USERTYPE_ADMIN, USERTYPE_DOCTOR, USERTYPE_USER });
 
 	// current user info
 	public static String CURRENT_USERID = "current_id";
