@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -17,6 +18,8 @@ import utils.MyDateUtils;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.Page;
+import com.avaje.ebean.PagingList;
 
 import constants.Constants;
 
@@ -71,7 +74,6 @@ public class HealthData {
 		try {
 			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
 			if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
-				Date paramDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDD);
 				List<Date> days = new ArrayList<>();
 				if (StringUtils.equals(type, "day")) {
 					days = MyDateUtils.getDateByDay();
@@ -107,6 +109,27 @@ public class HealthData {
 			return expList.findList();
 		} catch (Exception e) {
 			logger.error("[findList] -> [exception]", e);
+		}
+		return null;
+	}
+
+	// interface
+	public static HealthData findLatest(String braceletId) {
+		try {
+			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
+			if (StringUtils.isNotEmpty(braceletId)) {
+				PagingList<HealthData> pagingList = expList.findPagingList(1);
+				expList.where().eq("braceletId", braceletId);
+				pagingList.setFetchAhead(false);
+				expList.orderBy("createDate desc");
+				Page<HealthData> page = pagingList.getPage(0);
+				List<HealthData> list = page.getList();
+				if (CollectionUtils.isNotEmpty(list)) {
+					return list.get(0);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("[findLatest] -> [exception]", e);
 		}
 		return null;
 	}

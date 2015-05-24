@@ -75,6 +75,19 @@ public class HealthDatas extends Controller {
 		return ok(result);
 	}
 
+	public static Result findLatest(String braceletId) {
+		ObjectNode result = Json.newObject();
+		try {
+			result.put(Constants.CODE, Constants.SUCCESS);
+			result.put(Constants.DATAS, Json.toJson(HealthData.findLatest(braceletId)));
+		} catch (Exception e) {
+			result.put(Constants.CODE, Constants.ERROR);
+			result.put(Constants.MESSAGE, Messages.HEALTH_DATA_LIST_ERROR);
+			logger.error(Messages.HEALTH_DATA_LIST_ERROR_MESSAGE, new Object[] { braceletId, e });
+		}
+		return ok(result);
+	}
+
 	public static Result updateUrgentList(List<Long> ids) {
 		ObjectNode result = Json.newObject();
 		try {
