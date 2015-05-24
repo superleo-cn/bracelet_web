@@ -84,7 +84,7 @@ define([
     		if($rootScope.isAdmin() || $rootScope.isDoctor()){
         		$location.path('/users');
         	} else {
-        		$location.path('/realtime');
+        		$location.path('/realtime/');
         	}
     	}
     	

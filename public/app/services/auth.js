@@ -2,6 +2,13 @@ define(['/app/services/module.js'], function (services) {
     'use strict';
     services.service("AuthService", function(Constants){
 
+		this.currentUserId = function($cookies){
+			if($cookies.current_id != null && $cookies.current_id != ""){
+				return $cookies.current_id;
+			}
+			return null;
+		};
+
     	this.isLogin = function($cookies){
     		if($cookies.current_id != null && $cookies.current_id != ""){
     			return true;
