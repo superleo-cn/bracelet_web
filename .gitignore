@@ -15,6 +15,10 @@ conf/evolutions/
 .project
 .settings/
 
+# idea
+.idea
+bracelet_web.iml
+
 # Package Files #
 *.war
 *.ear
