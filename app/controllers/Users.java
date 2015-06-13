@@ -97,13 +97,13 @@ public class Users extends Controller {
 					result.put(Constants.CODE, Constants.SUCCESS);
 					result.put(Constants.MESSAGE, "Register User Successfully.");
 				}else{
-					result.put(Constants.CODE, Constants.SUCCESS);
+					result.put(Constants.CODE, Constants.FAILURE);
 					result.put(Constants.MESSAGE, "The Username is exist, please input a new one.");
 				}
 			}
 		} catch (Exception e) {
 			result.put(Constants.CODE, Constants.ERROR);
-			result.put(Constants.MESSAGE, Messages.QUERY_ERROR);
+			result.put(Constants.MESSAGE, "Register User Error Happened.");
 
 		}
 		return ok(result);
