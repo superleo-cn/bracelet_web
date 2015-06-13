@@ -91,8 +91,8 @@ public class Users extends Controller {
 					dbUser.setRealname(form.getRealname());
 					dbUser.setUserType(form.getUserType());
 					dbUser.setStatus(form.getStatus());
-					dbUser.setModifiedDate(new Date());
-					dbUser.setModifiedBy(session(Constants.CURRENT_USERID));
+					dbUser.setCreateDate(new Date());
+					dbUser.setCreateBy(form.getUsername());
 					User.store(dbUser);
 					result.put(Constants.CODE, Constants.SUCCESS);
 					result.put(Constants.MESSAGE, "Register User Successfully.");
