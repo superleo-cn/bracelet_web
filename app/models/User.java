@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import constants.Constants;
+import forms.UserForm;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +77,10 @@ public class User {
 		return Ebean.find(User.class, id);
 	}
 
+	public static User findByUsername(String username) {
+		return Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", username).findUnique();
+	}
+
 	public static User store(User user) {
 		if (user != null && user.id > 0) {
 			Ebean.update(user);
@@ -101,7 +107,19 @@ public class User {
 		pagination.pageCount = page.getTotalPageCount();
 		pagination.recordCount = page.getTotalRowCount();
 		return pagination;
+	}
 
+	public static User register(UserForm form) {
+		User user = new User();
+		user.setUsername(form.getUsername());
+		user.setPassword(form.getPassword());
+		user.setRealname(form.getRealname());
+		user.setStatus(true);
+		user.setCreateDate(new Date());
+		user.setCreateBy(form.getUsername());
+		user.setUserType(Constants.USERTYPE_USER);
+		store(user);
+		return user;
 	}
 
 	public Long getId() {

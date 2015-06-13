@@ -4,6 +4,7 @@ import java.util.Date;
 
 import models.User;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import play.data.Form;
@@ -23,9 +24,8 @@ public class Users extends Controller {
 
 	public static Result findAll() {
 		ObjectNode result = Json.newObject();
-		Pagination pagination = new Pagination();
 		try {
-			pagination = Form.form(Pagination.class).bindFromRequest().get();
+			Pagination pagination = Form.form(Pagination.class).bindFromRequest().get();
 			pagination = User.findAll(pagination);
 			result.put(Constants.CODE, Constants.SUCCESS);
 			result.put(Constants.DATAS, Json.toJson(pagination));
@@ -54,9 +54,8 @@ public class Users extends Controller {
 	@Transactional
 	public static Result store() {
 		ObjectNode result = Json.newObject();
-		UserForm form = new UserForm();
 		try {
-			form = Form.form(UserForm.class).bindFromRequest().get();
+			UserForm form = Form.form(UserForm.class).bindFromRequest().get();
 			if (form.getId() != null && form.getId() > 0) {
 				User dbUser = User.findById(form.getId());
 				dbUser.setRealname(form.getRealname());
@@ -74,6 +73,34 @@ public class Users extends Controller {
 			}
 			result.put(Constants.CODE, Constants.SUCCESS);
 			result.put(Constants.MESSAGE, "Store User Successfully.");
+		} catch (Exception e) {
+			result.put(Constants.CODE, Constants.ERROR);
+			result.put(Constants.MESSAGE, Messages.QUERY_ERROR);
+
+		}
+		return ok(result);
+	}
+
+	public static Result register() {
+		ObjectNode result = Json.newObject();
+		try {
+			UserForm form = Form.form(UserForm.class).bindFromRequest().get();
+			if (StringUtils.isNotEmpty(form.getUsername())) {
+				User dbUser = User.findByUsername(form.getUsername());
+				if(dbUser == null){
+					dbUser.setRealname(form.getRealname());
+					dbUser.setUserType(form.getUserType());
+					dbUser.setStatus(form.getStatus());
+					dbUser.setModifiedDate(new Date());
+					dbUser.setModifiedBy(session(Constants.CURRENT_USERID));
+					User.store(dbUser);
+					result.put(Constants.CODE, Constants.SUCCESS);
+					result.put(Constants.MESSAGE, "Register User Successfully.");
+				}else{
+					result.put(Constants.CODE, Constants.SUCCESS);
+					result.put(Constants.MESSAGE, "The Username is exist, please input a new one.");
+				}
+			}
 		} catch (Exception e) {
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, Messages.QUERY_ERROR);

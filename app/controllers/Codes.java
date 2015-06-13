@@ -16,9 +16,8 @@ public class Codes extends Controller {
 
 	public static Result findAll() {
 		ObjectNode result = Json.newObject();
-		Pagination pagination = new Pagination();
 		try {
-			pagination = Form.form(Pagination.class).bindFromRequest().get();
+			Pagination pagination = Form.form(Pagination.class).bindFromRequest().get();
 			pagination = Code.findAll(pagination);
 			result.put(Constants.CODE, Constants.SUCCESS);
 			result.put(Constants.DATAS, Json.toJson(pagination));
