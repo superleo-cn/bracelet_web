@@ -27,3 +27,5 @@ TaskKey[Unit]("stop") := {
   s"kill $pid".!
   println(s"Stopped application with process ID $pid")
 }
+
+fork in run := true

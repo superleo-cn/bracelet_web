@@ -14,6 +14,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import utils.Pagination;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import constants.Constants;
@@ -21,6 +24,8 @@ import constants.Messages;
 import forms.UserForm;
 
 public class Users extends Controller {
+    
+    final static Logger logger = LoggerFactory.getLogger(Users.class);
 
 	public static Result findAll() {
 		ObjectNode result = Json.newObject();
@@ -88,12 +93,7 @@ public class Users extends Controller {
 			if (StringUtils.isNotEmpty(form.getUsername())) {
 				User dbUser = User.findByUsername(form.getUsername());
 				if(dbUser == null){
-					dbUser.setRealname(form.getRealname());
-					dbUser.setUserType(form.getUserType());
-					dbUser.setStatus(form.getStatus());
-					dbUser.setModifiedDate(new Date());
-					dbUser.setModifiedBy(session(Constants.CURRENT_USERID));
-					User.store(dbUser);
+					User.register(form);
 					result.put(Constants.CODE, Constants.SUCCESS);
 					result.put(Constants.MESSAGE, "Register User Successfully.");
 				}else{
@@ -102,6 +102,7 @@ public class Users extends Controller {
 				}
 			}
 		} catch (Exception e) {
+		    logger.error("[register] -> [exception]", e);
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, "Register User Error Happened.");
 
