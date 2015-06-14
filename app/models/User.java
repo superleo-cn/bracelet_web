@@ -82,7 +82,7 @@ public class User {
 	}
 
 	public static User store(User user) {
-		if (user != null && user.id > 0) {
+		if (user != null && user.id != null && user.id > 0) {
 			Ebean.update(user);
 		} else {
 			Ebean.save(user);
