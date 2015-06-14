@@ -38,8 +38,8 @@ define(['/app/controllers/module.js'], function (controllers) {
     				}
     			}
         	});
-        }else{
-        	$scope.bracelets = jQuery.parseJSON(jQuery.parseJSON($cookies.current_bracelets));
+        }else
+        	$scope.bracelets = jQuery.parseJSON($cookies.current_bracelets);
      	    if($scope.bracelets == null || $scope.bracelets.length == 0){
      	    	realtime = "off";
      	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
