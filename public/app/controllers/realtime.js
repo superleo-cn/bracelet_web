@@ -38,7 +38,7 @@ define(['/app/controllers/module.js'], function (controllers) {
     				}
     			}
         	});
-        }else
+        }else{
         	$scope.bracelets = jQuery.parseJSON($cookies.current_bracelets);
      	    if($scope.bracelets == null || $scope.bracelets.length == 0){
      	    	realtime = "off";
