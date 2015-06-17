@@ -138,7 +138,7 @@ public class Users extends Controller {
 		} catch (Exception e) {
 			logger.error("[register] -> [exception]", e);
 			result.put(Constants.CODE, Constants.ERROR);
-			result.put(Constants.MESSAGE, "updateProfile User Error Happened.");
+			result.put(Constants.MESSAGE, "Update Profile User Error Happened.");
 
 		}
 		return ok(result);
