@@ -14,6 +14,12 @@ public class UserForm {
 
 	private Boolean status;
 
+	private Integer age;
+
+	private Float weight, height;
+
+	private String gender;
+
 	public Long getId() {
 		return id;
 	}
@@ -62,4 +68,35 @@ public class UserForm {
 		this.status = status;
 	}
 
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Float getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Float weight) {
+		this.weight = weight;
+	}
+
+	public Float getHeight() {
+		return height;
+	}
+
+	public void setHeight(Float height) {
+		this.height = height;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 }

@@ -66,6 +66,10 @@ public class Users extends Controller {
 				dbUser.setRealname(form.getRealname());
 				dbUser.setUserType(form.getUserType());
 				dbUser.setStatus(form.getStatus());
+				dbUser.setGender(form.getGender());
+				dbUser.setAge(form.getAge());
+				dbUser.setWeight(form.getWeight());
+				dbUser.setHeight(form.getHeight());
 				dbUser.setModifiedDate(new Date());
 				dbUser.setModifiedBy(session(Constants.CURRENT_USERID));
 				User.store(dbUser);
@@ -105,6 +109,36 @@ public class Users extends Controller {
 		    logger.error("[register] -> [exception]", e);
 			result.put(Constants.CODE, Constants.ERROR);
 			result.put(Constants.MESSAGE, "Register User Error Happened.");
+
+		}
+		return ok(result);
+	}
+
+	public static Result updateProfile() {
+		ObjectNode result = Json.newObject();
+		try {
+			UserForm form = Form.form(UserForm.class).bindFromRequest().get();
+			if (StringUtils.isNotEmpty(form.getUsername())) {
+				User dbUser = User.findByUsername(form.getUsername());
+				if(dbUser == null){
+					result.put(Constants.CODE, Constants.FAILURE);
+					result.put(Constants.MESSAGE, "The user doesn't exist.");
+				}else{
+					dbUser.setGender(form.getGender());
+					dbUser.setAge(form.getAge());
+					dbUser.setWeight(form.getWeight());
+					dbUser.setHeight(form.getHeight());
+					dbUser.setModifiedDate(new Date());
+					dbUser.setModifiedBy(form.getUsername());
+					User.store(dbUser);
+					result.put(Constants.CODE, Constants.SUCCESS);
+					result.put(Constants.MESSAGE, "Update successfully.");
+				}
+			}
+		} catch (Exception e) {
+			logger.error("[register] -> [exception]", e);
+			result.put(Constants.CODE, Constants.ERROR);
+			result.put(Constants.MESSAGE, "updateProfile User Error Happened.");
 
 		}
 		return ok(result);

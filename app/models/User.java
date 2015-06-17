@@ -33,197 +33,234 @@ import forms.LoginForm;
 @Table(name = "tb_user")
 public class User {
 
-	final static Logger logger = LoggerFactory.getLogger(User.class);
+    final static Logger logger = LoggerFactory.getLogger(User.class);
 
-	@Id
-	private Long id;
+    @Id
+    private Long id;
 
-	@Required(message = "Username cannot be empty")
-	private String username;
+    @Required(message = "Username cannot be empty")
+    private String username;
 
-	@Required(message = "Password cannot be empty")
-	private String password;
+    @Required(message = "Password cannot be empty")
+    private String password;
 
-	private String realname;
+    private String realname;
 
-	@Required(message = "User type cannot be empty")
-	private String userType;
+    @Required(message = "User type cannot be empty")
+    private String userType;
 
-	@Required(message = "Status cannot be empty")
-	private Boolean status;
+    @Required(message = "Status cannot be empty")
+    private Boolean status;
 
-	private String createBy, modifiedBy;
+    private Integer age;
 
-	private Date createDate, modifiedDate, lastLoginDate;
+    private Float weight, height;
 
-	@Transient
-	private List<BraceletVO> braceletList = new ArrayList<>();
+    private String gender;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	public List<Bracelet> bracelets;
+    private String createBy, modifiedBy;
 
-	/* the following are service methods */
-	public static User login(LoginForm form) {
-		List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", form.getUsername())
-				.eq("password", form.getPassword()).eq("status", true).findList();
-		if (CollectionUtils.size(users) > 0) {
-			return users.get(0);
-		}
-		return null;
-	}
+    private Date createDate, modifiedDate, lastLoginDate;
 
-	public static User findById(Long id) {
-		return Ebean.find(User.class, id);
-	}
+    @Transient
+    private List<BraceletVO> braceletList = new ArrayList<>();
 
-	public static User findByUsername(String username) {
-		return Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", username).findUnique();
-	}
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    public List<Bracelet> bracelets;
 
-	public static User store(User user) {
-		if (user != null && user.id != null && user.id > 0) {
-			Ebean.update(user);
-		} else {
-			Ebean.save(user);
-		}
-		return user;
-	}
+    /* the following are service methods */
+    public static User login(LoginForm form) {
+        List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", form.getUsername())
+                .eq("password", form.getPassword()).eq("status", true).findList();
+        if (CollectionUtils.size(users) > 0) {
+            return users.get(0);
+        }
+        return null;
+    }
 
-	public static List<User> findAll() {
-		ExpressionList<User> expList = Ebean.find(User.class).where();
-		expList.orderBy("createDate desc");
-		return expList.findList();
-	}
+    public static User findById(Long id) {
+        return Ebean.find(User.class, id);
+    }
 
-	public static Pagination findAll(Pagination pagination) {
-		pagination = pagination == null ? new Pagination() : pagination;
-		ExpressionList<User> expList = Ebean.find(User.class).where();
-		PagingList<User> pagingList = expList.findPagingList(pagination.pageSize);
-		pagingList.setFetchAhead(false);
-		expList.orderBy("createDate desc");
-		Page<User> page = pagingList.getPage(pagination.currentPage - 1);
-		pagination.recordList = page.getList();
-		pagination.pageCount = page.getTotalPageCount();
-		pagination.recordCount = page.getTotalRowCount();
-		return pagination;
-	}
+    public static User findByUsername(String username) {
+        return Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", username).findUnique();
+    }
 
-	public static User register(UserForm form) {
-		User user = new User();
-		user.setUsername(form.getUsername());
-		user.setPassword(form.getPassword());
-		user.setRealname(form.getRealname());
-		user.setStatus(true);
-		user.setCreateDate(new Date());
-		user.setCreateBy(form.getUsername());
-		user.setUserType(Constants.USERTYPE_USER);
-		store(user);
-		return user;
-	}
+    public static User store(User user) {
+        if (user != null && user.id != null && user.id > 0) {
+            Ebean.update(user);
+        } else {
+            Ebean.save(user);
+        }
+        return user;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public static List<User> findAll() {
+        ExpressionList<User> expList = Ebean.find(User.class).where();
+        expList.orderBy("createDate desc");
+        return expList.findList();
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public static Pagination findAll(Pagination pagination) {
+        pagination = pagination == null ? new Pagination() : pagination;
+        ExpressionList<User> expList = Ebean.find(User.class).where();
+        PagingList<User> pagingList = expList.findPagingList(pagination.pageSize);
+        pagingList.setFetchAhead(false);
+        expList.orderBy("createDate desc");
+        Page<User> page = pagingList.getPage(pagination.currentPage - 1);
+        pagination.recordList = page.getList();
+        pagination.pageCount = page.getTotalPageCount();
+        pagination.recordCount = page.getTotalRowCount();
+        return pagination;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public static User register(UserForm form) {
+        User user = new User();
+        user.setUsername(form.getUsername());
+        user.setPassword(form.getPassword());
+        user.setRealname(form.getRealname());
+        user.setStatus(true);
+        user.setCreateDate(new Date());
+        user.setCreateBy(form.getUsername());
+        user.setUserType(Constants.USERTYPE_USER);
+        store(user);
+        return user;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getRealname() {
-		return realname;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setRealname(String realname) {
-		this.realname = realname;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getUserType() {
-		return userType;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
+    public String getRealname() {
+        return realname;
+    }
 
-	public Boolean getStatus() {
-		return status;
-	}
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+    public String getUserType() {
+        return userType;
+    }
 
-	public String getCreateBy() {
-		return createBy;
-	}
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
-	public void setCreateBy(String createBy) {
-		this.createBy = createBy;
-	}
+    public Boolean getStatus() {
+        return status;
+    }
 
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
+    public String getCreateBy() {
+        return createBy;
+    }
 
-	public Date getCreateDate() {
-		return createDate;
-	}
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
 
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
 
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
+    public Date getCreateDate() {
+        return createDate;
+    }
 
-	public Date getLastLoginDate() {
-		return lastLoginDate;
-	}
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
 
-	public List<Bracelet> getBracelets() {
-		return bracelets;
-	}
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
 
-	public void setBracelets(List<Bracelet> bracelets) {
-		this.bracelets = bracelets;
-	}
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
 
-	public List<BraceletVO> getBraceletList() {
-		return braceletList;
-	}
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
 
-	public void setBraceletList(List<BraceletVO> braceletList) {
-		this.braceletList = braceletList;
-	}
+    public List<Bracelet> getBracelets() {
+        return bracelets;
+    }
 
+    public void setBracelets(List<Bracelet> bracelets) {
+        this.bracelets = bracelets;
+    }
+
+    public List<BraceletVO> getBraceletList() {
+        return braceletList;
+    }
+
+    public void setBraceletList(List<BraceletVO> braceletList) {
+        this.braceletList = braceletList;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }

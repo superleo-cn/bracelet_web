@@ -20,7 +20,7 @@ POST        /codes                                              controllers.Code
 
 # Register
 POST        /api/userRegister                                   controllers.Users.register()
-
+POST        /api/updateProfile                                   controllers.Users.updateProfile()
 
 # Report
 GET         /api/findRealtimeList/:braceletId/:date             controllers.HealthDatas.findRealtimeList(braceletId: String, date: String)

@@ -27,12 +27,29 @@
                     <input type="text" class="form-control" id="realname" placeholder="Enter Name" required="required" ng-model="user.realname">
                 </div>
                 <div class="form-group">
-                    <label for="userType">Type</label>
+                    <label>Type</label>
                     <select class="form-control" ng-model="user.userType" ng-options="o.v as o.n for o in [{ n: 'User', v: 'User' }, { n: 'Doctor', v: 'Doctor' }, { n: 'Administrator', v: 'Admin' }]">
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="userStatus">Status</label>
+                    <label>Gender</label>
+                    <select class="form-control" ng-model="user.gender" ng-options="o.v as o.n for o in [{ n: '男', v: 'M' }, { n: '女', v: 'F' }]">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" class="form-control" id="age" placeholder="Enter Age" required="required" ng-model="user.age" size="2" min="1" max="99">
+                </div>
+                <div class="form-group">
+                    <label>Height(cm)</label>
+                    <input type="number" class="form-control" id="height" placeholder="Enter Height" required="required" ng-model="user.height" size="3" min="1" max="300">
+                </div>
+                <div class="form-group">
+                    <label>Weight(kg)</label>
+                    <input type="number" class="form-control" id="weight" placeholder="Enter Weight" required="required" ng-model="user.weight" size="5" min="1" max="500">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
                     <select class="form-control" ng-model="user.status" ng-options="o.v as o.n for o in [{ n: '正常', v: true }, { n: '停用', v: false }]">
                     </select>
                 </div>
