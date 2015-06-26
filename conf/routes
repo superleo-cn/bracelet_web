@@ -36,7 +36,8 @@ POST        /api/findUrgentByBracelet/:braceletId               controllers.Heal
 POST        /api/findLatest/:braceletId                         controllers.HealthDatas.findLatest(braceletId: String)
 GET         /api/findLatest/:braceletId                         controllers.HealthDatas.findLatest(braceletId: String)
 POST        /api/updateUrgentList                               controllers.HealthDatas.updateUrgentList(ids: java.util.List[java.lang.Long])
-
+GET         /api/findAnalysisData/:braceletId/:date             controllers.HealthDatas.findAnalysisData(braceletId: String, date: String)
+POST        /api/findAnalysisData/:braceletId/:date             controllers.HealthDatas.findAnalysisData(braceletId: String, date: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                       controllers.Assets.at(path="/public", file)
