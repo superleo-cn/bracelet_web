@@ -25,7 +25,7 @@
 	<div class="nav-tabs-custom">
 		<ul class="nav nav-tabs">
 		    <li class="active"><a href="#tab_1" data-toggle="tab" ng-click="switchTab('temperatureChart')">{{'index.temperature_chart' | translate}}</a></li>
-		    <li><a href="#tab_2" data-toggle="tab" ng-click="switchTab('plusChart')">{{'index.plus_chart' | translate}}</a></li>
+		    <li><a href="#tab_2" data-toggle="tab" ng-click="switchTab('pulseChart')">{{'index.plus_chart' | translate}}</a></li>
 		    <li><a href="#tab_3" data-toggle="tab" ng-click="switchTab('motionChart')">{{'index.motion_chart' | translate}}</a></li>
 		    <li><a href="#tab_4" data-toggle="tab" ng-click="switchTab('bloodPressureChart')">{{'index.blood_pressure_chart' | translate}}</a></li>
 		    <li><a href="#tab_5" data-toggle="tab" ng-click="switchTab('integratedData')">综合数据</a></li>
@@ -43,16 +43,7 @@
 			    <div class="row">
 			        <div class="col-xs-12">
 			            <!-- temperature chart -->
-			            <div class="box box-primary">
-			                <div class="box-header">
-			                    <i class="fa fa-bar-chart-o"></i>
-			                    <h3 class="box-title">{{'index.temperature_chart' | translate}}</h3>
-			                    
-			                </div>
-			                <div class="box-body">
-			                    <div id="temperatureChart" style="height: 300px;"></div>
-			                </div><!-- /.box-body-->
-			            </div><!-- /.box -->
+						<div id="temperatureChart" style="height: 300px;"></div>
 			        </div><!-- /.col -->
 			    </div><!-- /.row -->
 		    </div>
@@ -61,16 +52,7 @@
 			    <div class="row">
 			        <div class="col-xs-12">
 			            <!-- plus chart -->
-			            <div class="box box-primary">
-			                <div class="box-header">
-			                    <i class="fa fa-bar-chart-o"></i>
-			                    <h3 class="box-title">{{'index.plus_chart' | translate}}</h3>
-			                   
-			                </div>
-			                <div class="box-body">
-			                    <div id="plusChart" style="height: 300px;"></div>
-			                </div><!-- /.box-body-->
-			            </div><!-- /.box -->
+						<div id="pulseChart" style="height: 300px"></div>
 			        </div><!-- /.col -->
 			    </div><!-- /.row -->
 			</div>
@@ -79,16 +61,7 @@
 			    <div class="row">
 			        <div class="col-xs-12">
 			            <!-- plus chart -->
-			            <div class="box box-primary">
-			                <div class="box-header">
-			                    <i class="fa fa-bar-chart-o"></i>
-			                    <h3 class="box-title">{{'index.motion_chart' | translate}}</h3>
-			                   
-			                </div>
-			                <div class="box-body">
-			                    <div id="motionChart" style="height: 300px;"></div>
-			                </div><!-- /.box-body-->
-			            </div><!-- /.box -->
+						<div id="motionChart" style="height: 300px;"></div>
 			        </div><!-- /.col -->
 			    </div><!-- /.row -->
 		    </div>
@@ -97,16 +70,7 @@
 			    <div class="row">
 			        <div class="col-xs-12">
 			            <!-- plus chart -->
-			            <div class="box box-primary">
-			                <div class="box-header">
-			                    <i class="fa fa-bar-chart-o"></i>
-			                    <h3 class="box-title">{{'index.blood_pressure_chart' | translate}}</h3>
-			                   
-			                </div>
-			                <div class="box-body">
-			                    <div id="bloodPressureChart" style="height: 300px;"></div>
-			                </div><!-- /.box-body-->
-			            </div><!-- /.box -->
+						<div id="bloodPressureChart" style="height: 300px;"></div>
 			        </div><!-- /.col -->
 			    </div><!-- /.row -->
 		    </div>

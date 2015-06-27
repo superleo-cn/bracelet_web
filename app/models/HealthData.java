@@ -56,7 +56,7 @@ public class HealthData {
 			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
 			if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
 				Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
-				Date startDate = DateUtils.addMinutes(lastDate, -10);
+				Date startDate = DateUtils.addSeconds(lastDate, -5);
 				expList.where().eq("braceletId", braceletId);
 				expList.where().ge("createDate", startDate);
 				expList.where().le("createDate", lastDate);

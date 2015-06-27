@@ -1,4 +1,4 @@
-define(['/app/controllers/module.js', 'highstock'], function (controllers) {
+define(['/app/controllers/module.js', 'highstock'], function (controllers, highstock) {
 	'use strict';
     controllers.controller("History", function($http, $rootScope, $scope, $translate, $cookies, $stateParams, HttpService, Constants) {
     	// get DateTime yyyyMMddHHmmss
@@ -39,7 +39,6 @@ define(['/app/controllers/module.js', 'highstock'], function (controllers) {
     		     	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
     		     	    }else{
     		     	    	$scope.braceletId = $scope.bracelets[0].braceletId;
-    		     	    	update("day");
     		     	    }
     				}else{
     			    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};

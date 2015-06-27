@@ -12,11 +12,13 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    				+ (dd.getSeconds() < 10 ? '0' + dd.getSeconds() : dd.getSeconds())
 	       return val;
 	    }
-	    
-	    var updateInterval = 5000; //Fetch data ever x milliseconds
+
+		var intervalTime = 10 * 1000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
-        var id = $stateParams.id; 
-        $scope.braceletId = "0";
+		var flag = 0; // no chart to be displayed
+		$scope.braceletId = "0"; // default bracelet id
+		var id = $stateParams.id;
+
         if(id != null && id != ""){
         	HttpService.url = '/braceletsByUserId/' + id;
      	    HttpService.postParams = {};
@@ -30,7 +32,6 @@ define(['/app/controllers/module.js'], function (controllers) {
     		     	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
     		     	    }else{
     		     	    	$scope.braceletId = $scope.bracelets[0].braceletId;
-    		     	    	update();
     		     	    }
     				}else{
     					realtime = "off";
@@ -75,82 +76,69 @@ define(['/app/controllers/module.js'], function (controllers) {
          * Flot Interactive Chart
          * -----------------------
          */
-	    var temperatureChart = null;
-	    var plusChart = null;
-	    var motionChart = null;
-	    var bloodPressureChart = null;
-	    var flag = 1;
+		function init(){
+			flag = 1;
+			getChart('temperatureChart', 'Temperature Chart', '°C', 1);
+		}
 	    
 	    $scope.switchTab = function(chart){
 	    	if("temperatureChart" == chart){
 	    		flag = 1;
-	    	}else if("plusChart" == chart){
+				setTimeout(function () {
+					getChart('temperatureChart', 'Temperature Chart', '°C', 1);
+				}, 1000);
+	    	}else if("pulseChart" == chart){
 	    		flag = 2;
+				setTimeout(function () {
+					getChart('pulseChart', 'Pulse Chart', '', 2);
+				}, 1000);
 	    	}else if("motionChart" == chart){
 	    		flag = 3;
+				setTimeout(function () {
+					getChart('motionChart', 'Motion Chart', '', 3);
+				}, 1000);
 	    	}else if("bloodPressureChart" == chart){
 	    		flag = 4;
+				setTimeout(function () {
+					getMutilChart('bloodPressureChart', 'Blood Pressure Chart', '', 4);
+				}, 1000);
 	    	}else if("integratedData" == chart){
 	    		flag = 5;
 	    	}
-	    	update();
 	    };
 	    
 	    $scope.changeBracelet = function(){
-	    	update();
+			init();
 	    };
-	    
-        function update() {
-        	if (realtime === "on"){
-	        	// We use an inline data source in the example, usually data would
-	            // be fetched from a server
-        		HttpService.url = '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime();
-        		HttpService.get(function(data, status) {
-	  		    	var temperatureDatas = [];
-	  		    	var plusDatas = [];
-	  		    	var motionDatas = [];
-	  		    	var sbpDatas = [];
-	  		    	var dbpDatas = [];
-		          	if(data){
-		          		var list = data.datas;
-		          		$.each( list, function( key, value ) {
-		          			temperatureDatas.push([key, value.temperature]);
-		          			plusDatas.push([key, value.pulseState]);
-		          			motionDatas.push([key, value.motionState]);
-		          			sbpDatas.push([key, value.sbp]);
-		          			dbpDatas.push([key, value.dbp]);
-			          	});
-		          	}
-		         
-		          	if(flag == 1){
-		          		temperatureChart = getTemperatureChart(temperatureDatas.length-1);
-		          		temperatureChart.setData([temperatureDatas]);
-		          		temperatureChart.draw();
-		          	}else if(flag == 2){
-		          		plusChart = getPlusChart(plusDatas.length-1);
-		          		plusChart.setData([plusDatas]);
-		          		plusChart.draw();
-		          	}else if(flag == 3){
-		          		motionChart = getMotionChart(motionDatas.length-1);
-		          		motionChart.setData([motionDatas]);
-		          		motionChart.draw();
-		          	}else if(flag == 4){
-		          		bloodPressureChart = getBloodPressureChart(sbpDatas.length-1);
-		          		bloodPressureChart.setData([sbpDatas, dbpDatas]);
-		          		bloodPressureChart.draw();
-		          	}else if(flag == 5){
-		          		
-		          	}
-		          	
-		          	setTimeout(update, updateInterval);
-	        	});
-        	}
-        };
 
-        //INITIALIZE REALTIME DATA FETCHING
-        if (realtime === "on") {
-            update();
-        }
+		function getHttpData(series, series2) {
+			if (realtime === "on"){
+				// We use an inline data source in the example, usually data would
+				// be fetched from a server
+				HttpService.url = '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime();
+				HttpService.get(function(data, status) {
+					if(data){
+						var list = data.datas;
+						$.each( list, function( key, value ) {
+							if(flag == 1){
+								series.addPoint([value.createDate, value.temperature], true, true);
+							}else if(flag == 2){
+								series.addPoint([value.createDate, value.pulseState], true, true);
+							}else if(flag == 3){
+								series.addPoint([value.createDate, value.motionState], true, true);
+							}else if(flag == 4){
+								series.addPoint([value.createDate, value.sbp], true, true);
+								series2.addPoint([value.createDate, value.dbp], true, true);
+							}
+						});
+					}
+				});
+			}
+		};
+
+        //INITIALIZE REALTIME DATA FETCHING, FIRST TIME
+		init();
+
         //REALTIME TOGGLE
         $("#temperatureBtn .btn").click(function() {
             if ($(this).data("toggle") === "on") {
@@ -159,127 +147,161 @@ define(['/app/controllers/module.js'], function (controllers) {
             else {
                 realtime = "off";
             }
-            update();
         });
+
+		Highcharts.setOptions({
+			global: {
+				useUTC: false
+			}
+		});
         /*
          * END INTERACTIVE CHART
          */
-        
-        function getTemperatureChart(xmax){
-	        return $.plot("#temperatureChart", [[0, 0]], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 0,
-	                max: 50,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            }
-	        });
-        }
-        
-        function getPlusChart(xmax){
-        	return $.plot("#plusChart", [[0, 0]], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 0,
-	                max: 100,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            }
-	        });
-        }
-        
-        function getMotionChart(xmax){
-        	return $.plot("#motionChart", [[0, 0]], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 0,
-	                max: 1,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            }
-	        });
-        }
-        
-        function getBloodPressureChart(xmax){
-        	var line1 = [[1,60], [2,50], [3,60], [4,60]];
-        	var line2 = [[1,140], [2,150], [3,130], [4,160]];
-        	return $.plot("#bloodPressureChart", [line1, line2], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 40,
-	                max: 175,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            },
-	            legend:{ show: true }
-	        });
-        }
-        
+		function getChart(div, title, suffix, chartNum){
+			return $('#' + div).highcharts({
+				chart: {
+					type: 'spline',
+					animation: Highcharts.svg, // don't animate in old IE
+					marginRight: 10,
+					events: {
+						load: function () {
+							// set up the updating of the chart each second
+							var series = this.series[0];
+							setInterval(function () {
+								if(chartNum == flag) {
+									getHttpData(series);
+								}
+							}, intervalTime);
+						}
+					},
+				},
+				title: {
+					text: ""
+				},
+				xAxis: {
+					type: 'datetime',
+					tickPixelInterval: 150
+				},
+				yAxis: {
+					title: {
+						text: ''
+					},
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				},
+				legend: {
+					enabled: false
+				},
+				series: [{
+					data: (function () {
+						// generate an array of random data
+						var data = [],
+							time = (new Date()).getTime();
+						for (var i = -19; i <= 0; i += 1) {
+							data.push({
+								x: time + i * 3000,
+								y: 0
+							});
+						}
+						return data;
+					}()),
+					tooltip: {
+						valueDecimals: 1,
+						valueSuffix: suffix
+					}
+				}],
+				chartNum: chartNum
+			});
+		}
+
+		function getMutilChart(div, title, suffix, chartNum){
+			var seriesOptions = [
+				{
+					name: 'sbp',
+					data: (function () {
+						// generate an array of random data
+						var data = [],
+							time = (new Date()).getTime();
+						for (var i = -19; i <= 0; i += 1) {
+							data.push({
+								x: time + i * 3000,
+								y: 0
+							});
+						}
+						return data;
+					}()),
+					tooltip: {
+						valueDecimals: 1,
+						valueSuffix: suffix
+					}
+				},
+				{
+					name: 'dbp',
+					data: (function () {
+						// generate an array of random data
+						var data = [],
+							time = (new Date()).getTime();
+						for (var i = -19; i <= 0; i += 1) {
+							data.push({
+								x: time + i * 3000,
+								y: 0
+							});
+						}
+						return data;
+					}()),
+					tooltip: {
+						valueDecimals: 1,
+						valueSuffix: suffix
+					}
+				}
+			];
+
+			return $('#' + div).highcharts({
+				chart: {
+					type: 'spline',
+					animation: Highcharts.svg, // don't animate in old IE
+					marginRight: 10,
+					events: {
+						load: function () {
+							// set up the updating of the chart each second
+							var series = this.series[0];
+							var series2 = this.series[1];
+							setInterval(function () {
+								if(chartNum == flag) {
+									getHttpData(series, series2);
+								}
+							}, intervalTime);
+						}
+					},
+				},
+				title: {
+					text: ''
+				},
+				xAxis: {
+					type: 'datetime',
+					tickPixelInterval: 150
+				},
+				yAxis: {
+					title: {
+						text: ''
+					},
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				},
+				legend: {
+					enabled: false
+				},
+				series: seriesOptions,
+				chartNum: chartNum
+			});
+		}
+
         $scope.$on('$viewContentLoaded', function() {
         	realtime = "on";
         });
