@@ -40,6 +40,9 @@ define(['/app/controllers/module.js'], function (controllers) {
         	});
         }else{
         	$scope.bracelets = jQuery.parseJSON($cookies.current_bracelets);
+			if(typeof $scope.bracelets != 'object') {
+				$scope.bracelets = jQuery.parseJSON($scope.bracelets);
+			}
      	    if($scope.bracelets == null || $scope.bracelets.length == 0){
      	    	realtime = "off";
      	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};

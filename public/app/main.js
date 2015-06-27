@@ -23,6 +23,8 @@ require.config({
 		'pie' : '/libs/plugins/flot/jquery.flot.pie.min',
 		'pagination' : '/libs/plugins/pagination/jquery.simplePagination',
 		'categories' : '/libs/plugins/flot/jquery.flot.categories.min',
+        'highcharts' : '/libs/plugins/highcharts/highcharts',
+        'highstock' : '/libs/plugins/highcharts/highstock',
 		'app' : '/app/app',
 		'routes' : '/app/routes',
 		'controllers' : '/app/controllers/index',
@@ -79,6 +81,14 @@ require.config({
         'jquery.flot': {
             deps: ['jquery', 'angular'],
             exports: '$.plot'
+        },
+        highcharts: {
+            deps: ['jquery', 'angular'],
+            exports: "highcharts"
+        },
+        highstock: {
+            deps: ['jquery', 'angular'],
+            exports: "highstock"
         }
 	},
 	deps: [

@@ -1,16 +1,30 @@
-define(['/app/controllers/module.js'], function (controllers) {
+define(['/app/controllers/module.js', 'highstock'], function (controllers) {
 	'use strict';
     controllers.controller("History", function($http, $rootScope, $scope, $translate, $cookies, $stateParams, HttpService, Constants) {
     	// get DateTime yyyyMMddHHmmss
 	    var getDateTime = function(){
 	    	var dd = new Date()
-	    	var val = '' + dd.getFullYear() 
-	    				+ (dd.getMonth() < 9 ? '0' + (dd.getMonth()+1) : (dd.getMonth()+1)) 
+	    	var val = dd.getFullYear()
+						+ (dd.getMonth() < 9 ? '0' + (dd.getMonth()+1) : (dd.getMonth()+1))
 	    				+ (dd.getDate() < 10 ? '0' + (dd.getDate()) : (dd.getDate()))
 	       return val;
 	    }
+
+		var getStartDate = function(){
+			return getMonthBefore(1);
+		}
+
+		var getMonthBefore = function(n){
+			var dd = new Date();
+			var year = dd.getFullYear();
+			var month = (dd.getMonth() < 9 ? '0' + (dd.getMonth() + 1 - n) : (dd.getMonth() + 1 - n));
+			var day = (dd.getDate() < 10 ? '0' + (dd.getDate()) : (dd.getDate()));
+			return Date.UTC(year, month, day);
+		}
+
+		var intervalTime = 5 * 1000;
 	    
-	    ////
+	    // start
         var id = $stateParams.id; 
         $scope.braceletId = "0";
         if(id != null && id != ""){
@@ -34,6 +48,9 @@ define(['/app/controllers/module.js'], function (controllers) {
         	});
         }else{
      	    $scope.bracelets = jQuery.parseJSON($cookies.current_bracelets);
+			if(typeof $scope.bracelets != 'object') {
+				$scope.bracelets = jQuery.parseJSON($scope.bracelets);
+			}
      	    $scope.braceletId = "0";
      	    if($scope.bracelets == null || $scope.bracelets.length == 0){
      	    	$scope.bracelets[0] = {"braceletId" : "0", "name" : "You don't have any bracelet"};
@@ -67,18 +84,12 @@ define(['/app/controllers/module.js'], function (controllers) {
 	    	}else if("bloodPressureChart" == chart){
 	    		flag = 4;
 	    	}
-	    	update("day");
+	    	update("month");
 	    };
-	    
-	    $scope.swithType = function(type){
-	    	if($scope.braceletId != "0"){
-	    		update(type);
-	    	}
-	    };
-	    
+
 	    $scope.changeBracelet = function(){
 	    	if($scope.braceletId != "0"){
-	    		update("day");
+	    		update("month");
 	    	}
 	    };
 	    
@@ -88,162 +99,89 @@ define(['/app/controllers/module.js'], function (controllers) {
         	HttpService.url = '/api/findHistoryList/' + $scope.braceletId + '/' + type + '/' + getDateTime();
         	HttpService.get(function(data, status) {
   		    	var temperatureDatas = [];
-  		    	var plusDatas = [];
+  		    	var pulseDatas = [];
   		    	var motionDatas = [];
   		    	var sbpDatas = [];
   		    	var dbpDatas = [];
 	          	if(data){
 	          		var list = data.datas;
 	          		$.each( list, function( key, value ) {
-	          			temperatureDatas.push([key, value.temperature]);
-	          			plusDatas.push([key, value.pulseState]);
-	          			motionDatas.push([key, value.motionState]);
-	          			sbpDatas.push([key, value.sbp]);
-	          			dbpDatas.push([key, value.dbp]);
+	          			temperatureDatas.push(value.temperature);
+						pulseDatas.push([value.pulseState]);
+	          			motionDatas.push([value.motionState]);
+	          			sbpDatas.push([value.sbp]);
+	          			dbpDatas.push([value.dbp]);
 		          	});
 	          	}
 	         
 	          	if(flag == 1){
-	          		temperatureChart = getTemperatureChart(temperatureDatas.length-1);
-	          		temperatureChart.setData([temperatureDatas]);
-	          		temperatureChart.draw();
+					getChart('temperatureChart', 'Temperature Chart', temperatureDatas, '°C');
 	          	}else if(flag == 2){
-	          		plusChart = getPlusChart(plusDatas.length-1);
-	          		plusChart.setData([plusDatas]);
-	          		plusChart.draw();
+					getChart('pulseChart', 'Pulse Chart', pulseDatas, '');
 	          	}else if(flag == 3){
-	          		motionChart = getMotionChart(motionDatas.length-1);
-	          		motionChart.setData([motionDatas]);
-	          		motionChart.draw();
+					getChart('motionChart', 'Motion Chart', motionDatas, '');
 	          	}else if(flag == 4){
-	          		bloodPressureChart = getBloodPressureChart(sbpDatas.length-1);
-	          		bloodPressureChart.setData([sbpDatas, dbpDatas]);
-	          		bloodPressureChart.draw();
+					getMutilChart('bloodPressureChart', 'Blood Chart', sbpDatas, dbpDatas, '')
 	          	}
 	          	
 	    	});
         };
         
-        update("day");
+        update("month");
       
         /*
          * END INTERACTIVE CHART
          */
-        function getTemperatureChart(xmax){
-	        return $.plot("#temperatureChart", [[0, 0]], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 30,
-	                max: 45,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            }
-	        });
+        function getChart(div, title, datas, suffix){
+        	return $('#' + div).highcharts('StockChart', {
+				rangeSelector : {
+					selected : 1
+				},
+				series: [{
+					data: datas,
+					pointStart: getStartDate(),
+					pointInterval: intervalTime,
+					tooltip: {
+						valueDecimals: 1,
+						valueSuffix: suffix
+					}
+				}]
+
+			});
         }
-        
-        function getPlusChart(xmax){
-        	return $.plot("#plusChart", [[0, 0]], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 0,
-	                max: 100,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            }
-	        });
-        }
-        
-        function getMotionChart(xmax){
-        	return $.plot("#motionChart", [[0, 0]], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 0,
-	                max: 1,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            }
-	        });
-        }
-        
-        function getBloodPressureChart(xmax){
-        	var line1 = [[1,60], [2,50], [3,60], [4,60]];
-        	var line2 = [[1,140], [2,150], [3,130], [4,160]];
-        	return $.plot("#bloodPressureChart", [line1, line2], {
-	            grid: {
-	                borderColor: "#f3f3f3",
-	                borderWidth: 1,
-	                tickColor: "#f3f3f3"
-	            },
-	            series: {
-	                shadowSize: 0, // Drawing is faster without shadows
-	                color: "#3c8dbc"
-	            },
-	            lines: {
-	                fill: true, //Converts the line chart to area chart
-	                color: "#3c8dbc"
-	            },
-	            yaxis: {
-	                min: 40,
-	                max: 175,
-	                show: true
-	            },
-	            xaxis: {
-	            	min: 0,
-	            	max: xmax,
-	                show: true
-	            },
-	            legend:{ show: true }
-	        });
-        }
-        
+
+		function getMutilChart(div, title, datas1, datas2, suffix){
+			var seriesOptions = [
+				{
+					name: 'sbp',
+					data: datas1,
+					pointStart: getStartDate(),
+					pointInterval: intervalTime,
+					tooltip: {
+						valueDecimals: 1,
+						valueSuffix: suffix
+					}
+				},
+				{
+					name: 'dbp',
+					data: datas2,
+					pointStart: getStartDate(),
+					pointInterval: intervalTime,
+					tooltip: {
+						valueDecimals: 1,
+						valueSuffix: suffix
+					}
+				}
+			];
+
+			return $('#' + div).highcharts('StockChart', {
+				rangeSelector : {
+					selected : 1
+				},
+				series: seriesOptions
+			});
+		}
+
         $scope.$on('$viewContentLoaded', function() {
 
         });
