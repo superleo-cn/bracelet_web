@@ -74,7 +74,7 @@ public class HealthData {
 		try {
 			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
 			if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
-				List<Date> days = MyDateUtils.getDateByMonth();
+				List<Date> days = MyDateUtils.getDateByDay();
 //				if (StringUtils.equals(type, "day")) {
 //					days = MyDateUtils.getDateByDay();
 //				} else if (StringUtils.equals(type, "week")) {
