@@ -107,10 +107,10 @@ define(['/app/controllers/module.js', 'highstock'], function (controllers) {
 	          		var list = data.datas;
 	          		$.each( list, function( key, value ) {
 	          			temperatureDatas.push(value.temperature);
-						pulseDatas.push([value.pulseState]);
-	          			motionDatas.push([value.motionState]);
-	          			sbpDatas.push([value.sbp]);
-	          			dbpDatas.push([value.dbp]);
+						pulseDatas.push(value.pulseState);
+	          			motionDatas.push(value.motionState);
+	          			sbpDatas.push(value.sbp);
+	          			dbpDatas.push(value.dbp);
 		          	});
 	          	}
 	         
