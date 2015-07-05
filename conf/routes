@@ -20,7 +20,7 @@ POST        /codes                                              controllers.Code
 
 # Register
 POST        /api/userRegister                                   controllers.Users.register()
-POST        /api/updateProfile                                   controllers.Users.updateProfile()
+POST        /api/updateProfile                                  controllers.Users.updateProfile()
 
 # Report
 GET         /api/findRealtimeList/:braceletId/:date             controllers.HealthDatas.findRealtimeList(braceletId: String, date: String)
@@ -45,3 +45,8 @@ GET         /img/*file                                          controllers.Asse
 GET         /js/*file                                           controllers.Assets.at(path="/public/libs", file)
 GET         /libs/*file                                         controllers.Assets.at(path="/public/libs", file)
 GET         /app/*file                                          controllers.Assets.at(path="/public/app", file)
+
+
+# Temp
+GET         /qr                                                 controllers.Auths.qr()
+GET         /loginQR                                            controllers.Auths.loginQR()

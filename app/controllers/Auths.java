@@ -77,6 +77,35 @@ public class Auths extends Basic {
 		return ok(result);
 	}
 
+	public static Result qr() {
+		return ok(views.html.loginQR.render());
+	}
+
+	public static Result loginQR() {
+		User dbUser = new User();
+		try {
+			LoginForm form = new LoginForm();
+			form.setUsername("leo");
+			form.setPassword("123");
+			dbUser = User.login(form);
+			if (dbUser != null) {
+				String json = copyValueForJSON(dbUser);
+				session(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()));
+				session(Constants.CURRENT_USERNAME, dbUser.getUsername());
+				session(Constants.CURRENT_USER_REALNAME, dbUser.getRealname());
+				response().setCookie(Constants.CURRENT_USERID, String.valueOf(dbUser.getId()), 864000);
+				response().setCookie(Constants.CURRENT_BRACELETS, json, 864000);
+				response().setCookie(Constants.CURRENT_USERNAME, String.valueOf(dbUser.getUsername()), 864000);
+				response().setCookie(Constants.CURRENT_USER_REALNAME, String.valueOf(dbUser.getRealname()), 864000);
+				response().setCookie(Constants.CURRENT_ROLE, String.valueOf(dbUser.getUserType()), 864000);
+				response().setCookie(Constants.CURRENT_CREATE_DATE, DateFormatUtils.format(dbUser.getCreateDate(), "dd/MM/yyyy"), 864000);
+			}
+		} catch (Exception e) {
+			logger.error(Messages.LOGIN_ERROR_MESSAGE, new Object[] { "leo", e });
+		}
+		return ok(views.html.index.render(String.valueOf(dbUser.getId()), dbUser.getUsername(), dbUser.getRealname()));
+	}
+
 	public static String myBraceletIds(User dbUser) {
 		if (CollectionUtils.isNotEmpty(dbUser.bracelets)) {
 			return dbUser.bracelets.stream().map(e -> e.getId().toString()).collect(Collectors.joining(","));
