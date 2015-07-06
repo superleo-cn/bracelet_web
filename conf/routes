@@ -23,8 +23,8 @@ POST        /api/userRegister                                   controllers.User
 POST        /api/updateProfile                                  controllers.Users.updateProfile()
 
 # Report
-GET         /api/findRealtimeList/:braceletId/:date             controllers.HealthDatas.findRealtimeList(braceletId: String, date: String)
-POST        /api/findRealtimeList/:braceletId/:date             controllers.HealthDatas.findRealtimeList(braceletId: String, date: String)
+GET         /api/findRealtimeList/:braceletId/:date/:isFirst    controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
+POST        /api/findRealtimeList/:braceletId/:date/:isFirst    controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
 GET         /api/findHistoryList/:braceletId/:type/:date        controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
 POST        /api/findHistoryList/:braceletId/:type/:date        controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
 

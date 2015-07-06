@@ -18,11 +18,15 @@ public class HealthDatas extends Controller {
     final static Logger logger = LoggerFactory.getLogger(HealthDatas.class);
 
     // realtime
-    public static Result findRealtimeList(String braceletId, String date) {
+    public static Result findRealtimeList(String braceletId, String date, boolean isFirst) {
         ObjectNode result = Json.newObject();
         try {
             result.put(Constants.CODE, Constants.SUCCESS);
-            result.put(Constants.DATAS, Json.toJson(HealthData.findRealtimeList(braceletId, date)));
+            if (isFirst) {
+                result.put(Constants.DATAS, Json.toJson(HealthData.findFirstTime(braceletId)));
+            } else {
+                result.put(Constants.DATAS, Json.toJson(HealthData.findRealtimeList(braceletId, date)));
+            }
         } catch (Exception e) {
             result.put(Constants.CODE, Constants.ERROR);
             result.put(Constants.MESSAGE, Messages.HEALTH_DATA_LIST_ERROR);

@@ -1,6 +1,5 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import com.avaje.ebean.Page;
 import com.avaje.ebean.PagingList;
 
 import constants.Constants;
+import utils.Pagination;
 
 @Entity
 @Table(name = "tb_health_data")
@@ -63,6 +63,22 @@ public class HealthData {
 			}
 			expList.orderBy("createDate desc");
 			return expList.findList();
+		} catch (Exception e) {
+			logger.error("[findRealtimeList] -> [exception]", e);
+		}
+		return null;
+	}
+
+	public static List<HealthData> findFirstTime(String braceletId) {
+		try {
+			Pagination pagination = new Pagination();
+			pagination.setPageSize(24);
+			ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
+			PagingList<HealthData> pagingList = expList.findPagingList(pagination.pageSize);
+			pagingList.setFetchAhead(false);
+			expList.orderBy("createDate desc");
+			Page<HealthData> page = pagingList.getPage(pagination.currentPage - 1);
+			return page.getList();
 		} catch (Exception e) {
 			logger.error("[findRealtimeList] -> [exception]", e);
 		}

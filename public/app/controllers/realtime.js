@@ -13,7 +13,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 	       return val;
 	    }
 
-		var intervalTime = 10 * 1000; //Fetch data ever x milliseconds
+		var intervalTime = 5 * 1000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
 		var flag = 0; // no chart to be displayed
 		$scope.braceletId = "0"; // default bracelet id
@@ -53,7 +53,7 @@ define(['/app/controllers/module.js'], function (controllers) {
         }
 	    
         // Report URL
-	    HttpService.url = '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime();
+	    HttpService.url = getUrl();
 	    HttpService.postParams = {};
      	HttpService.getParams = {};
 	    
@@ -80,7 +80,11 @@ define(['/app/controllers/module.js'], function (controllers) {
 			flag = 1;
 			getChart('temperatureChart', 'Temperature Chart', '°C', 1);
 		}
-	    
+
+		function getUrl(flag){
+			return '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime() + "/" + flag;
+		}
+
 	    $scope.switchTab = function(chart){
 	    	if("temperatureChart" == chart){
 	    		flag = 1;
@@ -111,11 +115,11 @@ define(['/app/controllers/module.js'], function (controllers) {
 			init();
 	    };
 
-		function getHttpData(series, series2) {
+		function getHttpData(series, series2, isFirst) {
 			if (realtime === "on"){
 				// We use an inline data source in the example, usually data would
 				// be fetched from a server
-				HttpService.url = '/api/findRealtimeList/' + $scope.braceletId + '/' + getDateTime();
+				HttpService.url = getUrl(isFirst);
 				HttpService.get(function(data, status) {
 					if(data){
 						var list = data.datas;
@@ -167,9 +171,14 @@ define(['/app/controllers/module.js'], function (controllers) {
 						load: function () {
 							// set up the updating of the chart each second
 							var series = this.series[0];
+							setTimeout(function () {
+								if(chartNum == flag) {
+									getHttpData(series, null, true);
+								}
+							}, 1000);
 							setInterval(function () {
 								if(chartNum == flag) {
-									getHttpData(series);
+									getHttpData(series, null, false);
 								}
 							}, intervalTime);
 						}
@@ -199,10 +208,10 @@ define(['/app/controllers/module.js'], function (controllers) {
 					data: (function () {
 						// generate an array of random data
 						var data = [],
-							time = (new Date()).getTime();
-						for (var i = -19; i <= 0; i += 1) {
+							time = (new Date('2014-01-01')).getTime();
+						for (var i = -24; i < 0; i += 1) {
 							data.push({
-								x: time + i * 3000,
+								x: time + i * 5000,
 								y: 0
 							});
 						}
@@ -224,10 +233,10 @@ define(['/app/controllers/module.js'], function (controllers) {
 					data: (function () {
 						// generate an array of random data
 						var data = [],
-							time = (new Date()).getTime();
-						for (var i = -19; i <= 0; i += 1) {
+							time = (new Date('2014-01-01')).getTime();
+						for (var i = -24; i < 0; i += 1) {
 							data.push({
-								x: time + i * 3000,
+								x: time + i * 5000,
 								y: 0
 							});
 						}
@@ -243,10 +252,10 @@ define(['/app/controllers/module.js'], function (controllers) {
 					data: (function () {
 						// generate an array of random data
 						var data = [],
-							time = (new Date()).getTime();
-						for (var i = -19; i <= 0; i += 1) {
+							time = (new Date('2014-01-01')).getTime();
+						for (var i = -24; i < 0; i += 1) {
 							data.push({
-								x: time + i * 3000,
+								x: time + i * 5000,
 								y: 0
 							});
 						}
@@ -269,9 +278,14 @@ define(['/app/controllers/module.js'], function (controllers) {
 							// set up the updating of the chart each second
 							var series = this.series[0];
 							var series2 = this.series[1];
+							setTimeout(function () {
+								if(chartNum == flag) {
+									getHttpData(series, series2, true);
+								}
+							}, 1000);
 							setInterval(function () {
 								if(chartNum == flag) {
-									getHttpData(series, series2);
+									getHttpData(series, series2, false);
 								}
 							}, intervalTime);
 						}
