@@ -13,7 +13,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 	       return val;
 	    }
 
-		var intervalTime = 10 * 1000; //Fetch data ever x milliseconds
+		var intervalTime = 5 * 1000; //Fetch data ever x milliseconds
         var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
 		var flag = 0; // no chart to be displayed
 		$scope.braceletId = "0"; // default bracelet id
