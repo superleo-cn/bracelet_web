@@ -1,5 +1,7 @@
 package forms;
 
+import play.data.format.Formats;
+
 import java.util.Date;
 
 public class UserForm {
@@ -18,6 +20,7 @@ public class UserForm {
 
     private Boolean status;
 
+    @Formats.DateTime(pattern="dd/MM/yyyy")
     private Date birthday;
 
     private Float weight, height;

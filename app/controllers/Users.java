@@ -87,9 +87,9 @@ public class Users extends Controller {
             result.put(Constants.CODE, Constants.SUCCESS);
             result.put(Constants.MESSAGE, "Store User Successfully.");
         } catch (Exception e) {
+            logger.error("[store] -> [exception]", e);
             result.put(Constants.CODE, Constants.ERROR);
             result.put(Constants.MESSAGE, Messages.QUERY_ERROR);
-
         }
         return ok(result);
     }

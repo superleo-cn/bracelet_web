@@ -1,6 +1,6 @@
 define(['/app/controllers/module.js', 'pagination'], function (controllers) {
 	'use strict';
-    controllers.controller("UserForm", function($http, $rootScope, $scope, $translate, $stateParams, Constants, MessageService, HttpService) {
+    controllers.controller("UserForm", function($http, $rootScope, $scope, $filter, $translate, $stateParams, Constants, MessageService, HttpService) {
     	$scope.user = {};
     	var id = $stateParams.id; 
     	
@@ -12,6 +12,7 @@ define(['/app/controllers/module.js', 'pagination'], function (controllers) {
         	HttpService.get(function(data, status) {
         		$scope.status = status;
         		$scope.user = data.datas;
+				$scope.user.birthday = $filter('ddMMyyyy')($scope.user.birthday);
         	});
     	};
     	
