@@ -2,101 +2,131 @@ package forms;
 
 public class UserForm {
 
-	private Long id;
+    private Long id;
 
-	private String username;
+    private String username;
 
-	private String password;
+    private String password;
 
-	private String realname;
+    private String mobile;
 
-	private String userType;
+    private String realname;
 
-	private Boolean status;
+    private String userType;
 
-	private Integer age;
+    private Boolean status;
 
-	private Float weight, height;
+    private Integer age;
 
-	private String gender;
+    private Float weight, height;
 
-	public Long getId() {
-		return id;
-	}
+    private String gender;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String passCode;
 
-	public String getUsername() {
-		return username;
-	}
+    private Integer smsCode;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getRealname() {
-		return realname;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setRealname(String realname) {
-		this.realname = realname;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getUserType() {
-		return userType;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
+    public String getRealname() {
+        return realname;
+    }
 
-	public Boolean getStatus() {
-		return status;
-	}
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+    public String getUserType() {
+        return userType;
+    }
 
-	public Integer getAge() {
-		return age;
-	}
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+    public Boolean getStatus() {
+        return status;
+    }
 
-	public Float getWeight() {
-		return weight;
-	}
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
-	public void setWeight(Float weight) {
-		this.weight = weight;
-	}
+    public Integer getAge() {
+        return age;
+    }
 
-	public Float getHeight() {
-		return height;
-	}
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-	public void setHeight(Float height) {
-		this.height = height;
-	}
+    public Float getWeight() {
+        return weight;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPassCode() {
+        return passCode;
+    }
+
+    public void setPassCode(String passCode) {
+        this.passCode = passCode;
+    }
+
+    public Integer getSmsCode() {
+        return smsCode;
+    }
+
+    public void setSmsCode(Integer smsCode) {
+        this.smsCode = smsCode;
+    }
 }

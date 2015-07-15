@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,9 @@ public class User {
 
     @Required(message = "Password cannot be empty")
     private String password;
+
+    @Required(message = "Mobile cannot be empty")
+    private String mobile;
 
     private String realname;
 
@@ -115,6 +119,42 @@ public class User {
         return pagination;
     }
 
+
+    public static User pending(UserForm form, Bracelet bracelet) {
+        User user = new User();
+        user.setMobile(form.getMobile());
+        user.setUsername(form.getUsername());
+        user.setPassword(form.getPassword());
+        user.setStatus(false);
+        user.setCreateDate(new Date());
+        user.setCreateBy(form.getUsername());
+        user.setUserType(Constants.USERTYPE_USER);
+        store(user);
+        bracelet.setUser(user);
+        Bracelet.store(bracelet);
+        return user;
+    }
+
+    public static User update(UserForm form) {
+        User user = User.findByUsername(form.getUsername());
+        if (user != null) {
+            user.setGender(form.getGender());
+            user.setAge(form.getAge());
+            user.setWeight(form.getWeight());
+            user.setHeight(form.getHeight());
+            user.setStatus(true);
+            user.setModifiedDate(new Date());
+            user.setModifiedBy(form.getUsername());
+            store(user);
+            // update the bracelet
+            Bracelet bracelet = Bracelet.findByPassCode(form.getPassCode());
+            bracelet.setStatus(true);
+            Bracelet.store(bracelet);
+
+        }
+        return user;
+    }
+
     public static User register(UserForm form) {
         User user = new User();
         user.setUsername(form.getUsername());
@@ -126,6 +166,15 @@ public class User {
         user.setUserType(Constants.USERTYPE_USER);
         store(user);
         return user;
+    }
+
+    public static Boolean isRegister(UserForm form) {
+        List<User> users = Ebean.find(User.class).select("id, username, realname, userType, status, lastLoginDate").where().eq("username", form.getUsername())
+                .eq("mobile", form.getMobile()).eq("bracelets.passCode", form.getPassCode()).eq("status", true).findList();
+        if (CollectionUtils.size(users) > 0) {
+            return true;
+        }
+        return false;
     }
 
     public Long getId() {
@@ -262,5 +311,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
