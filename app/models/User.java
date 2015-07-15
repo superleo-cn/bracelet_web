@@ -56,7 +56,7 @@ public class User {
     @Required(message = "Status cannot be empty")
     private Boolean status;
 
-    private Integer age;
+    private Date birthday;
 
     private Float weight, height;
 
@@ -139,7 +139,7 @@ public class User {
         User user = User.findByUsername(form.getUsername());
         if (user != null) {
             user.setGender(form.getGender());
-            user.setAge(form.getAge());
+            user.setBirthday(form.getBirthday());
             user.setWeight(form.getWeight());
             user.setHeight(form.getHeight());
             user.setStatus(true);
@@ -281,12 +281,12 @@ public class User {
         this.braceletList = braceletList;
     }
 
-    public Integer getAge() {
-        return age;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public Float getWeight() {

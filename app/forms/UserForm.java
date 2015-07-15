@@ -1,5 +1,7 @@
 package forms;
 
+import java.util.Date;
+
 public class UserForm {
 
     private Long id;
@@ -16,7 +18,7 @@ public class UserForm {
 
     private Boolean status;
 
-    private Integer age;
+    private Date birthday;
 
     private Float weight, height;
 
@@ -74,14 +76,6 @@ public class UserForm {
         this.status = status;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public Float getWeight() {
         return weight;
     }
@@ -128,5 +122,13 @@ public class UserForm {
 
     public void setSmsCode(Integer smsCode) {
         this.smsCode = smsCode;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

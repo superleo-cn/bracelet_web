@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.Constants;
 import constants.Messages;
 import forms.UserForm;
-import utils.SmsUtil;
+import utils.SmsUtils;
 
 public class Users extends Controller {
 
@@ -71,7 +71,7 @@ public class Users extends Controller {
                 dbUser.setUserType(form.getUserType());
                 dbUser.setStatus(form.getStatus());
                 dbUser.setGender(form.getGender());
-                dbUser.setAge(form.getAge());
+                dbUser.setBirthday(form.getBirthday());
                 dbUser.setWeight(form.getWeight());
                 dbUser.setHeight(form.getHeight());
                 dbUser.setModifiedDate(new Date());
@@ -129,7 +129,7 @@ public class Users extends Controller {
                     result.put(Constants.MESSAGE, "The user doesn't exist.");
                 } else {
                     dbUser.setGender(form.getGender());
-                    dbUser.setAge(form.getAge());
+                    dbUser.setBirthday(form.getBirthday());
                     dbUser.setWeight(form.getWeight());
                     dbUser.setHeight(form.getHeight());
                     dbUser.setModifiedDate(new Date());
@@ -163,7 +163,7 @@ public class Users extends Controller {
                         result.put(Constants.MESSAGE, "The account is available.");
                         Integer code = 1000 + new Random().nextInt(9000);
                         Sms.store(form.getMobile(), code);
-                        SmsUtil.sendMsg(form.getMobile(), "Please input the validation code: " + code);
+                        SmsUtils.sendMsg(form.getMobile(), "Please input the validation code: " + code);
                     } else {
                         result.put(Constants.CODE, Constants.FAILURE);
                         result.put(Constants.MESSAGE, "The bracelet has been activated already.");
