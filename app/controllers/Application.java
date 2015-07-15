@@ -12,4 +12,12 @@ public class Application extends Basic {
 		return ok(views.html.index.render(id, username, realname));
 	}
 
+	public static Result test() {
+		return ok(views.html.test.render());
+	}
+
+	public static Result test2() {
+		return ok(views.html.test2.render());
+	}
+
 }

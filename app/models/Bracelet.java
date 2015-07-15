@@ -37,6 +37,8 @@ public class Bracelet {
 
 	private String type;
 
+	private String passCode;
+
 	@Required(message = "Status cannot be empty")
 	private Boolean status;
 
@@ -59,6 +61,10 @@ public class Bracelet {
 
 	public static List<Bracelet> findByUserId(Long userId) {
 		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status").fetch("user", "user.username").where().eq("user.id", userId).eq("status", true).findList();
+	}
+
+	public static Bracelet findByPassCode(String passCode) {
+		return Ebean.find(Bracelet.class).select("id, braceletId, name, type, status, passCode").fetch("user", "user.username").where().eq("passCode", passCode).eq("status", false).findUnique();
 	}
 
 	public static Pagination findAll(Pagination pagination) {
@@ -167,4 +173,11 @@ public class Bracelet {
 		this.user = user;
 	}
 
+	public String getPassCode() {
+		return passCode;
+	}
+
+	public void setPassCode(String passCode) {
+		this.passCode = passCode;
+	}
 }

@@ -3,50 +3,58 @@
 # ~~~~
 
 # Home page
-GET         /                                                   controllers.Auths.index()
-GET         /other                                              controllers.Auths.other()
-POST        /loginJson                                          controllers.Auths.loginJson()
-POST        /logoutJson                                         controllers.Auths.logoutJson()
-GET         /index                                              controllers.Application.index()
-POST        /users                                              controllers.Users.findAll()
-GET         /users/:id                                          controllers.Users.findById(id: java.lang.Long)
-POST        /users/store                                        controllers.Users.store()
-POST        /bracelets                                          controllers.Bracelets.findAll()
-GET         /bracelets/:id                                      controllers.Bracelets.findById(id: java.lang.Long)
-GET         /braceletsByUserId/:id                              controllers.Bracelets.findByUserId(id: java.lang.Long)
-POST        /bracelets/store                                    controllers.Bracelets.store()
-POST        /codes                                              controllers.Codes.findAll()
+GET         /                                                       controllers.Auths.index()
+GET         /other                                                  controllers.Auths.other()
+POST        /loginJson                                              controllers.Auths.loginJson()
+POST        /logoutJson                                             controllers.Auths.logoutJson()
+GET         /index                                                  controllers.Application.index()
+POST        /users                                                  controllers.Users.findAll()
+GET         /users/:id                                              controllers.Users.findById(id: java.lang.Long)
+POST        /users/store                                            controllers.Users.store()
+POST        /bracelets                                              controllers.Bracelets.findAll()
+GET         /bracelets/:id                                          controllers.Bracelets.findById(id: java.lang.Long)
+GET         /braceletsByUserId/:id                                  controllers.Bracelets.findByUserId(id: java.lang.Long)
+POST        /bracelets/store                                        controllers.Bracelets.store()
+POST        /codes                                                  controllers.Codes.findAll()
+GET         /findEventsByUser/:userId/:date                         controllers.Evetns.findEventsByUser(userId: String, date: String)
+
+GET         /test                                                   controllers.Application.test()
+GET         /test2                                                  controllers.Application.test2()
+
 
 
 # Register
-POST        /api/userRegister                                   controllers.Users.register()
-POST        /api/updateProfile                                  controllers.Users.updateProfile()
+POST        /api/checkStatus                                        controllers.Users.checkStatus()
+POST        /api/checkValidationCode                                controllers.Users.checkValidationCode()
+POST        /api/completeRegister                                   controllers.Users.completeRegister()
+POST        /api/userRegister                                       controllers.Users.register()
+POST        /api/updateProfile                                      controllers.Users.updateProfile()
 
 # Report
-GET         /api/findRealtimeList/:braceletId/:date/:isFirst    controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
-POST        /api/findRealtimeList/:braceletId/:date/:isFirst    controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
-GET         /api/findHistoryList/:braceletId/:type/:date        controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
-POST        /api/findHistoryList/:braceletId/:type/:date        controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
+GET         /api/findRealtimeList/:braceletId/:date/:isFirst        controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
+POST        /api/findRealtimeList/:braceletId/:date/:isFirst        controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
+GET         /api/findHistoryList/:braceletId/:type/:date            controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
+POST        /api/findHistoryList/:braceletId/:type/:date            controllers.HealthDatas.findHistoryList(braceletId: String, type:String, date: String)
 
 # Interface
-GET         /api/findByBraceletAndDate/:braceletId/:date        controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
-POST        /api/findByBraceletAndDate/:braceletId/:date        controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
-GET         /api/findUrgentByBracelet/:braceletId               controllers.HealthDatas.findUrgentByBracelet(braceletId: String)
-POST        /api/findUrgentByBracelet/:braceletId               controllers.HealthDatas.findUrgentByBracelet(braceletId: String)
-POST        /api/findLatest/:braceletId                         controllers.HealthDatas.findLatest(braceletId: String)
-GET         /api/findLatest/:braceletId                         controllers.HealthDatas.findLatest(braceletId: String)
-POST        /api/updateUrgentList                               controllers.HealthDatas.updateUrgentList(ids: java.util.List[java.lang.Long])
-GET         /api/findAnalysisData/:braceletId/:date             controllers.HealthDatas.findAnalysisData(braceletId: String, date: String)
-POST        /api/findAnalysisData/:braceletId/:date             controllers.HealthDatas.findAnalysisData(braceletId: String, date: String)
+GET         /api/findByBraceletAndDate/:braceletId/:date            controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
+POST        /api/findByBraceletAndDate/:braceletId/:date            controllers.HealthDatas.findByBraceletAndDate(braceletId: String, date: String)
+GET         /api/findUrgentByBracelet/:braceletId                   controllers.HealthDatas.findUrgentByBracelet(braceletId: String)
+POST        /api/findUrgentByBracelet/:braceletId                   controllers.HealthDatas.findUrgentByBracelet(braceletId: String)
+POST        /api/findLatest/:braceletId                             controllers.HealthDatas.findLatest(braceletId: String)
+GET         /api/findLatest/:braceletId                             controllers.HealthDatas.findLatest(braceletId: String)
+POST        /api/updateUrgentList                                   controllers.HealthDatas.updateUrgentList(ids: java.util.List[java.lang.Long])
+GET         /api/findAnalysisData/:braceletId/:date                 controllers.HealthDatas.findAnalysisData(braceletId: String, date: String)
+POST        /api/findAnalysisData/:braceletId/:date                 controllers.HealthDatas.findAnalysisData(braceletId: String, date: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                       controllers.Assets.at(path="/public", file)
-GET         /img/*file                                          controllers.Assets.at(path="/public/img", file)
-GET         /js/*file                                           controllers.Assets.at(path="/public/libs", file)
-GET         /libs/*file                                         controllers.Assets.at(path="/public/libs", file)
-GET         /app/*file                                          controllers.Assets.at(path="/public/app", file)
+GET         /assets/*file                                           controllers.Assets.at(path="/public", file)
+GET         /img/*file                                              controllers.Assets.at(path="/public/img", file)
+GET         /js/*file                                               controllers.Assets.at(path="/public/libs", file)
+GET         /libs/*file                                             controllers.Assets.at(path="/public/libs", file)
+GET         /app/*file                                              controllers.Assets.at(path="/public/app", file)
 
 
 # Temp
-GET         /qr                                                 controllers.Auths.qr()
-GET         /loginQR                                            controllers.Auths.loginQR()
+GET         /qr                                                     controllers.Auths.qr()
+GET         /loginQR                                                controllers.Auths.loginQR()

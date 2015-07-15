@@ -18,6 +18,15 @@ define(['/app/filters/module.js'], function (filters) {
 	        return $filter('date')(new Date(input), 'dd/MM/yyyy');
 	    };
 	});
+
+	filters.filter('HHmm', function($filter){
+		return function(input){
+			if(input == null){
+				return "";
+			}
+			return $filter('date')(new Date(input), 'HH:mm');
+		};
+	});
     
     return filters;
 });
