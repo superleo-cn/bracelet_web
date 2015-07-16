@@ -3,18 +3,12 @@ package controllers;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.Constants;
 import constants.Messages;
-import models.AnalysisData;
 import models.Event;
-import models.HealthData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Evetns extends Controller {
 

@@ -139,6 +139,7 @@ public class User {
         User user = User.findByUsername(form.getUsername());
         if (user != null) {
             user.setGender(form.getGender());
+            user.setRealname(form.getRealname());
             user.setBirthday(form.getBirthday());
             user.setWeight(form.getWeight());
             user.setHeight(form.getHeight());

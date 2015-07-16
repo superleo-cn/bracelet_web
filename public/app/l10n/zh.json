@@ -35,7 +35,8 @@
 		"temperature_chart" : "体温表",
 		"plus_chart" : "脉搏表",
 		"motion_chart" : "运动表",
-		"blood_pressure_chart" : "血压表"
+		"blood_pressure_chart" : "血压表",
+	  	"timeline" : "时间轴"
 	},
 	"users" : {
 		"id" : "ID",

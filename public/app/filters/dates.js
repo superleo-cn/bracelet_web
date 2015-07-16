@@ -27,6 +27,15 @@ define(['/app/filters/module.js'], function (filters) {
 			return $filter('date')(new Date(input), 'HH:mm');
 		};
 	});
+
+	filters.filter('dd', function($filter){
+		return function(input){
+			if(input == null){
+				return "";
+			}
+			return $filter('date')(new Date(input), 'dd');
+		};
+	});
     
     return filters;
 });

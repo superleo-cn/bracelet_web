@@ -26,6 +26,10 @@ public class Event {
     @Id
     public Long id;
 
+    public String type;
+
+    public String title;
+
     public String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
