@@ -22,7 +22,7 @@ define(['/app/controllers/module.js', 'highstock'], function (controllers, highs
 			return Date.UTC(year, month, day);
 		}
 
-		var intervalTime = 5 * 1000;
+		var intervalTime = 30 * 1000;
 	    
 	    // start
         var id = $stateParams.id; 
