@@ -59,7 +59,7 @@ define(['/app/controllers/module.js', 'highstock'], function (controllers, highs
         }
 	    
         // Report URL
-	    HttpService.url = '/api/findHistoryList/' + $scope.braceletId + '/day/' + getDateTime();
+	    HttpService.url = '/api/findHistoryList/' + $scope.braceletId + '/month/' + getDateTime();
 	    HttpService.postParams = {};
      	HttpService.getParams = {};
      	
