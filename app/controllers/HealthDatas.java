@@ -102,11 +102,11 @@ public class HealthDatas extends Controller {
         return ok(result);
     }
 
-    public static Result findAnalysisData(String braceletId, String date) {
+    public static Result findAnalysisData(String braceletId, String type, String date) {
         ObjectNode result = Json.newObject();
         try {
             result.put(Constants.CODE, Constants.SUCCESS);
-            result.put(Constants.DATAS, Json.toJson(AnalysisData.findAnalysisData(braceletId, date)));
+            result.put(Constants.DATAS, Json.toJson(AnalysisData.findAnalysisData(braceletId, type, date)));
         } catch (Exception e) {
             result.put(Constants.CODE, Constants.ERROR);
             result.put(Constants.MESSAGE, Messages.HEALTH_DATA_LIST_ERROR);

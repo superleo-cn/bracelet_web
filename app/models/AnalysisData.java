@@ -8,6 +8,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.MyDateUtils;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -48,15 +49,23 @@ public class AnalysisData {
     public float maxDbp = 0;
 
     // realtime
-    public static List<AnalysisData> findAnalysisData(String braceletId, String date) {
+    public static List<AnalysisData> findAnalysisData(String braceletId, String type, String date) {
         try {
             ExpressionList<AnalysisData> expList = Ebean.find(AnalysisData.class).where();
             if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
-                Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDD);
-                Date startDate = DateUtils.addDays(lastDate, -6);
+                List<Date> days = null;
+                if (StringUtils.equals(type, "day")) {
+                    days = MyDateUtils.getDateByDay();
+                } else if (StringUtils.equals(type, "week")) {
+                    days = MyDateUtils.getDateByWeek();
+                } else if (StringUtils.equals(type, "month")) {
+                    days = MyDateUtils.getDateByMonth();
+                } else {
+                    days = MyDateUtils.getDateByDay();
+                }
+                expList.where().ge("id.dataDate", days.get(0));
+                expList.where().le("id.dataDate", days.get(1));
                 expList.where().eq("id.braceletId", braceletId);
-                expList.where().ge("id.dataDate", DateFormatUtils.format(startDate, Constants.PATTERN_YYYYMMDD));
-                expList.where().le("id.dataDate", DateFormatUtils.format(lastDate, Constants.PATTERN_YYYYMMDD));
             }
             expList.orderBy("id.dataDate desc");
             return expList.findList();
