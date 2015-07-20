@@ -53,18 +53,19 @@ public class AnalysisData {
         try {
             ExpressionList<AnalysisData> expList = Ebean.find(AnalysisData.class).where();
             if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
+                Date endDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDD);
                 List<Date> days = null;
                 if (StringUtils.equals(type, "day")) {
-                    days = MyDateUtils.getDateByDay();
+                    days = MyDateUtils.getDateByDay(endDate);
                 } else if (StringUtils.equals(type, "week")) {
-                    days = MyDateUtils.getDateByWeek();
+                    days = MyDateUtils.getDateByWeek(endDate);
                 } else if (StringUtils.equals(type, "month")) {
-                    days = MyDateUtils.getDateByMonth();
+                    days = MyDateUtils.getDateByMonth(endDate);
                 } else {
                     days = MyDateUtils.getDateByDay();
                 }
-                expList.where().ge("id.dataDate", days.get(0));
-                expList.where().le("id.dataDate", days.get(1));
+                expList.where().ge("id.dataDate", DateFormatUtils.format(days.get(0), Constants.PATTERN_YYYYMMDD));
+                expList.where().le("id.dataDate", DateFormatUtils.format(days.get(1), Constants.PATTERN_YYYYMMDD));
                 expList.where().eq("id.braceletId", braceletId);
             }
             expList.orderBy("id.dataDate desc");
