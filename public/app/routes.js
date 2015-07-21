@@ -15,6 +15,12 @@ define(['app', 'jquery.cookie'], function(app) {
 		
 		// Now set up the states
 		$stateProvider
+		.state('location', {
+			url: '/location/:id',
+			templateUrl: 'assets/app/templates/location.html',
+			controller: 'Location',
+			roles: ['admin', 'user', 'doctor']
+		})
 	  	.state('realtime', {
 	  		url: '/realtime/:id',
 	  		templateUrl: 'assets/app/templates/realtime.html',

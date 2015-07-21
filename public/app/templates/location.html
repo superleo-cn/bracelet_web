@@ -1,0 +1,28 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        {{'index.realtime' | translate}} <small>{{'index.cpanel' | translate}}</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{'index.header' | translate}}</a></li>
+        <li class="active">{{'index.realtime' | translate}}</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="form-group">
+        <label>Please select your bracelet:</label>
+        <select
+        	ng-change="changeBracelet()"
+        	class="form-control"
+		    ng-model="braceletId"
+		    ng-options="value.braceletId as value.name for value in bracelets">
+		    <option>--</option>
+		</select>
+    </div>
+
+	<div class="box">
+		<div id="map-canvas" style="height:500px; width:100%"></div>
+ 	</div>
+</section><!-- /.content -->

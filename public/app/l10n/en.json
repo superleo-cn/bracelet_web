@@ -36,7 +36,8 @@
 		"plus_chart" : "Plus Chart",
 		"motion_chart" : "Motion Chart",
 		"blood_pressure_chart" : "Blood Pressure Chart",
-	  	"timeline" : "Timeline"
+	  	"timeline" : "Timeline",
+	  	"location" : "GPS"
 	},
 	"users" : {
 		"id" : "ID",
