@@ -56,8 +56,11 @@ define(['/app/controllers/module.js'], function (controllers) {
 		var map;
 		var size = 0;
 
+		var directionsService = new google.maps.DirectionsService;
+		var directionsDisplay = new google.maps.DirectionsRenderer;
+
 		var flightPlanCoordinates = [
-			new google.maps.LatLng(1.293873, 103.806489),
+			//new google.maps.LatLng(1.293873, 103.806489),
 			new google.maps.LatLng(1.283963, 103.804600),
 			new google.maps.LatLng(1.284606, 103.816043),
 			new google.maps.LatLng(1.283019, 103.835843),
@@ -67,6 +70,19 @@ define(['/app/controllers/module.js'], function (controllers) {
 			new google.maps.LatLng(1.320989, 103.823848),
 			new google.maps.LatLng(1.316269, 103.806596),
 			new google.maps.LatLng(1.298078, 103.803248)
+		];
+
+		var datetimes = [
+			'09:02',
+			'09:32',
+			'10:10',
+			'10:15',
+			'10:30',
+			'12:07',
+			'15:30',
+			'16:58',
+			'20:00',
+			'21:50'
 		];
 
 		function initialize() {
@@ -80,16 +96,20 @@ define(['/app/controllers/module.js'], function (controllers) {
 			$scope.map = map;
 
 			var polyOptions = {
-				strokeColor: '#FF0000',
+				strokeColor: '#0ABAF5',
 				strokeOpacity: 1.0,
-				strokeWeight: 3
+				strokeWeight: 5
 			};
-			poly = new google.maps.Polyline(polyOptions);
-			poly.setMap(map);
+			//poly = new google.maps.Polyline(polyOptions);
+			//poly.setMap(map);
 
 			// Add a listener for the click event
-			google.maps.event.addListener(map, 'click', addLatLng);
+			//google.maps.event.addListener(map, 'click', addLatLng);
 
+			directionsDisplay.setMap(map);
+			showMaps();
+
+			/*
 			var myRoute = setInterval(
 				function(){
 					if(size < flightPlanCoordinates.length){
@@ -103,8 +123,8 @@ define(['/app/controllers/module.js'], function (controllers) {
 					}else{
 						clearInterval(myRoute);
 					}
-				}, 3000)
-			;
+				}, 3000);
+			*/
 
 		}
 
@@ -121,12 +141,48 @@ define(['/app/controllers/module.js'], function (controllers) {
 			// Add a new marker at the new plotted point on the polyline.
 			var marker = new google.maps.Marker({
 				position: flightPlanCoordinates[size],
-				title: '#' + path.getLength(),
+				title: datetimes[size],
 				icon: '/img/' + pic,
 				map: map
 			});
 
 			size++;
+		}
+
+		function showMaps() {
+			var waypts = [];
+			for (var i = 1; i < flightPlanCoordinates.length; i++) {
+				waypts.push({
+					location: flightPlanCoordinates[i],
+					stopover: true
+				});
+			}
+
+			directionsService.route({
+				origin: flightPlanCoordinates[size],
+				destination: flightPlanCoordinates[flightPlanCoordinates.length-1],
+				waypoints: waypts,
+				optimizeWaypoints: true,
+				travelMode: google.maps.TravelMode.DRIVING
+			}, function(response, status) {
+				if (status === google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+					//var route = response.routes[0];
+					//var summaryPanel = document.getElementById('directions_panel');
+					//summaryPanel.innerHTML = '';
+					//// For each route, display summary information.
+					//for (var i = 0; i < route.legs.length; i++) {
+					//	var routeSegment = i + 1;
+					//	summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+					//		'</b><br>';
+					//	summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+					//	summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+					//	summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+					//}
+				} else {
+					window.alert('Directions request failed due to ' + status);
+				}
+			});
 		}
 
 		initialize();
