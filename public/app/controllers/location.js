@@ -80,7 +80,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 			$scope.map = map;
 
 			var polyOptions = {
-				strokeColor: '#000000',
+				strokeColor: '#FF0000',
 				strokeOpacity: 1.0,
 				strokeWeight: 3
 			};
@@ -93,7 +93,13 @@ define(['/app/controllers/module.js'], function (controllers) {
 			var myRoute = setInterval(
 				function(){
 					if(size < flightPlanCoordinates.length){
-						addLatLng()
+						if(size == 0){
+							addLatLng('start_icon.png');
+						} else if(size == flightPlanCoordinates.length - 1) {
+							addLatLng('end_icon.png');
+						} else {
+							addLatLng('user_walk.png');
+						}
 					}else{
 						clearInterval(myRoute);
 					}
@@ -106,7 +112,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 		 * Handles click events on a map, and adds a new point to the Polyline.
 		 * @param {google.maps.MouseEvent} event
 		 */
-		function addLatLng() {
+		function addLatLng(pic) {
 			var path = poly.getPath();
 			// Because path is an MVCArray, we can simply append a new coordinate
 			// and it will automatically appear.
@@ -116,6 +122,7 @@ define(['/app/controllers/module.js'], function (controllers) {
 			var marker = new google.maps.Marker({
 				position: flightPlanCoordinates[size],
 				title: '#' + path.getLength(),
+				icon: '/img/' + pic,
 				map: map
 			});
 

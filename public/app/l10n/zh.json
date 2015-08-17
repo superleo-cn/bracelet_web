@@ -37,7 +37,8 @@
 		"motion_chart" : "运动表",
 		"blood_pressure_chart" : "血压表",
 	  	"timeline" : "时间轴",
-	  	"location" : "位置追踪"
+	  	"location" : "位置追踪",
+	    "event" : "事件"
 	},
 	"users" : {
 		"id" : "ID",

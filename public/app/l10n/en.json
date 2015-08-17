@@ -37,7 +37,8 @@
 		"motion_chart" : "Motion Chart",
 		"blood_pressure_chart" : "Blood Pressure Chart",
 	  	"timeline" : "Timeline",
-	  	"location" : "GPS"
+	  	"location" : "GPS",
+	  	"event" : "Event"
 	},
 	"users" : {
 		"id" : "ID",
