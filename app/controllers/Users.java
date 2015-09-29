@@ -191,7 +191,7 @@ public class Users extends Controller {
                 if (sms != null && sms.status && sms.code.intValue() == form.getSmsCode().intValue()) {
                     Sms.disable(sms);
                     result.put(Constants.CODE, Constants.SUCCESS);
-                    result.put(Constants.MESSAGE, "Activated successfull.");
+                    result.put(Constants.MESSAGE, "Activated successfully.");
                 } else {
                     result.put(Constants.CODE, Constants.FAILURE);
                     result.put(Constants.MESSAGE, "The validation code is not correct.");
