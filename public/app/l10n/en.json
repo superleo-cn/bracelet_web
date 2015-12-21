@@ -34,7 +34,7 @@
 		"about" : "About",
 		"temperature_chart" : "Temperature Chart",
 		"plus_chart" : "Plus Chart",
-		"motion_chart" : "Motion Chart",
+		"motion_chart" : "Fall-down Chart",
 		"blood_pressure_chart" : "Blood Pressure Chart",
 	  	"timeline" : "Timeline",
 	  	"location" : "GPS",
