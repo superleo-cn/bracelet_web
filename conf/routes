@@ -30,6 +30,9 @@ POST        /api/completeRegister                                   controllers.
 POST        /api/userRegister                                       controllers.Users.register()
 POST        /api/updateProfile                                      controllers.Users.updateProfile()
 
+# test
+GET         /api/records                                            controllers.HealthDatas.records()
+
 # Report
 GET         /api/findRealtimeList/:braceletId/:date/:isFirst        controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
 POST        /api/findRealtimeList/:braceletId/:date/:isFirst        controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)
