@@ -57,13 +57,15 @@ public class HealthData {
     // test only
     public static List<HealthData> findRealtimeList(String braceletId) {
         try {
+            Pagination pagination = new Pagination();
+            pagination.setPageSize(24);
             ExpressionList<HealthData> expList = Ebean.find(HealthData.class).where();
-            if (StringUtils.isNotEmpty(braceletId)) {
-                expList.where().eq("braceletId", braceletId);
-                expList.findPagingList(50);
-            }
+            expList.where().eq("braceletId", braceletId);
+            PagingList<HealthData> pagingList = expList.findPagingList(50);
+            pagingList.setFetchAhead(false);
             expList.orderBy("createDate desc");
-            return expList.findList();
+            Page<HealthData> page = pagingList.getPage(0);
+            return page.getList();
         } catch (Exception e) {
             logger.error("[findRealtimeList] -> [exception]", e);
         }
