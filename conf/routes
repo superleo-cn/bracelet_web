@@ -32,6 +32,8 @@ POST        /api/updateProfile                                      controllers.
 
 # test
 GET         /api/records                                            controllers.HealthDatas.records()
+GET         /api/day                                                controllers.HealthDatas.day()
+
 
 # Report
 GET         /api/findRealtimeList/:braceletId/:date/:isFirst        controllers.HealthDatas.findRealtimeList(braceletId: String, date: String, isFirst: Boolean)

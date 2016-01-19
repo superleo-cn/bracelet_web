@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +69,15 @@ public class HealthData {
             return page.getList();
         } catch (Exception e) {
             logger.error("[findRealtimeList] -> [exception]", e);
+        }
+        return null;
+    }
+
+    public static List<HealthData> findRealtimeByToday(String braceletId) {
+        try {
+            return findList(braceletId, DateFormatUtils.format(new Date(), Constants.PATTERN_YYYYMMDD));
+        } catch (Exception e) {
+            logger.error("[findRealtimeByToday] -> [exception]", e);
         }
         return null;
     }
